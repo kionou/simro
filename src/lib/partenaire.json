@@ -1,0 +1,35 @@
+[
+{
+    "id":1,
+    "image":"images/partenaires/IRAD-partner-dynafac.jpg"
+},
+{
+    "id":2,
+    "image":"images/partenaires/LogoANOR.jpg"
+},
+{
+    "id":3,
+    "image":"images/partenaires/LogoFIDA.jpg"
+},
+{
+    "id":4,
+    "image":"images/partenaires/LogoMinader.jpg"
+},
+{
+    "id":5,
+    "image":"images/partenaires/logoMincommerce.png"
+},
+{
+    "id":6,
+    "image":"images/partenaires/LogoNTIC.jpg"
+},
+{
+    "id":7,
+    "image":"images/partenaires/LogoPADFAII.jpg"
+},
+{
+    "id":8,
+    "image":"images/partenaires/Mintransport.jpg"
+}
+
+]
