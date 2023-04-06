@@ -1,11 +1,12 @@
 <template>
   <div class="select">
+
     <div @click="toggleSelect" class="button">
-      <span v-if="!selected.value">
+      <span v-if="!selected.nom_marche">
         Recherchez votre Marché
       </span>
       <span v-else>
-        Marché {{ selected.text }}
+        Marché {{ selected.nom_marche }}
       </span>
       <span class="icon material-symbols-outlined " :class="show ? 'close' : ''"><i
           class="fa-solid fa-chevron-down"></i></span>
@@ -13,21 +14,19 @@
     <div :class="`select-block ${show ? 'open' : ''}`">
       <div class="scroll">
         <ul>
-          <li v-for="item in items" :key='item.value' @click="clickItem(item)" 
-            :class="item.value === selected.value ? 'active' : ''"> 
-            <p @click="$emit('ClickItem' , item.value)"  >Marché {{ item.text }} </p>
-            
-          
+          <li v-for="item in items" :key='item.id_marche' @click="clickItem(item)" 
+            :class="item.nom_marche === selected.nom_marche ? 'active' : ''"> 
+            <p @click="$emit('ClickItem' , item.nom_marche)"  >Marché {{ item.nom_marche }} </p>
           </li>
         </ul>
       </div>
     </div>
-
     <div v-if="show" @click="toggleSelect" class="select-wrapper"></div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'CptSelect',
 
@@ -35,26 +34,17 @@ export default {
   data() {
     return {
       show: false,
-      items: [
-        { text: 'Pitoa', value: 'Pitoa' },
-        { text: 'Mokolo', value: 'Mokolo' },
-        { text: 'Beka', value: 'Beka' },
-        { text: 'Dembo', value: 'Dembo' },
-        { text: 'Poli', value: 'Poli' },
-        // { text: 'Nord', value: 'Nord' },
-        // { text: 'Nord-Ouest', value: 'Nord-Ouest' },
-        // { text: 'Ouest', value: 'Ouest' },
-        // { text: 'Sud', value: 'Sud' },
-        // { text: 'Sud-Ouest', value: 'Sud-Ouest' },
-
-
-      ],
+      items:'',
       selected: {},
     };
   },
 
   mounted() {
-
+    axios
+      .get('https://simro.onrender.com/market')
+      .then((res) =>{
+        this.items = res.data
+      })
   },
 
   methods: {
@@ -62,12 +52,12 @@ export default {
       this.show = !this.show;
     },
     clickItem(value) {
-      if (this.selected.value === value.value) {
+      if (this.selected.nom_marche === value.nom_marche) {
         return this.selected = {};
       }
-      this.selected = value;
-      console.log(this.selected.text  );
+      this.selected.nom_marche = value.nom_marche;
       this.show = !this.show
+
 
     }
   },
@@ -107,7 +97,7 @@ export default {
 
 .select .select-block {
   width: 100%;
-  /* height: 200px; */
+  height: 200px;
   box-shadow: 0px 0px 10px #8888884f;
   position: absolute;
   background-color: var(--blanc);

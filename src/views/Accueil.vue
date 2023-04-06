@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 import Header from '@/components/section/header.vue';
 import Corps from '@/components/corps.vue'
 import Top from '@/components/other/icone.vue';
@@ -45,11 +45,11 @@ export default {
   },
 
   mounted() {
-    axios
-      .get('https://simro.onrender.com/market')
-      .then((res) =>{
-        console.log("ee",res);
-      })
+    // axios
+    //   .get('https://simro.onrender.com/market')
+    //   .then((res) =>{
+    //     console.log("ee",res);
+    //   })
   },
 
   methods: {

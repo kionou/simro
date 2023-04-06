@@ -107,7 +107,7 @@ export default {
         getClickItem(value){
         console.log(this.ClickItem = value);
         
-            this.isloading = true
+            // this.isloading = true
         }
     },
 };
@@ -207,7 +207,7 @@ width: 100%;
     flex-direction: row;
     align-items: center;
     color: var(--blanc);
-    padding-right: 5px;
+    /* padding-right: 5px; */
 }
 
 .sidebar .nav-links li:hover {
@@ -235,12 +235,12 @@ width: 100%;
 
 @media (max-width: 768px) {
     .sidebar.close {
-        width: 30px;
+        width: 40px;
     }
 
     .sidebar.close~.two-section {
-        left: 30px;
-        width: calc(100% - 30px);
+        left: 40px;
+        width: calc(100% - 40px);
     }
 
     .sidebar.close .nav-links li .link_name {
