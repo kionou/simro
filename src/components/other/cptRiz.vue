@@ -2,158 +2,98 @@
     
                 <section class="table__header">
                     <h1> Marché de Pitoa </h1> 
-                  <p>Les informations sur le marché de Pito</p> 
-            <div class="btn">
-                <button @click="layout = 'prix'" :class="{active:layout === 'prix'}">
-                    Prix
-                </button>
-                <button @click="layout = 'stock'" :class="{active:layout === 'stock'}">
-                    Stock
-                </button>
-            </div>
+                  <p>Le prix des prduits semences dans la Region du Centre</p> 
+           
         </section>
 
-        <section class="table__body" v-if="layout === 'prix'" >
+        <section class="table__body"  >
             <table>
                 <thead>
                     <tr>
-                        <th> Type de Riz </th>
-                        <th> Sachet 1kg </th>
-                        <th> Sachet 2kg </th>
-                        <th> Sac de 5kg </th>
-                        <th> Sac de 25kg </th>
-                        <th> Sac de 50kg </th>
-                        <th> Sac de 80kg </th>
-                        <th> Sac de 100kg </th>
+                        <th> Marchés </th>
+
+                        <th> Date </th>
+                        <th> Riz local étuvé </th>
+                        <th> Riz local non étuvé </th>
+                        <th> Riz paddy </th>
+                        <th> Riz importé</th>
+                        <th> Riz importé(étuvé) </th>
+                        <th> Farine </th>
                      
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Nerica 3</td>
+                        <td>Lagdo</td>
 
-                        <td>800 F CFA</td>
-                        <td>1600 F CFA</td>
-                        <td> 3000 F CFA</td>
-                        <td>11000 F CFA</td>
-                        <td> 21500 F CFA</td>
-                        <td> -- F CFA</td>
-                        <td> -- F CFA </td>
-
-                       
-                    </tr>
-                    <tr>
-                        <td>Nerica L36</td>
-
-                        <td>800 F CFA</td>
-                        <td>1600 F CFA</td>
-                        <td> 3000 F CFA</td>
-                        <td>11000 F CFA</td>
-                        <td> 21500 F CFA</td>
-                        <td> -- F CFA</td>
-                        <td> -- F CFA </td>
-                       
-                    </tr>
-                
-                    <tr>
-                        <td>Nerica N56</td>
-
-                        <td>800 F CFA</td>
-                        <td>1600 F CFA</td>
-                        <td> 3000 F CFA</td>
-                        <td>11000 F CFA</td>
-                        <td> 21500 F CFA</td>
-                        <td> -- F CFA</td>
-                        <td> -- F CFA </td>
-                       
-                    </tr>
-                    <tr>
-                        <td> Variété local</td>
-
-                        <td>800 F CFA</td>
-                        <td>1600 F CFA</td>
-                        <td> 3000 F CFA</td>
-                        <td>11000 F CFA</td>
-                        <td> 21500 F CFA</td>
-                        <td> -- F CFA</td>
-                        <td> -- F CFA </td>
-                       
-                    </tr>
-                
-
-                    
-                </tbody>
-            </table>
-        </section>
-
-        <section class="table__body"  v-if="layout === 'stock'" >
-            <table>
-                <thead>
-                    <tr>
-                        <th> Type de Riz </th>
-                        <th> Sachet 1kg </th>
-                        <th> Sachet 2kg </th>
-                        <th> Sac de 5kg </th>
-                        <th> Sac de 25kg </th>
-                        <th> Sac de 50kg </th>
-                        <th> Sac de 80kg </th>
-                        <th> Sac de 100kg </th>
-                        
-
-                      
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Nerica 3</td>
-
-                        <td>Non</td>
-                        <td>Non </td>
-                        <td> Non </td>
-                        <td>Oui</td>
-                        <td> Non </td>
-                        <td> Non </td>
-                        <td> Non </td>
+                        <td class="date">11 - 12 - 23</td >
+                        <td> 800 F CFA</td>
+                        <td> 600 F CFA</td>
+                        <td> 1000 F CFA</td>
+                        <td> 1200 F CFA</td>
+                        <td> 1100 F CFA</td>
+                        <td> 750 F CFA </td>
 
                        
                     </tr>
                     <tr>
-                        <td>Nerica L36</td>
+                        <td>Ngong</td>
 
-                        <td>Non</td>
-                        <td>Non </td>
-                        <td> Non </td>
-                        <td>Oui</td>
-                        <td> Non </td>
-                        <td> Non </td>
-                        <td> Non </td>
+                        <td class="date">11 - 12 - 23</td >
+                        <td> 800 F CFA</td>
+                        <td> 600 F CFA</td>
+                        <td> 1000 F CFA</td>
+                        <td> 1200 F CFA</td>
+                        <td> 1100 F CFA</td>
+                        <td> 750 F CFA </td>
                        
                     </tr>
                 
                     <tr>
-                        <td>Nerica N56</td>
-
-                        <td>Non</td>
-                        <td>Non </td>
-                        <td> Non </td>
-                        <td>Oui</td>
-                        <td> Non </td>
-                        <td> Non </td>
-                        <td> Non </td>
+                        <td>Pitoa</td>
+                        <td class="date">11 - 12 - 23</td >
+                        <td> 800 F CFA</td>
+                        <td> 600 F CFA</td>
+                        <td> 1000 F CFA</td>
+                        <td> 1200 F CFA</td>
+                        <td> 1100 F CFA</td>
+                        <td> 750 F CFA </td>
                        
                     </tr>
-
-                    
                     <tr>
-                        <td>Variété local</td>
+                        <td> Touboro</td>
 
-                        <td>Non</td>
-                        <td>Non </td>
-                        <td> Non </td>
-                        <td>Oui</td>
-                        <td> Non </td>
-                        <td> Non </td>
-                        <td> Non </td>
+                        <td class="date">11 - 12 - 23</td >
+                        <td> 800 F CFA</td>
+                        <td> 600 F CFA</td>
+                        <td> 1000 F CFA</td>
+                        <td> 1200 F CFA</td>
+                        <td> 1100 F CFA</td>
+                        <td> 750 F CFA </td>
+                       
+                    </tr>
+                    <tr>
+                        <td> Beka</td>
+
+                        <td class="date">11 - 12 - 23</td >
+                        <td> 800 F CFA</td>
+                        <td> 600 F CFA</td>
+                        <td> 1000 F CFA</td>
+                        <td> 1200 F CFA</td>
+                        <td> 1100 F CFA</td>
+                        <td> 750 F CFA </td>
+                       
+                    </tr>
+                    <tr>
+                        <td> Tchontchi</td>
+
+                        <td class="date">11 - 12 - 23</td >
+                        <td> 800 F CFA</td>
+                        <td> 600 F CFA</td>
+                        <td> 1000 F CFA</td>
+                        <td> 1200 F CFA</td>
+                        <td> 1100 F CFA</td>
+                        <td> 750 F CFA </td>
                        
                     </tr>
                     
@@ -169,7 +109,6 @@ export default {
 
     data() {
         return {
-            layout:'prix',
             
         };
     },
@@ -297,6 +236,12 @@ table, th, td {
     border-collapse: collapse;
     padding: 10px;
     text-align:center;
+    font-size: 12px;
+}
+
+.date{
+    color: var(--red);
+
 }
 
 thead th {
@@ -339,7 +284,7 @@ tbody tr.hide td p {
 
 @media (max-width: 1000px) {
     td:not(:first-of-type) {
-        min-width: 12.1rem;
+        min-width: 8rem;
     }
 }
 
@@ -357,6 +302,9 @@ tbody tr.hide td p {
         opacity: 0;
         pointer-events: none;
     }
+    table, th, td {
+    font-size: 12px;
+}
 }
 
 </style>

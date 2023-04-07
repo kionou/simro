@@ -372,6 +372,9 @@ tbody tr.hide td p {
         opacity: 0;
         pointer-events: none;
     }
+    table, th, td {
+    font-size: 12px;
+}
 }
 
 </style>

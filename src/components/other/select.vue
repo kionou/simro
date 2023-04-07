@@ -1,12 +1,12 @@
 <template>
   <div class="select">
-
+    {{ marche }}
     <div @click="toggleSelect" class="button">
       <span v-if="!selected.nom_marche">
-        Recherchez votre Marché
+        Recherchez un prodiut ou une gamme
       </span>
       <span v-else>
-        Marché {{ selected.nom_marche }}
+        prodiut {{ selected.nom_marche }}
       </span>
       <span class="icon material-symbols-outlined " :class="show ? 'close' : ''"><i
           class="fa-solid fa-chevron-down"></i></span>
@@ -14,9 +14,9 @@
     <div :class="`select-block ${show ? 'open' : ''}`">
       <div class="scroll">
         <ul>
-          <li v-for="item in items" :key='item.id_marche' @click="clickItem(item)" 
-            :class="item.nom_marche === selected.nom_marche ? 'active' : ''"> 
-            <p @click="$emit('ClickItem' , item.nom_marche)"  >Marché {{ item.nom_marche }} </p>
+          <li v-for="item in items" :key='item.id_marche' @click="clickItem(item)"
+            :class="item.nom_marche === selected.nom_marche ? 'active' : ''">
+            <p @click="$emit('ClickItem', item.nom_marche)">prodiut {{ item.nom_marche }} </p>
           </li>
         </ul>
       </div>
@@ -26,7 +26,10 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
+// import axiosClient from '@/axiosClient'
+import { computed } from 'vue';
+import store from '@/store'
 export default {
   name: 'CptSelect',
 
@@ -34,17 +37,25 @@ export default {
   data() {
     return {
       show: false,
-      items:'',
+      items:  [
+        { text: 'Feuille', nom_marche: 'Feuille' },
+        { text: 'Céreale', nom_marche: 'Céreale' },
+        { text: 'Semence', nom_marche: 'Semence' },
+        { text: 'Bulbe', nom_marche: 'Bulbe' },
+        { text: 'Transformé', nom_marche: 'Transformé' },
+        
+      ],
       selected: {},
     };
   },
 
   mounted() {
-    axios
-      .get('https://simro.onrender.com/market')
-      .then((res) =>{
-        this.items = res.data
-      })
+
+   computed(() => {
+      return store.getters.getMarche;
+    });
+
+    store.dispatch('marcheAll')
   },
 
   methods: {
@@ -58,8 +69,8 @@ export default {
       this.selected.nom_marche = value.nom_marche;
       this.show = !this.show
 
+    },
 
-    }
   },
 };
 </script>
@@ -97,7 +108,7 @@ export default {
 
 .select .select-block {
   width: 100%;
-  height: 200px;
+  /* height: 200px; */
   box-shadow: 0px 0px 10px #8888884f;
   position: absolute;
   background-color: var(--blanc);
@@ -135,6 +146,7 @@ export default {
   padding: 10px 5px;
   background-color: hsl(260deg 11% 95% / 70%);
 }
+
 .select ul li p {
   padding: 5px 0;
   width: 100%;

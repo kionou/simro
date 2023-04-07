@@ -7,66 +7,37 @@
         <main class="table">
             <div class="sidebar close ">
                 <div class="titre">
-                <h1>Familles</h1>
+                <h1>REGIONS</h1>
                 </div>
                 <ul class="nav-links">
-                    <li @click="layout = 'semence_riz'" :class="{ active: layout === 'semence_riz' }">
-                        <img src="@/assets/images/riz3.png" alt="">
-                        <span class="link_name">Semence de Riz</span>
+                    <li @click="layout = 'nord'" :class="{ active: layout === 'nord' }">
+                        <img src="@/assets/images/international.png" alt="">
+                        <span class="link_name">Nord</span>
                     </li>
 
-                    <li @click="layout = 'riz_paddy'" :class="{ active: layout === 'riz_paddy' }">
-                        <img src="@/assets/images/riz3.png" alt="">
-                        <span class="link_name">Riz Paddy</span>
+                    <li @click="layout = 'extreme_nord'" :class="{ active: layout === 'extreme_nord' }">
+                        <img src="@/assets/images/international.png" alt="">
+                        <span class="link_name">Extreme-Nord</span>
                     </li>
-                    <li @click="layout = 'riz_blanchi'" :class="{ active: layout === 'riz_blanchi' }">
-                        <img src="@/assets/images/riz3.png" alt="">
-                        <span class="link_name">Riz Blanchi</span>
-                    </li>
-
-                    <li @click="layout = 'riz_etuve'" :class="{ active: layout === 'riz_etuve' }">
-                        <img src="@/assets/images/riz3.png" alt="">
-                        <span class="link_name">riz étuvé</span>
-                    </li>
-                    <li @click="layout = 'farine_riz'" :class="{ active: layout === 'farine_riz' }">
-                        <img src="@/assets/images/riz3.png" alt="">
-                        <span class="link_name">Farine de Riz</span>
-                    </li>
-                    <li @click="layout = 'semence_graine'" :class="{ active: layout === 'semence_graine' }">
-                        <img src="@/assets/images/icon3.png" alt="">
-                        <span class="link_name">Semence Graine</span>
+                    <li @click="layout = 'nord_ouest'" :class="{ active: layout === 'nord_ouest' }">
+                        <img src="@/assets/images/international.png" alt="">
+                        <span class="link_name">Nord-Ouest</span>
                     </li>
 
-                    <li @click="layout = 'semence_bulbe'" :class="{ active: layout === 'semence_bulbe' }">
-                        <img src="@/assets/images/icon3.png" alt="">
-                        <span class="link_name">Semence Bulbe</span>
+                    <li @click="layout = 'ouest'" :class="{ active: layout === 'ouest' }">
+                        <img src="@/assets/images/international.png" alt="">
+                        <span class="link_name">Ouest</span>
                     </li>
-                    <li @click="layout = 'oignon_bulbe'" :class="{ active: layout === 'oignon_bulbe' }">
-                        <img src="@/assets/images/icon3.png" alt="">
-                        <span class="link_name">Oignon Bulbe</span>
-                    </li>
-                    <li @click="layout = 'poudre_oignon'" :class="{ active: layout === 'poudre_oignon' }">
-                        <img src="@/assets/images/icon3.png" alt="">
-                        <span class="link_name">Poudre d'Oignon</span>
-                    </li>
-                    <li @click="layout = 'lamelle'" :class="{ active: layout === 'lamelle' }">
-                        <img src="@/assets/images/icon3.png" alt="">
-                        <span class="link_name">Echalote(oignon local)</span>
-                    </li>
-
-                    <li @click="layout = 'jus'" :class="{ active: layout === 'Jus' }">
-                        <img src="@/assets/images/icon3.png" alt="">
-                        <span class="link_name">Jus d'Oignon</span>
-                    </li>
-
-
-                  
+                    <li @click="layout = 'centre'" :class="{ active: layout === 'centre' }">
+                        <img src="@/assets/images/international.png" alt="">
+                        <span class="link_name">Centre</span>
+                    </li> 
                    
                 </ul>
             </div>
             <div class="two-section">
-                <Riz v-if="layout === 'semence_riz'" />
-                <Oignon v-if="layout === 'riz_paddy'" />
+                <Riz v-if="layout === 'nord'" />
+                <Oignon v-if="layout === 'extreme_nord'" />
             </div>
         </main>
     </div>
@@ -83,7 +54,7 @@ export default {
 
     data() {
         return {
-            layout: 'semence_riz',
+            layout: 'nord',
             search: '',
             active: true,
             isloading:false,
@@ -113,7 +84,7 @@ export default {
 };
 </script>
 
-<style lang="css" >
+<style lang="css" scoped>
 .container {
     margin: 0 auto;
     padding: 10px;
@@ -156,9 +127,7 @@ width: 100%;
     text-align: center;
     color: var(--blanc);
     padding: 10px;
-
 }
-
 
 .two-section {
     position: relative;
@@ -174,11 +143,12 @@ width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 370px;
+    /* height: 370px; */
 }
 
-.sidebar.close .nav-links {
+.sidebar.close .nav-links  {
     overflow: visible;
+
 }
 
 .sidebar .nav-links::-webkit-scrollbar{
@@ -206,8 +176,7 @@ width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    color: var(--blanc);
-    /* padding-right: 5px; */
+    color: var(--blanc)
 }
 
 .sidebar .nav-links li:hover {
@@ -217,8 +186,8 @@ width: 100%;
 
 }
 .sidebar .nav-links li img {
-    width: 37px;
-    height: 37px;
+    width: 30px;
+    height: 30px;
     padding: 5px;
 }
 
@@ -231,6 +200,13 @@ width: 100%;
 .sidebar .nav-links li.active {
     background-color: hsl(162.17deg 89.52% 62.43% / 52%);
     color: var(--blanc);
+}
+@media (max-width: 880px) {
+    li{
+        margin: 0 !important;
+    
+    }
+
 }
 
 @media (max-width: 768px) {
@@ -247,5 +223,9 @@ width: 100%;
         opacity: 0;
         pointer-events: none;
     }
+    .sidebar .titre{
+    display: none;
+
+}
 }
 </style>
