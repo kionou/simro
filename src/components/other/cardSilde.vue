@@ -34,11 +34,11 @@ export default {
 .cards{
   /* background: #94fc86; */
   height: 9rem !important;
-  width: 12rem !important;
+  width: 9rem !important;
 }
 .lC3oC2kE3bD2fB1jC2qB4eF1v div {
     height: 9rem !important;
-  width: 12rem !important;
+  width: 9rem !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -52,7 +52,7 @@ export default {
     /* margin: 5px; */
     flex-direction: column;
     /* padding: 10px; */
-    border-radius: 0 !important;
+    border-radius: var(--raduis) !important;
 }
 .cards .card-image{
     width: 100%;

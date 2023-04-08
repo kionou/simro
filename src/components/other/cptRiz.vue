@@ -125,8 +125,6 @@ export default {
 
 <style lang="css" >
 
-
-
 .table__header {
     width: 100%;
     padding: .8rem 2rem;
@@ -135,28 +133,9 @@ export default {
     text-transform: uppercase;
     flex-direction: column;
     align-items: center;
+    text-align: center;
 }
 
-.table__header .btn {
-    width: 100%;
-    /* max-width: 400px; */
-    padding: 0 .8rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    /* border: 1px solid blue; */
-    margin-top: 16px;
-}
-.table__header .btn button{
-    padding: 15px 50px;
-    border-radius: 30px;
-    border: none;
-    background-color: var(--vert);
-    color: var(--blanc);
-    cursor: pointer;
-    margin-right: 10px;
-
-}
 .table__header p{
     font-size: 14px;
     text-transform: initial;
@@ -172,38 +151,12 @@ export default {
 @media (max-width: 768px) {
     .table__header {
   
-    font-size: 14px;
+    font-size: 12px;
 }
 
 
 }
-@media (max-width: 500px) {
-/* .table__header .btn {
-    width: initial;
-    max-width: 300px;
-    flex-direction: column;
-    margin-left: 15px;
-} */
-.table__header {
 
-  padding: .8rem 0.5rem; 
-  font-size: 11px;
-
-}
-
-.table__header .btn button{
-    padding: 10px 30px;
-    border-radius: 15px;
-}
-
-}
-@media (max-width: 375px) {
-    .table__header {
-  
-  font-size: 12px;
-  
-}
-}
 
 .table__body {
     width: 99%;
@@ -284,18 +237,18 @@ tbody tr.hide td p {
 
 @media (max-width: 1000px) {
     td:not(:first-of-type) {
-        min-width: 8rem;
+        min-width: 10rem;
     }
 }
 
 @media (max-width: 768px) {
     .sidebar.close {
-        width: 30px;
+        width: 40px;
     }
 
     .sidebar.close~.two-section {
-        left: 30px;
-        width: calc(100% - 30px);
+        left: 40px;
+        width: calc(100% - 40px);
     }
 
     .sidebar.close .nav-links li .link_name {

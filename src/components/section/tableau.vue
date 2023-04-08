@@ -6,7 +6,8 @@
         </div>
         <main class="table">
             <div class="sidebar close ">
-                <div class="titre">
+                <div class="sidebar_content">
+                    <div class="titre">
                 <h1>REGIONS</h1>
                 </div>
                 <ul class="nav-links">
@@ -33,7 +34,12 @@
                         <span class="link_name">Centre</span>
                     </li> 
                    
+
+
+                    
                 </ul>
+                </div>
+               
             </div>
             <div class="two-section">
                 <Riz v-if="layout === 'nord'" />
@@ -113,9 +119,7 @@ main.table {
     width: 180px;
     height: 100%;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: space-around;
     background-color: var(--vert);
     transition: all 0.5s ease;
     margin-right: 10px;
@@ -129,16 +133,23 @@ width: 100%;
     padding: 10px;
 }
 
+.sidebar .sidebar_content{
+
+/* border: 1px solid red; */
+width: 100%;
+height: auto;
+}
+
 .two-section {
     position: relative;
-    height: 418px;
+    /* height: 418px; */
     left: 180px;
     width: calc(100% - 180px);
     position: relative;
 }
 
 .sidebar .nav-links {
-    overflow: auto !important;
+    /* overflow: auto !important; */
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -146,12 +157,12 @@ width: 100%;
     /* height: 370px; */
 }
 
-.sidebar.close .nav-links  {
+/* .sidebar.close .nav-links  {
     overflow: visible;
 
-}
+} */
 
-.sidebar .nav-links::-webkit-scrollbar{
+/* .sidebar .nav-links::-webkit-scrollbar{
     width: 0.5rem;
     height: 0.5rem;
 }
@@ -165,7 +176,7 @@ width: 100%;
 
 .sidebar .nav-links:hover::-webkit-scrollbar-thumb{ 
     visibility: visible;
-}
+} */
 
 .sidebar .nav-links li {
     position: relative;

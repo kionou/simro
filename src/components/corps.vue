@@ -17,7 +17,7 @@
     </section>
     <!-- section tableau debut -->
     <section class="tableau" id="stock">
-      <h2>Prix & Stocks</h2>
+      <h2>Dernier prix des produits</h2>
       <Tableau />
     </section>
     <!-- section partenaire debut -->

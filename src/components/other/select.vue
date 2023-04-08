@@ -112,7 +112,6 @@ export default {
   box-shadow: 0px 0px 10px #8888884f;
   position: absolute;
   background-color: var(--blanc);
-  padding: 10px;
   visibility: hidden;
   opacity: 0;
   transition: all 0.3s;
