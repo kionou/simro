@@ -1,4 +1,6 @@
 export default{
-    getMarche: (state) => state.marcheAll,
+    getmarche: (state) => state.marcheAll,
+    getproduit: (state) => state.produitAll,
+
 
 }

@@ -33,6 +33,10 @@
                         <img src="@/assets/images/international.png" alt="">
                         <span class="link_name">Centre</span>
                     </li> 
+
+                   
+
+                  
                    
 
 
@@ -93,7 +97,7 @@ export default {
 <style lang="css" scoped>
 .container {
     margin: 0 auto;
-    padding: 10px;
+    padding: 10px 10px 25px;
     position: relative;
 }
 
@@ -112,14 +116,13 @@ main.table {
     box-shadow: 0px 0px 10px #8888884f;
     overflow: hidden;
     position: relative;
+    /* padding-bottom: 12px; */
 }
 
 .sidebar {
 
     width: 180px;
     height: 100%;
-    display: flex;
-    align-items: center;
     background-color: var(--vert);
     transition: all 0.5s ease;
     margin-right: 10px;
@@ -131,13 +134,17 @@ width: 100%;
     text-align: center;
     color: var(--blanc);
     padding: 10px;
+    opacity: 1;
 }
 
 .sidebar .sidebar_content{
 
 /* border: 1px solid red; */
 width: 100%;
-height: auto;
+height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .two-section {
@@ -187,9 +194,15 @@ height: auto;
     display: flex;
     flex-direction: row;
     align-items: center;
-    color: var(--blanc)
+    color: var(--blanc);
+    margin-bottom:3px
 }
+.sidebar .titre .act{
+        opacity: 1 !important;
+        pointer-events: none;
 
+
+}
 .sidebar .nav-links li:hover {
     background-color: var(--blanc);
     cursor: pointer;
@@ -221,6 +234,8 @@ height: auto;
 }
 
 @media (max-width: 768px) {
+ 
+
     .sidebar.close {
         width: 40px;
     }
@@ -234,9 +249,14 @@ height: auto;
         opacity: 0;
         pointer-events: none;
     }
-    .sidebar .titre{
-    display: none;
+    .sidebar.close .titre{
+        opacity: 0;
+        pointer-events: none;
 
 }
+
+
+
 }
+
 </style>

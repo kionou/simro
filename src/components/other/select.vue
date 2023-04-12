@@ -23,6 +23,7 @@
     </div>
     <div v-if="show" @click="toggleSelect" class="select-wrapper"></div>
   </div>
+  
 </template>
 
 <script>
@@ -37,6 +38,7 @@ export default {
   data() {
     return {
       show: false,
+      aa:"",
       items:  [
         { text: 'Feuille', nom_marche: 'Feuille' },
         { text: 'Céreale', nom_marche: 'Céreale' },
@@ -51,11 +53,14 @@ export default {
 
   mounted() {
 
-   computed(() => {
-      return store.getters.getMarche;
+    this.aa =  computed(() => {
+      return store.getters.getmarche;
+});
+     computed(() => {
+      return store.getters.getproduit;
     });
-
-    store.dispatch('marcheAll')
+console.log(this.aa)
+    store.dispatch('simroAll')
   },
 
   methods: {

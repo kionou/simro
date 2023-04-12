@@ -2,7 +2,8 @@
     
                 <section class="table__header">
                     <h1> Marché de Pitoa </h1> 
-                  <p>Le prix des prduits semences dans la Region du Centre</p> 
+                  <p v-if="toggle">Le prix des prduits semences dans la Region du Centre</p> 
+                  <i class="fa-solid fa-bars" @click="ouvert"></i>
            
         </section>
 
@@ -109,6 +110,7 @@ export default {
 
     data() {
         return {
+            toggle:true
             
         };
     },
@@ -118,7 +120,16 @@ export default {
     },
 
     methods: {
-        
+     async ouvert(){
+        console.log('gggg');
+    let sidebar = document.querySelector(".sidebar");
+    let titre = document.querySelector('.titre')
+    console.log(titre);
+    sidebar.classList.toggle("close");
+    titre.classList.toggle("act");
+    this.toggle = !this.toggle
+
+    },
     },
 };
 </script>
@@ -141,12 +152,20 @@ export default {
     text-transform: initial;
 
 }
-.table__header .btn  button.active {
+.table__header i {
+    position: absolute;
+    top: 4px;
+    left: 5px;
+    cursor:pointer;
+    visibility: hidden;
+
+}
+/* .table__header .btn  button.active {
     background-color: var(--blanc);
     color: var(--vert);
     cursor: pointer;
     border: 1px solid var(--vert);
-}
+} */
 
 @media (max-width: 768px) {
     .table__header {
@@ -242,6 +261,14 @@ tbody tr.hide td p {
 }
 
 @media (max-width: 768px) {
+    .table__header i{
+        visibility: visible;
+    
+    }
+    .table__header  p{
+        display: none;
+    
+    }
     .sidebar.close {
         width: 40px;
     }

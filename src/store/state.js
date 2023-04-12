@@ -1,4 +1,6 @@
 export default{
-    marcheAll:[]
+    marcheAll:[],
+    produitAll:[]
+
 
 }
