@@ -2,11 +2,10 @@
     
                 <section class="table__header">
                     <h1> Marché de Pitoa </h1> 
-                  <p v-if="toggle">Le prix des prduits semences dans la Region du Centre</p> 
+                  <p v-if="toggle">Le prix des prduits semences dans la Region {{ marches[0]?.region }}</p> 
                   <i class="fa-solid fa-bars" @click="ouvert"></i>
            
         </section>
-
         <section class="table__body"  >
             <table>
                 <thead>
@@ -23,9 +22,9 @@
                      
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Lagdo</td>
+                <tbody v-for="marche in marches" :key='marche.id'>
+                    <tr >
+                        <td >{{ marche.nom_marche }}</td>
 
                         <td class="date">11 - 12 - 23</td >
                         <td> 800 F CFA</td>
@@ -37,7 +36,7 @@
 
                        
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td>Ngong</td>
 
                         <td class="date">11 - 12 - 23</td >
@@ -96,7 +95,7 @@
                         <td> 1100 F CFA</td>
                         <td> 750 F CFA </td>
                        
-                    </tr>
+                    </tr> -->
                     
                 </tbody>
             </table>
@@ -107,6 +106,7 @@
 <script>
 export default {
     name: 'CptRiz',
+    props:['marches'],
 
     data() {
         return {
@@ -116,7 +116,7 @@ export default {
     },
 
     mounted() {
-        
+        console.log('rrr',this.marches);
     },
 
     methods: {

@@ -1,12 +1,11 @@
 <template>
   <div class="select">
-    {{ marche }}
     <div @click="toggleSelect" class="button">
-      <span v-if="!selected.nom_marche">
+      <span v-if="!selected.nom_famille_produit">
         Recherchez un prodiut ou une gamme
       </span>
       <span v-else>
-        prodiut {{ selected.nom_marche }}
+         {{ selected.nom_famille_produit }}
       </span>
       <span class="icon material-symbols-outlined " :class="show ? 'close' : ''"><i
           class="fa-solid fa-chevron-down"></i></span>
@@ -14,23 +13,22 @@
     <div :class="`select-block ${show ? 'open' : ''}`">
       <div class="scroll">
         <ul>
-          <li v-for="item in items" :key='item.id_marche' @click="clickItem(item)"
-            :class="item.nom_marche === selected.nom_marche ? 'active' : ''">
-            <p @click="$emit('ClickItem', item.nom_marche)">prodiut {{ item.nom_marche }} </p>
+          <li v-for="item in items" :key='item.id_nom_famille_produit' @click="clickItem(item)"
+            :class="item.nom_famille_produit === selected.nom_famille_produit ? 'active' : ''">
+            <p @click="$emit('ClickItem', item.nom_famille_produit)"> {{ item.nom_famille_produit }} </p>
           </li>
         </ul>
       </div>
     </div>
     <div v-if="show" @click="toggleSelect" class="select-wrapper"></div>
   </div>
-  
+
 </template>
 
 <script>
-// import axios from 'axios'
-// import axiosClient from '@/axiosClient'
-import { computed } from 'vue';
-import store from '@/store'
+import axiosClient from '@/axiosClient'
+// import { computed } from 'vue';
+// import store from '@/store'
 export default {
   name: 'CptSelect',
 
@@ -39,28 +37,34 @@ export default {
     return {
       show: false,
       aa:"",
-      items:  [
-        { text: 'Feuille', nom_marche: 'Feuille' },
-        { text: 'Céreale', nom_marche: 'Céreale' },
-        { text: 'Semence', nom_marche: 'Semence' },
-        { text: 'Bulbe', nom_marche: 'Bulbe' },
-        { text: 'Transformé', nom_marche: 'Transformé' },
-        
-      ],
+      items:  [],
+      produits:[],
       selected: {},
+      initial:'',
     };
   },
 
   mounted() {
+    this.$store.dispatch('simroAll')
+        axiosClient
+      .get('/simro')
+      .then((response)=>{
+        this.items = response.data.gamme
+        this.initial = response.data.gamme[0].nom_famille_produit
+         const produit = response.data.produit
 
-    this.aa =  computed(() => {
-      return store.getters.getmarche;
-});
-     computed(() => {
-      return store.getters.getproduit;
-    });
-console.log(this.aa)
-    store.dispatch('simroAll')
+         let filteredMarche = [];
+       for (let i= 0; i<produit.length; i++) {
+
+        if (produit[i].famille_produit === this.initial ) {
+
+        filteredMarche = [...filteredMarche, produit[i]];
+    }
+    console.log(filteredMarche);
+}
+    this.produits = filteredMarche
+      })
+ 
   },
 
   methods: {
@@ -68,10 +72,10 @@ console.log(this.aa)
       this.show = !this.show;
     },
     clickItem(value) {
-      if (this.selected.nom_marche === value.nom_marche) {
+      if (this.selected.nom_famille_produit === value.nom_famille_produit) {
         return this.selected = {};
       }
-      this.selected.nom_marche = value.nom_marche;
+      this.selected.nom_famille_produit = value.nom_famille_produit;
       this.show = !this.show
 
     },

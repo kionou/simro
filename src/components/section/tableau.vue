@@ -5,78 +5,116 @@
             <Select  @ClickItem="getClickItem" />
         </div>
         <main class="table">
+          
+
             <div class="sidebar close ">
                 <div class="sidebar_content">
                     <div class="titre">
                 <h1>REGIONS</h1>
                 </div>
-                <ul class="nav-links">
-                    <li @click="layout = 'nord'" :class="{ active: layout === 'nord' }">
-                        <img src="@/assets/images/international.png" alt="">
-                        <span class="link_name">Nord</span>
-                    </li>
+                <ul class="nav-links" >
+                <li v-for="region in regions" :key='region.code_region' @click="makeActive(region)" :class="region.nom_region === selected.nom_region ? 'active' : ''">
+                    <img src="@/assets/images/international.png" alt="">
+                        <span class="link_name">{{region.nom_region}}</span>
+                </li>
 
-                    <li @click="layout = 'extreme_nord'" :class="{ active: layout === 'extreme_nord' }">
-                        <img src="@/assets/images/international.png" alt="">
-                        <span class="link_name">Extreme-Nord</span>
-                    </li>
-                    <li @click="layout = 'nord_ouest'" :class="{ active: layout === 'nord_ouest' }">
-                        <img src="@/assets/images/international.png" alt="">
-                        <span class="link_name">Nord-Ouest</span>
-                    </li>
-
-                    <li @click="layout = 'ouest'" :class="{ active: layout === 'ouest' }">
-                        <img src="@/assets/images/international.png" alt="">
-                        <span class="link_name">Ouest</span>
-                    </li>
-                    <li @click="layout = 'centre'" :class="{ active: layout === 'centre' }">
-                        <img src="@/assets/images/international.png" alt="">
-                        <span class="link_name">Centre</span>
-                    </li> 
-
-                   
-
-                  
-                   
-
-
-                    
                 </ul>
                 </div>
                
             </div>
             <div class="two-section">
-                <Riz v-if="layout === 'nord'" />
-                <Oignon v-if="layout === 'extreme_nord'" />
+                <Riz :marches="marches" />
+                <!-- <Oignon  /> -->
+               
             </div>
         </main>
     </div>
 </template>
 
 <script>
+// import { computed  } from 'vue';
+// import store from '@/store'
+import axiosClient from '@/axiosClient';
 import Select from '../other/select.vue';
-import Oignon from '../other/cptOignon.vue';
+// import Oignon from '../other/cptOignon.vue';
 import Riz from '../other/cptRiz.vue';
 import Loader from '../other/loader.vue';
 export default {
     name: 'CptTableau',
-    components: { Select, Oignon, Riz , Loader },
+    components: { Select,  Riz , Loader },
 
     data() {
         return {
-            layout: 'nord',
+ 
             search: '',
-            active: true,
             isloading:false,
-            ClickItem:''
+            ClickItem:'',
+              regions:'',
+              initial:'',
+              marches:[],
+            selected: {},
+
         };
     },
+    computed:{
+
+    //   regions() {
+    //     if (this.selected.nom_region != this.$store.getters.getregion[0]?.nom_region) {
+      
+    //     console.log('bonsoir');
+        
+    // }
+    //      console.log(this.$store.getters.getregion[0]?.nom_region);
+    //      return this.$store.getters.getregion;
+    // },
+   // this.regions = this.$store.getters.getregion[0]?.nom_region
+    // console.log(this.regions);
+
+//    this.regions =  computed(() => {
+//     if (this.selected.nom_region != this.$store.getters.getregion[0]?.nom_region) {
+//         this.selected.nom_region = this.$store.getters.getregion[0]?.nom_region
+//         console.log('bonsoir');
+        
+//     }
+    
+//       console.log(this.selected.nom_region);
+
+//       return store.getters.getregion;
+//     });
+
+//     this.$store.dispatch('simroAll')
+  
+    //  this.selected.value = this.items[0].value
+
+    },
+   
 
     mounted() {
-        // let sidebar = document.querySelector(".sidebar");
-        // if (window.screen.width <= 700) {
-        //     sidebar.classList.toggle("close");
-        // }
+        this.$store.dispatch('simroAll')
+        axiosClient
+      .get('/simro')
+      .then((response)=>{
+        this.regions = response.data.region
+        this.selected.nom_region = response.data.region[0].nom_region
+        this.initial = response.data.region[0].nom_region
+        const marche = response.data.marche
+      
+
+        let filteredMarche = [];
+       for (let i= 0; i<marche.length; i++) {
+
+        if (marche[i].region === 'NORD-OUEST' ) {
+
+        filteredMarche = [...filteredMarche, marche[i]];
+    }
+}
+    this.marches = filteredMarche
+    
+//     console.log(filteredMarche);
+// console.log(this.marches);
+
+    })
+  
 
     },
 
@@ -89,12 +127,34 @@ export default {
         console.log(this.ClickItem = value);
         
             // this.isloading = true
-        }
+        },
+        makeActive: function(value) {
+          this.selected.nom_region = value.nom_region;
+          const sel = JSON.parse(JSON.stringify(this.$store.getters.getmarche));
+
+          let filteredMarche = [];
+       for (let i= 0; i<sel.length; i++) {
+
+        if (sel[i].region === value.nom_region ) {
+
+        filteredMarche = [...filteredMarche, sel[i]];
+    }
+    console.log(filteredMarche);
+    this.marches = filteredMarche
+}
+
+             
+          console.log(this.selected.nom_region , value.nom_region , this.$store.getters.getmarche);
+
+  
+
+    },
     },
 };
 </script>
 
 <style lang="css" scoped>
+
 .container {
     margin: 0 auto;
     padding: 10px 10px 25px;
@@ -225,6 +285,7 @@ height: 100%;
     background-color: hsl(162.17deg 89.52% 62.43% / 52%);
     color: var(--blanc);
 }
+
 @media (max-width: 880px) {
     li{
         margin: 0 !important;

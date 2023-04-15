@@ -3,11 +3,11 @@
     <Header :slides="slides" :textes="textes" :titres="titres" :height="60" />
     <Corps />
     <Top />
+     <!-- $store.getters.getregion[0].nom_region  -->
   </div>
 </template>
 
 <script>
-// import axios from 'axios'
 import Header from '@/components/section/header.vue';
 import Corps from '@/components/corps.vue'
 import Top from '@/components/other/icone.vue';
@@ -45,12 +45,9 @@ export default {
   },
 
   mounted() {
-    // axios
-    //   .get('https://simro.onrender.com/market')
-    //   .then((res) =>{
-    //     console.log("ee",res);
-    //   })
+
   },
+
 
   methods: {
 

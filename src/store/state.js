@@ -1,6 +1,8 @@
 export default{
+    gammeAll:[],
     marcheAll:[],
-    produitAll:[]
-
+    prixAll:[],
+    produitAll:[],
+    regionAll:[],
 
 }
