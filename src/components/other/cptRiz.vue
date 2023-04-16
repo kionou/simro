@@ -9,16 +9,16 @@
         <section class="table__body"  >
             <table>
                 <thead>
-                    <tr>
+                    <tr  >
                         <th> Marchés </th>
 
                         <th> Date </th>
-                        <th> Riz local étuvé </th>
-                        <th> Riz local non étuvé </th>
+                        <th v-for="produit in produits" :key='produit.id'> {{ produit.nom_produit }} </th>
+                        <!-- <th> Riz local non étuvé </th>
                         <th> Riz paddy </th>
                         <th> Riz importé</th>
                         <th> Riz importé(étuvé) </th>
-                        <th> Farine </th>
+                        <th> Farine </th> -->
                      
                     </tr>
                 </thead>
@@ -106,7 +106,7 @@
 <script>
 export default {
     name: 'CptRiz',
-    props:['marches'],
+    props:['marches' , 'produits'],
 
     data() {
         return {

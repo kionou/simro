@@ -2,7 +2,7 @@
     <div class="container">
      <Loader v-if="isloading" :height="90" :width="90"></Loader>
         <div class="search_wrap search_wrap_5">
-            <Select  @ClickItem="getClickItem" />
+            <Select  @ClickItem="getClickItem" :items="items"/>
         </div>
         <main class="table">
           
@@ -23,7 +23,7 @@
                
             </div>
             <div class="two-section">
-                <Riz :marches="marches" />
+                <Riz :marches="marches" :produits="produits" />
                 <!-- <Oignon  /> -->
                
             </div>
@@ -53,6 +53,9 @@ export default {
               initial:'',
               marches:[],
             selected: {},
+            items:[],
+            produits:[],
+            initialProduit:''
 
         };
     },
@@ -96,9 +99,8 @@ export default {
       .then((response)=>{
         this.regions = response.data.region
         this.selected.nom_region = response.data.region[0].nom_region
-        this.initial = response.data.region[0].nom_region
+        this.initial = response.data.gamme[0].nom_famille_produit
         const marche = response.data.marche
-      
 
         let filteredMarche = [];
        for (let i= 0; i<marche.length; i++) {
@@ -109,9 +111,28 @@ export default {
     }
 }
     this.marches = filteredMarche
+
+        this.items = response.data.gamme
+        this.initialProduit = response.data.region[0].nom_region
+         const produit = response.data.produit
+
+
+        let filteredProduit = [];
+       for (let i= 0; i<produit.length; i++) {
+
+        if (produit[i].famille_produit === this.initial ) {
+
+        filteredProduit = [...filteredProduit, produit[i]];
+    }
+    // console.log('filteredProduit',filteredProduit);
+}
+    this.produits = filteredProduit
     
-//     console.log(filteredMarche);
-// console.log(this.marches);
+      
+
+    
+    
+
 
     })
   
@@ -120,14 +141,27 @@ export default {
 
     methods: {
         rech() {
-            console.log('onjour');
+            // console.log('onjour');
             this.rechdisplay = !this.rechdisplay
         },
         getClickItem(value){
-        console.log(this.ClickItem = value);
+        console.log("eeee",this.ClickItem = value);
+        const sel = JSON.parse(JSON.stringify(this.$store.getters.getproduit));
+        let filteredProduit = [];
+       for (let i= 0; i<sel.length; i++) {
+
+        if (sel[i].famille_produit === this.ClickItem  ) {
+
+        filteredProduit = [...filteredProduit, sel[i]];
+    }
+    console.log('filteredProduit',filteredProduit);
+}
+    this.produits = filteredProduit
         
             // this.isloading = true
         },
+
+
         makeActive: function(value) {
           this.selected.nom_region = value.nom_region;
           const sel = JSON.parse(JSON.stringify(this.$store.getters.getmarche));
@@ -144,7 +178,7 @@ export default {
 }
 
              
-          console.log(this.selected.nom_region , value.nom_region , this.$store.getters.getmarche);
+        //   console.log(this.selected.nom_region , value.nom_region , this.$store.getters.getmarche);
 
   
 

@@ -22,7 +22,6 @@
     </div>
     <div v-if="show" @click="toggleSelect" class="select-wrapper"></div>
   </div>
-
 </template>
 
 <script>
@@ -31,13 +30,13 @@ import axiosClient from '@/axiosClient'
 // import store from '@/store'
 export default {
   name: 'CptSelect',
-
+  props:["items"],
 
   data() {
     return {
       show: false,
       aa:"",
-      items:  [],
+
       produits:[],
       selected: {},
       initial:'',
@@ -49,7 +48,7 @@ export default {
         axiosClient
       .get('/simro')
       .then((response)=>{
-        this.items = response.data.gamme
+        // this.items = response.data.gamme
         this.initial = response.data.gamme[0].nom_famille_produit
          const produit = response.data.produit
 
