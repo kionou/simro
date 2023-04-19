@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import axiosClient from '@/axiosClient'
+// import axiosClient from '@/axiosClient'
 // import { computed } from 'vue';
 // import store from '@/store'
 export default {
@@ -35,8 +35,6 @@ export default {
   data() {
     return {
       show: false,
-      aa:"",
-
       produits:[],
       selected: {},
       initial:'',
@@ -44,26 +42,7 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch('simroAll')
-        axiosClient
-      .get('/simro')
-      .then((response)=>{
-        // this.items = response.data.gamme
-        this.initial = response.data.gamme[0].nom_famille_produit
-         const produit = response.data.produit
 
-         let filteredMarche = [];
-       for (let i= 0; i<produit.length; i++) {
-
-        if (produit[i].famille_produit === this.initial ) {
-
-        filteredMarche = [...filteredMarche, produit[i]];
-    }
-    console.log(filteredMarche);
-}
-    this.produits = filteredMarche
-      })
- 
   },
 
   methods: {

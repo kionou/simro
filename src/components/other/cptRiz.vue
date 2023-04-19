@@ -1,14 +1,18 @@
 <template>
-    
                 <section class="table__header">
                     <h1> Marché de Pitoa </h1> 
-                  <p v-if="toggle">Le prix des prduits semences dans la Region {{ marches[0]?.region }}</p> 
+
+
+                  <p v-if="toggle">Le prix des prduits {{ produits[0]?.famille_produit }} dans la Region {{ prix[0]?.nom_region }} </p> 
                   <i class="fa-solid fa-bars" @click="ouvert"></i>
-           
         </section>
-        <section class="table__body"  >
+        <div class="alert" v-if="alertRegion">
+            {{ alertRegion }}
+        </div>
+        <section class="table__body" v-else >
             <table>
                 <thead>
+                   
                     <tr  >
                         <th> Marchés </th>
 
@@ -22,80 +26,19 @@
                      
                     </tr>
                 </thead>
-                <tbody v-for="marche in marches" :key='marche.id'>
-                    <tr >
-                        <td >{{ marche.nom_marche }}</td>
+                <tbody>
+                    <tr v-for="prixproduit in prix" :key='prixproduit.id '>
+                        <td >{{ prixproduit.marche }}</td>
 
-                        <td class="date">11 - 12 - 23</td >
-                        <td> 800 F CFA</td>
-                        <td> 600 F CFA</td>
-                        <td> 1000 F CFA</td>
-                        <td> 1200 F CFA</td>
-                        <td> 1100 F CFA</td>
-                        <td> 750 F CFA </td>
+                        <td class="date">{{ prixproduit.date_enquete }}</td >
+                        <template v-for="produit in produits" :key='produit.id'>
+                        <td v-if="prixproduit.produit === produit.nom_produit" track-by="$prixproduit.id" >{{ prixproduit.prix_kg  }} F CFA</td>
+                        <td v-else >okk F CFA</td>
 
-                       
+
+                        </template>            
                     </tr>
-                    <!-- <tr>
-                        <td>Ngong</td>
-
-                        <td class="date">11 - 12 - 23</td >
-                        <td> 800 F CFA</td>
-                        <td> 600 F CFA</td>
-                        <td> 1000 F CFA</td>
-                        <td> 1200 F CFA</td>
-                        <td> 1100 F CFA</td>
-                        <td> 750 F CFA </td>
-                       
-                    </tr>
-                
-                    <tr>
-                        <td>Pitoa</td>
-                        <td class="date">11 - 12 - 23</td >
-                        <td> 800 F CFA</td>
-                        <td> 600 F CFA</td>
-                        <td> 1000 F CFA</td>
-                        <td> 1200 F CFA</td>
-                        <td> 1100 F CFA</td>
-                        <td> 750 F CFA </td>
-                       
-                    </tr>
-                    <tr>
-                        <td> Touboro</td>
-
-                        <td class="date">11 - 12 - 23</td >
-                        <td> 800 F CFA</td>
-                        <td> 600 F CFA</td>
-                        <td> 1000 F CFA</td>
-                        <td> 1200 F CFA</td>
-                        <td> 1100 F CFA</td>
-                        <td> 750 F CFA </td>
-                       
-                    </tr>
-                    <tr>
-                        <td> Beka</td>
-
-                        <td class="date">11 - 12 - 23</td >
-                        <td> 800 F CFA</td>
-                        <td> 600 F CFA</td>
-                        <td> 1000 F CFA</td>
-                        <td> 1200 F CFA</td>
-                        <td> 1100 F CFA</td>
-                        <td> 750 F CFA </td>
-                       
-                    </tr>
-                    <tr>
-                        <td> Tchontchi</td>
-
-                        <td class="date">11 - 12 - 23</td >
-                        <td> 800 F CFA</td>
-                        <td> 600 F CFA</td>
-                        <td> 1000 F CFA</td>
-                        <td> 1200 F CFA</td>
-                        <td> 1100 F CFA</td>
-                        <td> 750 F CFA </td>
-                       
-                    </tr> -->
+             
                     
                 </tbody>
             </table>
@@ -106,7 +49,7 @@
 <script>
 export default {
     name: 'CptRiz',
-    props:['marches' , 'produits'],
+    props:['prix' , 'produits' , 'alertRegion'],
 
     data() {
         return {
@@ -116,7 +59,7 @@ export default {
     },
 
     mounted() {
-        console.log('rrr',this.marches);
+        console.log('rrrhhh',this.produits);
     },
 
     methods: {
@@ -179,7 +122,7 @@ export default {
 
 .table__body {
     width: 99%;
-    max-height: calc(89% - 1.6rem);
+    max-height: calc(89% - 9.6rem);
     margin: .8rem auto;
     overflow: auto;
     overflow: overlay;
@@ -225,9 +168,24 @@ thead th {
     color: var(--blanc);
 }
 
-tbody tr:nth-child(even) {
-    background-color: #0000000b;
+/* tbody:nth-child(odd) tr:nth-child(even) {
+  background-color: red;
+} */
+
+tbody:nth-child(odd) tr:nth-child(odd) {
+  background-color: #0000000b;
 }
+
+tbody:nth-child(even) tr:nth-child(even) {
+  background-color: #0000000b;
+}
+
+/* tbody:nth-child(even) tr:nth-child(odd) {
+  background-color: red;
+} */
+/* tbody tr:nth-child(2n+2) {
+    background-color: #0000000b;
+} */
 
 tbody tr {
     --delay: .1s;
@@ -285,6 +243,15 @@ tbody tr.hide td p {
     table, th, td {
     font-size: 12px;
 }
+}
+
+
+.alert{
+text-align: center;
+padding: 70px;
+color: var(--red);
+
+
 }
 
 </style>

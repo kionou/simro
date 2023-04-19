@@ -4,10 +4,13 @@
         <div class="search_wrap search_wrap_5">
             <Select  @ClickItem="getClickItem" :items="items"/>
         </div>
-        <main class="table">
-          
-
-            <div class="sidebar close ">
+       
+        <main class="table"   >
+            <div class="alert" v-if="alert">
+            {{ alert }}
+        </div>
+        <div v-else >
+            <div class="sidebar close " >
                 <div class="sidebar_content">
                     <div class="titre">
                 <h1>REGIONS</h1>
@@ -23,10 +26,14 @@
                
             </div>
             <div class="two-section">
-                <Riz :marches="marches" :produits="produits" />
+                <Riz :prix="prix" :produits="produits" :alertRegion="alertRegion" />
                 <!-- <Oignon  /> -->
                
             </div>
+
+        </div>
+
+       
         </main>
     </div>
 </template>
@@ -51,11 +58,13 @@ export default {
             ClickItem:'',
               regions:'',
               initial:'',
-              marches:[],
+              prix:[],
             selected: {},
             items:[],
             produits:[],
-            initialProduit:''
+            initialProduit:'',
+            alert:'',
+            alertRegion:''
 
         };
     },
@@ -92,46 +101,54 @@ export default {
     },
    
 
-    mounted() {
+  async  mounted() {
         this.$store.dispatch('simroAll')
-        axiosClient
-      .get('/simro')
+      await  axiosClient
+      .get('/simro/marche')
       .then((response)=>{
-        this.regions = response.data.region
-        this.selected.nom_region = response.data.region[0].nom_region
-        this.initial = response.data.gamme[0].nom_famille_produit
-        const marche = response.data.marche
-
-        let filteredMarche = [];
-       for (let i= 0; i<marche.length; i++) {
-
-        if (marche[i].region === 'NORD-OUEST' ) {
-
-        filteredMarche = [...filteredMarche, marche[i]];
-    }
-}
-    this.marches = filteredMarche
-
+        console.log(response)
         this.items = response.data.gamme
-        this.initialProduit = response.data.region[0].nom_region
+        this.initialProduit = response.data.gamme[0].nom_famille_produit
          const produit = response.data.produit
-
-
         let filteredProduit = [];
        for (let i= 0; i<produit.length; i++) {
 
-        if (produit[i].famille_produit === this.initial ) {
+        if (produit[i].famille_produit === this.initialProduit ) {
 
         filteredProduit = [...filteredProduit, produit[i]];
     }
     // console.log('filteredProduit',filteredProduit);
 }
-    this.produits = filteredProduit
-    
-      
+    if (filteredProduit.length === 0) {
+        this.alert= "Il n'y a pas de produits pour le moment !"
+    } else {
+        this.produits = filteredProduit
+        this.alert = false    
+    }
+        
 
-    
-    
+        this.regions = response.data.region
+        this.selected.nom_region = response.data.region[0].nom_region 
+        this.initial = response.data.region[0].nom_region
+        const prix = require('@/lib/prix.json')
+
+        let filteredMarchePrix = [];
+       for (let i= 0; i<prix.length; i++) {
+
+        if (prix[i].famille_produit === this.initialProduit && prix[i].nom_region === 'EXTREME-NORD') {
+
+            filteredMarchePrix = [...filteredMarchePrix, prix[i]];
+    }
+}
+console.log('filteredMarchePrix',filteredMarchePrix);
+if (filteredMarchePrix.length === 0) {
+    this.alertRegion = "Aucun marche pour l'instant !"
+} else {
+    this.prix = filteredMarchePrix
+    this.alertRegion = false
+
+}
+
 
 
     })
@@ -145,7 +162,7 @@ export default {
             this.rechdisplay = !this.rechdisplay
         },
         getClickItem(value){
-        console.log("eeee",this.ClickItem = value);
+        console.log("value",this.ClickItem = value);
         const sel = JSON.parse(JSON.stringify(this.$store.getters.getproduit));
         let filteredProduit = [];
        for (let i= 0; i<sel.length; i++) {
@@ -154,31 +171,65 @@ export default {
 
         filteredProduit = [...filteredProduit, sel[i]];
     }
-    console.log('filteredProduit',filteredProduit);
+    // console.log('filteredProduit',filteredProduit);
 }
-    this.produits = filteredProduit
+if (filteredProduit.length === 0) {
+    this.alert =" Il n'y a pas de produits pour le moment !"
+    
+} else {
+    let selle = JSON.parse(JSON.stringify(filteredProduit));
+    this.produits =  selle
+    this.alert = false
+    
+}
         
-            // this.isloading = true
-        },
+const prix = require('@/lib/prix.json')
+
+let filteredMarchePrix = [];
+for (let i= 0; i<prix.length; i++) {
+    console.log("produitfamille",this.ClickItem  );
+    console.log("regin",this.selected.nom_region);
+
+if (prix[i].famille_produit === value && prix[i].nom_region === this.selected.nom_region) {
+
+    filteredMarchePrix = [...filteredMarchePrix, prix[i]];
+}
+}
+console.log('filteredMarchePrix',filteredMarchePrix);
+if (filteredMarchePrix.length === 0) {
+this.alertRegion = "Aucun marche pour l'instant !"
+} else {
+this.prix = filteredMarchePrix
+this.alertRegion = false
+
+}
+ },
 
 
         makeActive: function(value) {
           this.selected.nom_region = value.nom_region;
-          const sel = JSON.parse(JSON.stringify(this.$store.getters.getmarche));
-
-          let filteredMarche = [];
-       for (let i= 0; i<sel.length; i++) {
-
-        if (sel[i].region === value.nom_region ) {
-
-        filteredMarche = [...filteredMarche, sel[i]];
-    }
-    console.log(filteredMarche);
-    this.marches = filteredMarche
-}
-
+          console.log("aaaaaa" ,value.nom_region );
+  
              
-        //   console.log(this.selected.nom_region , value.nom_region , this.$store.getters.getmarche);
+const prix = require('@/lib/prix.json')
+
+let filteredMarchePrix = [];
+for (let i= 0; i<prix.length; i++) {
+    console.log("produit",this.ClickItem  );
+
+if (prix[i].famille_produit === ( this.ClickItem) && prix[i].nom_region === this.selected.nom_region) {
+
+    filteredMarchePrix = [...filteredMarchePrix, prix[i]];
+}
+}
+console.log('filteredMarchePrix',filteredMarchePrix);
+if (filteredMarchePrix.length === 0) {
+this.alertRegion = "Aucun marche pour l'instant !"
+} else {
+this.prix = filteredMarchePrix
+this.alertRegion = false
+
+}
 
   
 
@@ -229,6 +280,7 @@ width: 100%;
     color: var(--blanc);
     padding: 10px;
     opacity: 1;
+    padding-top: 64px;
 }
 
 .sidebar .sidebar_content{
@@ -236,13 +288,15 @@ width: 100%;
 /* border: 1px solid red; */
 width: 100%;
 height: 100%;
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     justify-content: center;
 }
 
 .two-section {
     position: relative;
+    min-height: 280px;
+    height: auto;
     /* height: 418px; */
     left: 180px;
     width: calc(100% - 180px);
@@ -350,6 +404,14 @@ height: 100%;
 
 }
 
+
+
+}
+
+.alert{
+text-align: center;
+padding: 70px;
+color: var(--red);
 
 
 }

@@ -1,10 +1,11 @@
 <template>
   <div class="corps-footer">
     <div class="corps-footer-logo">
-      <a href="#" class="logo">
-        <img src="@/assets/images/logo.png">
+      <div class="logo">
+        <img src="@/assets/images/logo.png" @click="$router.push({ path: '#' })"
+                style="cursor: pointer">
         Système d'Information sur les Marchés <br> du Riz et de l'Oignon au Cameroun
-      </a>
+      </div>
     </div>
     <div class="corps-footer-menu">
       <nav>
@@ -52,7 +53,7 @@ export default {
   flex-direction: column;
 }
 
-.corps-footer-logo a {
+.corps-footer-logo .logo {
   display: flex;
   flex-direction: initial;
   align-items: center;

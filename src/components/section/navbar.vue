@@ -1,10 +1,18 @@
 <template>
   <nav class="Acc-nav">
     <div class="container-nav">
-      <router-link to="/" class="logo">
-        <img src="@/assets/images/logo2.png" alt="" class="desktop">
+      <div  class="logo">
+        <div class="desktop">
+        <img src="@/assets/images/logo3.png" alt=""  @click="$router.push({ path: '/' })"
+                style="cursor: pointer" >
+          <div class="texte">
+            <p class="fr">Système d'Information sur les Marchés du Riz et de l'Oignon au Cameroun</p>
+            <hr>
+            <p class="en">Information System on Rice and Onion Markets in Cameroon</p>
+          </div>
+        </div>
         <img src="@/assets/images/logo.png" alt="" class="mobile">
-      </router-link>
+      </div>
       <ul class="Acc-menu">
         <li><router-link to="/" class="Acc-lien">Accueil</router-link></li>
         <li><router-link to="/#magasin" class="Acc-lien">Magasin</router-link></li>
@@ -83,6 +91,7 @@ export default {
   border: none;
 }
 
+
 .Acc-nav .container-nav {
   align-items: center;
   display: flex;
@@ -145,23 +154,37 @@ export default {
   background-color: var(--noir);
 }
 
-@media (max-width: 1000px) {
-  .logo img {
-    width: 600px;
-  }
-
-}
-
-@media (max-width: 953px) {
-  .logo img {
-    width: 525px;
+@media only screen and (max-width: 1014px)  {
+  .logo .desktop {
+    font-size: 11px;
+  
   }
 }
 
 @media (min-width: 768px) {
   .logo .desktop {
     display: block;
+    display: flex;
+    align-items: center;
+  font-family: 'Playfair Display', serif;
+
   }
+  .logo .desktop img {
+  height: 4rem;
+  border: none;
+  width:auto ;
+}
+hr{
+  margin: 5px 0;
+  border: 1px solid ;
+}
+.fr{
+
+}
+
+.en{
+  color: var(--vert);
+}
 
   .logo .mobile {
     display: none;
@@ -218,7 +241,7 @@ export default {
     width: 100%;
     text-align: center;
     transition: 0.3s;
-    margin-top: 80px;
+    margin-top: 76px;
   }
 
   .Acc-nav a {
