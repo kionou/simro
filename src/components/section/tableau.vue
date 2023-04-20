@@ -1,44 +1,46 @@
 <template>
     <div class="container">
-     <Loader v-if="isloading" :height="90" :width="90"></Loader>
+        <Loader v-if="isloading" :height="90" :width="90"></Loader>
         <div class="search_wrap search_wrap_5">
-            <Select  @ClickItem="getClickItem" :items="items"/>
+            <Select @ClickItem="getClickItem" :items="items" />
         </div>
-       
-        <main class="table"   >
+
+        <main class="table">
             <div class="alert" v-if="alert">
-            {{ alert }}
-        </div>
-        <div v-else >
-            <div class="sidebar close " >
-                <div class="sidebar_content">
-                    <div class="titre">
-                <h1>REGIONS</h1>
-                </div>
-                <ul class="nav-links" >
-                <li v-for="region in regions" :key='region.code_region' @click="makeActive(region)" :class="region.nom_region === selected.nom_region ? 'active' : ''">
-                    <img src="@/assets/images/international.png" alt="">
-                        <span class="link_name">{{region.nom_region}}</span>
-                </li>
-
-                </ul>
-                </div>
-               
+                {{ alert }}
             </div>
-            <div class="two-section">
-                <Riz :prix="prix" :produits="produits" :alertRegion="alertRegion" />
-                <!-- <Oignon  /> -->
-               
+            <div v-else>
+                <div class="sidebar close ">
+                    <div class="sidebar_content">
+                        <div class="titre">
+                            <h1>REGIONS</h1>
+                        </div>
+                        <ul class="nav-links">
+                            <li v-for="region in regions" :key='region.code_region' @click="makeActive(region)"
+                                :class="region.nom_region === selected.nom_region ? 'active' : ''">
+                                <img src="@/assets/images/international.png" alt="">
+                                <span class="link_name">{{ region.nom_region }}</span>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="two-section">
+                    <Riz :prix="prix" :produits="produits" :alertRegion="alertRegion" />
+                    <!-- <Oignon  /> -->
+
+                </div>
+
             </div>
 
-        </div>
 
-       
         </main>
     </div>
 </template>
 
 <script>
+import { prixMarche } from '@/lib/function';
 // import { computed  } from 'vue';
 // import store from '@/store'
 import axiosClient from '@/axiosClient';
@@ -48,132 +50,159 @@ import Riz from '../other/cptRiz.vue';
 import Loader from '../other/loader.vue';
 export default {
     name: 'CptTableau',
-    components: { Select,  Riz , Loader },
+    components: { Select, Riz, Loader },
 
     data() {
         return {
- 
+
             search: '',
-            isloading:false,
-            ClickItem:'',
-              regions:'',
-              initial:'',
-              prix:[],
+            isloading: false,
+            ClickItem: '',
+            regions: '',
+            initial: '',
+            prix: [],
             selected: {},
-            items:[],
-            produits:[],
-            initialProduit:'',
-            alert:'',
-            alertRegion:''
+            items: [],
+            produits: [],
+            initialProduit: '',
+            alert: '',
+            alertRegion: ''
 
         };
     },
-    computed:{
+    computed: {
 
-    //   regions() {
-    //     if (this.selected.nom_region != this.$store.getters.getregion[0]?.nom_region) {
-      
-    //     console.log('bonsoir');
-        
-    // }
-    //      console.log(this.$store.getters.getregion[0]?.nom_region);
-    //      return this.$store.getters.getregion;
-    // },
-   // this.regions = this.$store.getters.getregion[0]?.nom_region
-    // console.log(this.regions);
+        //   regions() {
+        //     if (this.selected.nom_region != this.$store.getters.getregion[0]?.nom_region) {
 
-//    this.regions =  computed(() => {
-//     if (this.selected.nom_region != this.$store.getters.getregion[0]?.nom_region) {
-//         this.selected.nom_region = this.$store.getters.getregion[0]?.nom_region
-//         console.log('bonsoir');
-        
-//     }
-    
-//       console.log(this.selected.nom_region);
+        //     console.log('bonsoir');
 
-//       return store.getters.getregion;
-//     });
+        // }
+        //      console.log(this.$store.getters.getregion[0]?.nom_region);
+        //      return this.$store.getters.getregion;
+        // },
+        // this.regions = this.$store.getters.getregion[0]?.nom_region
+        // console.log(this.regions);
 
-//     this.$store.dispatch('simroAll')
-  
-    //  this.selected.value = this.items[0].value
+        //    this.regions =  computed(() => {
+        //     if (this.selected.nom_region != this.$store.getters.getregion[0]?.nom_region) {
+        //         this.selected.nom_region = this.$store.getters.getregion[0]?.nom_region
+        //         console.log('bonsoir');
+
+        //     }
+
+        //       console.log(this.selected.nom_region);
+
+        //       return store.getters.getregion;
+        //     });
+
+        //     this.$store.dispatch('simroAll')
+
+        //  this.selected.value = this.items[0].value
 
     },
-   
 
-  async  mounted() {
+
+    async mounted() {
+
         this.$store.dispatch('simroAll')
-      await  axiosClient
-      .get('/simro/marche')
-      .then((response)=>{
-        console.log(response)
-        this.items = response.data.gamme
-        this.initialProduit = response.data.gamme[0].nom_famille_produit
-         const produit = response.data.produit
-        let filteredProduit = [];
-       for (let i= 0; i<produit.length; i++) {
+        await axiosClient
+            .get('/simro/marche')
+            .then((response) => {
+                console.log(response)
+                this.items = response.data.gamme
+                this.initialProduit = response.data.gamme[0].nom_famille_produit
+                const produit = response.data.produit
+                this.ClickItem = this.initialProduit 
+                let filteredProduit = [];
+                for (let i = 0; i < produit.length; i++) {
 
-        if (produit[i].famille_produit === this.initialProduit ) {
+                    if (produit[i].famille_produit === this.initialProduit ) {
 
-        filteredProduit = [...filteredProduit, produit[i]];
-    }
-    // console.log('filteredProduit',filteredProduit);
-}
-    if (filteredProduit.length === 0) {
-        this.alert= "Il n'y a pas de produits pour le moment !"
+                        filteredProduit = [...filteredProduit, produit[i]];
+                    }
+                    // console.log('filteredProduit',filteredProduit);
+                }
+                if (filteredProduit.length === 0) {
+                    this.alert = "Il n'y a pas de produits pour le moment !"
+                } else {
+                    this.produits = filteredProduit
+                    this.alert = false
+                }
+
+
+                this.regions = response.data.region
+                this.selected.nom_region = response.data.region[0].nom_region
+                this.initial = response.data.region[0].nom_region
+                const prix = require('@/lib/prix.json')
+               this.prixMarche(prix)
+
+                let filteredMarchePrix = [];
+                for (let i = 0; i < prix.length; i++) {
+
+                    if (prix[i].famille_produit ===  this.initialProduit && prix[i].nom_region === 'EXTREME-NORD') {
+
+                        filteredMarchePrix = [...filteredMarchePrix, prix[i]];
+                    }
+                }
+    const regroupedData = filteredMarchePrix.reduce((acc, curr) => {
+    const { marche, produit, prix_kg, date_enquete } = curr;
+    if (!acc[marche]) {
+      acc[marche] = { marche, produits: [{ produit, prix_kg, date_enquete }] };
     } else {
-        this.produits = filteredProduit
-        this.alert = false    
+      acc[marche].produits.push({ produit, prix_kg, date_enquete });
     }
-        
-
-        this.regions = response.data.region
-        this.selected.nom_region = response.data.region[0].nom_region 
-        this.initial = response.data.region[0].nom_region
-        const prix = require('@/lib/prix.json')
-
-        let filteredMarchePrix = [];
-       for (let i= 0; i<prix.length; i++) {
-
-        if (prix[i].famille_produit === this.initialProduit && prix[i].nom_region === 'EXTREME-NORD') {
-
-            filteredMarchePrix = [...filteredMarchePrix, prix[i]];
-    }
-}
-console.log('filteredMarchePrix',filteredMarchePrix);
-if (filteredMarchePrix.length === 0) {
-    this.alertRegion = "Aucun marche pour l'instant !"
-} else {
-    this.prix = filteredMarchePrix
-    this.alertRegion = false
-
-}
-
-
-
-    })
+    return acc;
+  }, {});
   
+  const uniqueData = [];
+  Object.values(regroupedData).forEach(({ marche, produits }) => {
+    const existingIndex = uniqueData.findIndex((el) => el.marche === marche);
+    if (existingIndex === -1) {
+      uniqueData.push({ marche, produits });
+    } else {
+      uniqueData[existingIndex].produits.push(...produits);
+    }
+  });
+  
+
+
+                if (uniqueData.length === 0) {
+                    this.alertRegion = "Aucun marche pour l'instant !"
+                } else {
+                    this.prix = uniqueData
+                    this.alertRegion = false
+
+                }
+
+
+
+            })
+
 
     },
 
     methods: {
+        prixMarche:prixMarche(),
+
         rech() {
             // console.log('onjour');
             this.rechdisplay = !this.rechdisplay
         },
-        getClickItem(value){
-        console.log("value",this.ClickItem = value);
-        const sel = JSON.parse(JSON.stringify(this.$store.getters.getproduit));
-        let filteredProduit = [];
-       for (let i= 0; i<sel.length; i++) {
+        getClickItem(value) {
+            console.log("value", this.ClickItem = value);
+            const sel = JSON.parse(JSON.stringify(this.$store.getters.getproduit));
+            let filteredProduit = [];
+            for (let i = 0; i < sel.length; i++) {
 
-        if (sel[i].famille_produit === this.ClickItem  ) {
+                if (sel[i].famille_produit === this.ClickItem) {
 
-        filteredProduit = [...filteredProduit, sel[i]];
-    }
-    // console.log('filteredProduit',filteredProduit);
-}
-if (filteredProduit.length === 0) {
+                    filteredProduit = [...filteredProduit, sel[i]];
+                }
+            }
+
+           
+            if (filteredProduit.length === 0) {
     this.alert =" Il n'y a pas de produits pour le moment !"
     
 } else {
@@ -182,64 +211,104 @@ if (filteredProduit.length === 0) {
     this.alert = false
     
 }
-        
-const prix = require('@/lib/prix.json')
+            const prix = require('@/lib/prix.json')
 
-let filteredMarchePrix = [];
-for (let i= 0; i<prix.length; i++) {
-    console.log("produitfamille",this.ClickItem  );
-    console.log("regin",this.selected.nom_region);
+            let filteredMarchePrix = [];
+            for (let i = 0; i < prix.length; i++) {
+                console.log("produitfamille", this.ClickItem);
+                console.log("region", this.selected.nom_region);
 
-if (prix[i].famille_produit === value && prix[i].nom_region === this.selected.nom_region) {
+                if (prix[i].famille_produit === value && prix[i].nom_region === this.selected.nom_region) {
 
-    filteredMarchePrix = [...filteredMarchePrix, prix[i]];
-}
-}
-console.log('filteredMarchePrix',filteredMarchePrix);
-if (filteredMarchePrix.length === 0) {
-this.alertRegion = "Aucun marche pour l'instant !"
-} else {
-this.prix = filteredMarchePrix
-this.alertRegion = false
-
-}
- },
-
-
-        makeActive: function(value) {
-          this.selected.nom_region = value.nom_region;
-          console.log("aaaaaa" ,value.nom_region );
+                    filteredMarchePrix = [...filteredMarchePrix, prix[i]];
+                }
+            }
+            const regroupedData = filteredMarchePrix.reduce((acc, curr) => {
+    const { marche, produit, prix_kg, date_enquete } = curr;
+    if (!acc[marche]) {
+      acc[marche] = { marche, produits: [{ produit, prix_kg, date_enquete }] };
+    } else {
+      acc[marche].produits.push({ produit, prix_kg, date_enquete });
+    }
+    return acc;
+  }, {});
   
-             
-const prix = require('@/lib/prix.json')
-
-let filteredMarchePrix = [];
-for (let i= 0; i<prix.length; i++) {
-    console.log("produit",this.ClickItem  );
-
-if (prix[i].famille_produit === ( this.ClickItem) && prix[i].nom_region === this.selected.nom_region) {
-
-    filteredMarchePrix = [...filteredMarchePrix, prix[i]];
-}
-}
-console.log('filteredMarchePrix',filteredMarchePrix);
-if (filteredMarchePrix.length === 0) {
-this.alertRegion = "Aucun marche pour l'instant !"
-} else {
-this.prix = filteredMarchePrix
-this.alertRegion = false
-
-}
-
+  const uniqueData = [];
+  Object.values(regroupedData).forEach(({ marche, produits }) => {
+    const existingIndex = uniqueData.findIndex((el) => el.marche === marche);
+    if (existingIndex === -1) {
+      uniqueData.push({ marche, produits });
+    } else {
+      uniqueData[existingIndex].produits.push(...produits);
+    }
+  });
   
+  console.log(uniqueData);
 
-    },
+            if (uniqueData.length === 0) {
+                this.alertRegion = "Aucun marche pour l'instant !"
+            } else {
+                this.prix = uniqueData
+                this.alertRegion = false
+
+            }
+        },
+
+
+        makeActive: function (value) {
+            this.selected.nom_region = value.nom_region;
+            console.log("aaaaaa", value.nom_region);
+
+
+            const prix = require('@/lib/prix.json')
+
+            let filteredMarchePrix = [];
+            for (let i = 0; i < prix.length; i++) {
+                console.log("produit", this.ClickItem);
+
+                if (prix[i].famille_produit === (this.ClickItem) && prix[i].nom_region === this.selected.nom_region) {
+
+                    filteredMarchePrix = [...filteredMarchePrix, prix[i]];
+                }
+            }
+
+            const regroupedData = filteredMarchePrix.reduce((acc, curr) => {
+    const { marche, produit, prix_kg, date_enquete } = curr;
+    if (!acc[marche]) {
+      acc[marche] = { marche, produits: [{ produit, prix_kg, date_enquete }] };
+    } else {
+      acc[marche].produits.push({ produit, prix_kg, date_enquete });
+    }
+    return acc;
+  }, {});
+  
+  const uniqueData = [];
+  Object.values(regroupedData).forEach(({ marche, produits }) => {
+    const existingIndex = uniqueData.findIndex((el) => el.marche === marche);
+    if (existingIndex === -1) {
+      uniqueData.push({ marche, produits });
+    } else {
+      uniqueData[existingIndex].produits.push(...produits);
+    }
+  });
+  
+  console.log(uniqueData);
+            if (uniqueData.length === 0) {
+                this.alertRegion = "Aucun marche pour l'instant !"
+            } else {
+                this.prix = uniqueData
+                this.alertRegion = false
+
+            }
+
+
+
+        },
     },
 };
 </script>
 
 <style lang="css" scoped>
-
 .container {
     margin: 0 auto;
     padding: 10px 10px 25px;
@@ -274,8 +343,9 @@ main.table {
     position: absolute;
     z-index: 100;
 }
-.sidebar .titre{
-width: 100%;
+
+.sidebar .titre {
+    width: 100%;
     text-align: center;
     color: var(--blanc);
     padding: 10px;
@@ -283,11 +353,11 @@ width: 100%;
     padding-top: 64px;
 }
 
-.sidebar .sidebar_content{
+.sidebar .sidebar_content {
 
-/* border: 1px solid red; */
-width: 100%;
-height: 100%;
+    /* border: 1px solid red; */
+    width: 100%;
+    height: 100%;
     /* display: flex; */
     flex-direction: column;
     justify-content: center;
@@ -343,20 +413,23 @@ height: 100%;
     flex-direction: row;
     align-items: center;
     color: var(--blanc);
-    margin-bottom:3px
+    margin-bottom: 3px
 }
-.sidebar .titre .act{
-        opacity: 1 !important;
-        pointer-events: none;
+
+.sidebar .titre .act {
+    opacity: 1 !important;
+    pointer-events: none;
 
 
 }
+
 .sidebar .nav-links li:hover {
     background-color: var(--blanc);
     cursor: pointer;
     color: var(--vert);
 
 }
+
 .sidebar .nav-links li img {
     width: 30px;
     height: 30px;
@@ -375,15 +448,15 @@ height: 100%;
 }
 
 @media (max-width: 880px) {
-    li{
+    li {
         margin: 0 !important;
-    
+
     }
 
 }
 
 @media (max-width: 768px) {
- 
+
 
     .sidebar.close {
         width: 40px;
@@ -398,22 +471,22 @@ height: 100%;
         opacity: 0;
         pointer-events: none;
     }
-    .sidebar.close .titre{
+
+    .sidebar.close .titre {
         opacity: 0;
         pointer-events: none;
 
-}
+    }
 
 
 
 }
 
-.alert{
-text-align: center;
-padding: 70px;
-color: var(--red);
+.alert {
+    text-align: center;
+    padding: 70px;
+    color: var(--red);
 
 
 }
-
 </style>

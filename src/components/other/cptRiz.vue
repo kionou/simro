@@ -27,17 +27,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="prixproduit in prix" :key='prixproduit.id '>
-                        <td >{{ prixproduit.marche }}</td>
 
-                        <td class="date">{{ prixproduit.date_enquete }}</td >
-                        <template v-for="produit in produits" :key='produit.id'>
-                        <td v-if="prixproduit.produit === produit.nom_produit" track-by="$prixproduit.id" >{{ prixproduit.prix_kg  }} F CFA</td>
-                        <td v-else >okk F CFA</td>
+                    <tr v-for="(prixproduit, index) in prix" :key="index">
+          <td>{{ prixproduit.marche }}</td>
+          <td class="date">{{ prixproduit.produits[0].date_enquete }}</td>
+          <template v-for="produit in produits" :key="produit.code_produit">
+            <td>
+              {{
+                prixproduit.produits.reduce((acc, curr) => {
+                  if (curr.produit === produit.nom_produit) {
+                    return curr.prix_kg;
+                  }
+                  return acc;
+                }, "--")
+              }}
+              F CFA
+            </td>
+          </template>
+        </tr>
 
-
-                        </template>            
-                    </tr>
              
                     
                 </tbody>
@@ -53,27 +61,52 @@ export default {
 
     data() {
         return {
-            toggle:true
-            
+            toggle:true,
+         
+
         };
+    
+            
+            
+        
     },
 
-    mounted() {
-        console.log('rrrhhh',this.produits);
-    },
+//     computed: {
+//     produitsFiltres() {
+//       return this.produits.filter(produit => {
+//         return this.prix.some(prixProduit => {
+//           return prixProduit.produits.some(prix => {
+//             return prix.produit === produit.nom_produit;
+//           });
+//         });
+//       });
+//     }
+//   }
 
-    methods: {
-     async ouvert(){
-        console.log('gggg');
-    let sidebar = document.querySelector(".sidebar");
-    let titre = document.querySelector('.titre')
-    console.log(titre);
-    sidebar.classList.toggle("close");
-    titre.classList.toggle("act");
-    this.toggle = !this.toggle
 
-    },
-    },
+
+
+
+
+
+
+
+    // mounted() {
+    //     console.log('rrrhhh',this.produits);
+    // },
+
+    // methods: {
+    //  async ouvert(){
+    //     console.log('gggg');
+    // let sidebar = document.querySelector(".sidebar");
+    // let titre = document.querySelector('.titre')
+    // console.log(titre);
+    // sidebar.classList.toggle("close");
+    // titre.classList.toggle("act");
+    // this.toggle = !this.toggle
+
+    // },
+    // },
 };
 </script>
 
