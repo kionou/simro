@@ -96,9 +96,9 @@ export default {
 .magasin {
   width: 100%;
   height: auto;
-  padding: 20px 0;
-  background-color: var(--vert);
-  color: var(--blanc);
+  padding: 20px 10px;
+  /* background-color: var(--vert); */
+  /* color: var(--blanc); */
 }
 
 .magasin h2 {

@@ -184,6 +184,7 @@ hr{
 
 .en{
   color: var(--vert);
+  text-align: center;
 }
 
   .logo .mobile {

@@ -1,9 +1,8 @@
 <template>
                 <section class="table__header">
-                    <h1> Marché de Pitoa </h1> 
+                    <h1> Marché de Pitoa </h1>
 
-
-                  <p v-if="toggle">Le prix des prduits {{ produits[0]?.famille_produit }} dans la Region {{ prix[0]?.nom_region }} </p> 
+                  <p v-if="toggle">Le prix des produits {{ produits[0]?.famille_produit }} dans la Region {{ selected.nom_region}} </p> 
                   <i class="fa-solid fa-bars" @click="ouvert"></i>
         </section>
         <div class="alert" v-if="alertRegion">
@@ -18,11 +17,7 @@
 
                         <th> Date </th>
                         <th v-for="produit in produits" :key='produit.id'> {{ produit.nom_produit }} </th>
-                        <!-- <th> Riz local non étuvé </th>
-                        <th> Riz paddy </th>
-                        <th> Riz importé</th>
-                        <th> Riz importé(étuvé) </th>
-                        <th> Farine </th> -->
+                      
                      
                     </tr>
                 </thead>
@@ -57,7 +52,7 @@
 <script>
 export default {
     name: 'CptRiz',
-    props:['prix' , 'produits' , 'alertRegion'],
+    props:['prix' , 'produits' , 'alertRegion' , 'selected'],
 
     data() {
         return {
@@ -95,18 +90,18 @@ export default {
     //     console.log('rrrhhh',this.produits);
     // },
 
-    // methods: {
-    //  async ouvert(){
-    //     console.log('gggg');
-    // let sidebar = document.querySelector(".sidebar");
-    // let titre = document.querySelector('.titre')
-    // console.log(titre);
-    // sidebar.classList.toggle("close");
-    // titre.classList.toggle("act");
-    // this.toggle = !this.toggle
+    methods: {
+     async ouvert(){
+        console.log('gggg');
+    let sidebar = document.querySelector(".sidebar");
+    let titre = document.querySelector('.titre')
+    console.log(titre);
+    sidebar.classList.toggle("close");
+    titre.classList.toggle("act");
+    this.toggle = !this.toggle
 
-    // },
-    // },
+    },
+    },
 };
 </script>
 

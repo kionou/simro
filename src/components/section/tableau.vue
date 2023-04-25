@@ -27,7 +27,7 @@
 
                 </div>
                 <div class="two-section">
-                    <Riz :prix="prix" :produits="produits" :alertRegion="alertRegion" />
+                    <Riz :prix="prix" :produits="produits" :alertRegion="alertRegion"  :selected="selected"/>
                     <!-- <Oignon  /> -->
 
                 </div>
@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { prixMarche } from '@/lib/function';
+
 // import { computed  } from 'vue';
 // import store from '@/store'
 import axiosClient from '@/axiosClient';
@@ -109,7 +109,7 @@ export default {
         await axiosClient
             .get('/simro/marche')
             .then((response) => {
-                console.log(response)
+                console.log('response',response)
                 this.items = response.data.gamme
                 this.initialProduit = response.data.gamme[0].nom_famille_produit
                 const produit = response.data.produit
@@ -134,23 +134,25 @@ export default {
                 this.regions = response.data.region
                 this.selected.nom_region = response.data.region[0].nom_region
                 this.initial = response.data.region[0].nom_region
-                const prix = require('@/lib/prix.json')
-               this.prixMarche(prix)
+               const prix = JSON.parse(JSON.stringify(this.$store.getters.getprix));
+           
+
+    
 
                 let filteredMarchePrix = [];
                 for (let i = 0; i < prix.length; i++) {
 
-                    if (prix[i].famille_produit ===  this.initialProduit && prix[i].nom_region === 'EXTREME-NORD') {
+                    if (prix[i].famille_produit ===  this.initialProduit && prix[i].region === this.initial) {
 
                         filteredMarchePrix = [...filteredMarchePrix, prix[i]];
                     }
                 }
     const regroupedData = filteredMarchePrix.reduce((acc, curr) => {
-    const { marche, produit, prix_kg, date_enquete } = curr;
+    const { marche, produit, prix_kg, date_enquete , region } = curr;
     if (!acc[marche]) {
-      acc[marche] = { marche, produits: [{ produit, prix_kg, date_enquete }] };
+      acc[marche] = { marche, produits: [{ produit, prix_kg, date_enquete  , region}] };
     } else {
-      acc[marche].produits.push({ produit, prix_kg, date_enquete });
+      acc[marche].produits.push({ produit, prix_kg, date_enquete , region });
     }
     return acc;
   }, {});
@@ -165,7 +167,7 @@ export default {
     }
   });
   
-
+console.log('uniqueData',uniqueData);
 
                 if (uniqueData.length === 0) {
                     this.alertRegion = "Aucun marche pour l'instant !"
@@ -183,7 +185,6 @@ export default {
     },
 
     methods: {
-        prixMarche:prixMarche(),
 
         rech() {
             // console.log('onjour');
@@ -211,24 +212,25 @@ export default {
     this.alert = false
     
 }
-            const prix = require('@/lib/prix.json')
+              const prix = JSON.parse(JSON.stringify(this.$store.getters.getprix));
+
 
             let filteredMarchePrix = [];
             for (let i = 0; i < prix.length; i++) {
                 console.log("produitfamille", this.ClickItem);
                 console.log("region", this.selected.nom_region);
 
-                if (prix[i].famille_produit === value && prix[i].nom_region === this.selected.nom_region) {
+                if (prix[i].famille_produit === value && prix[i].region === this.selected.nom_region) {
 
                     filteredMarchePrix = [...filteredMarchePrix, prix[i]];
                 }
             }
             const regroupedData = filteredMarchePrix.reduce((acc, curr) => {
-    const { marche, produit, prix_kg, date_enquete } = curr;
+    const { marche, produit, prix_kg, date_enquete ,region } = curr;
     if (!acc[marche]) {
-      acc[marche] = { marche, produits: [{ produit, prix_kg, date_enquete }] };
+      acc[marche] = { marche, produits: [{ produit, prix_kg, date_enquete  , region}] };
     } else {
-      acc[marche].produits.push({ produit, prix_kg, date_enquete });
+      acc[marche].produits.push({ produit, prix_kg, date_enquete , region });
     }
     return acc;
   }, {});
@@ -260,24 +262,24 @@ export default {
             console.log("aaaaaa", value.nom_region);
 
 
-            const prix = require('@/lib/prix.json')
+            const prix = JSON.parse(JSON.stringify(this.$store.getters.getprix));
 
             let filteredMarchePrix = [];
             for (let i = 0; i < prix.length; i++) {
                 console.log("produit", this.ClickItem);
 
-                if (prix[i].famille_produit === (this.ClickItem) && prix[i].nom_region === this.selected.nom_region) {
+                if (prix[i].famille_produit === (this.ClickItem) && prix[i].region === this.selected.nom_region) {
 
                     filteredMarchePrix = [...filteredMarchePrix, prix[i]];
                 }
             }
 
-            const regroupedData = filteredMarchePrix.reduce((acc, curr) => {
-    const { marche, produit, prix_kg, date_enquete } = curr;
+    const regroupedData = filteredMarchePrix.reduce((acc, curr) => {
+    const { marche, produit, prix_kg, date_enquete ,region } = curr;
     if (!acc[marche]) {
-      acc[marche] = { marche, produits: [{ produit, prix_kg, date_enquete }] };
+      acc[marche] = { marche, produits: [{ produit, prix_kg, date_enquete ,region }] };
     } else {
-      acc[marche].produits.push({ produit, prix_kg, date_enquete });
+      acc[marche].produits.push({ produit, prix_kg, date_enquete  , region});
     }
     return acc;
   }, {});

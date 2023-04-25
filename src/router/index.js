@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Accueil from '../views/Accueil.vue'
-import Test from '../views/Tesr.vue'
+import Maps from '../views/maps.vue'
 
 
 
@@ -18,7 +18,7 @@ const routes = [
   {
     path: '/test',
     name: 'test',
-    component: Test,
+    component: Maps,
     props:true,
   }
  

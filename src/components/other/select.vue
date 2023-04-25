@@ -7,8 +7,9 @@
       <span v-else>
          {{ selected.nom_famille_produit }}
       </span>
-      <span class="icon material-symbols-outlined " :class="show ? 'close' : ''"><i
-          class="fa-solid fa-chevron-down"></i></span>
+      <span class="icon material-symbols-outlined " :class="show ? 'close' : ''">
+        <i class="fa-solid fa-chevron-down"></i>
+      </span>
     </div>
     <div :class="`select-block ${show ? 'open' : ''}`">
       <div class="scroll">
