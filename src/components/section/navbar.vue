@@ -179,7 +179,7 @@ hr{
   border: 1px solid ;
 }
 .fr{
-
+  color: var(--red);
 }
 
 .en{

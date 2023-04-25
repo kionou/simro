@@ -72,6 +72,7 @@ export default {
     font-size: 30px;
     line-height: 36px;
     text-transform: uppercase;
+    color: var(--vert);
 }
  .content p{
   padding: 10px;

@@ -373,6 +373,7 @@ main.table {
     left: 180px;
     width: calc(100% - 180px);
     position: relative;
+    background-color: var(--blanc);
 }
 
 .sidebar .nav-links {
@@ -488,6 +489,7 @@ main.table {
     text-align: center;
     padding: 70px;
     color: var(--red);
+    background-color: var(--blanc);
 
 
 }

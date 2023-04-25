@@ -9,7 +9,7 @@
                         <span class="focus-border"></span>
                     </div>
                     <div class="select" v-for="(magasin, index) in magasins" :key="index">
-                        <div @click="toggleSelect(index)" class="button">
+                        <div @click="toggleSelect(index ,magasin)" class="button">
                             <span>Magasin {{ magasin.nom }}</span>
                             <span class="icon material-symbols-outlined " :class="magasin.show ? 'close' : ''">
                                 <i class="fa-solid fa-chevron-down"></i>
@@ -38,7 +38,7 @@
 
                 </div>
                 <div class="maps">
-                    <Maps :markers="magasins" />
+                    <Maps  />
                 </div>
 
 
@@ -61,7 +61,8 @@ export default {
     data() {
         return {
             show: false,
-            magasins: ''
+            magasins: '',
+            marker:''
         };
     },
 
@@ -81,9 +82,9 @@ response.data.forEach(magasin => {
    },
 
 methods: {
-    toggleSelect(index) {
-
-        console.log(!this.magasins[index].show);
+    toggleSelect(index ,magasin) {
+        this.marker = magasin
+        console.log("eeee",magasin);
         this.magasins[index].show = !this.magasins[index].show;
     },
 },
@@ -100,7 +101,7 @@ methods: {
     justify-content: space-evenly;
     box-shadow: var(--box-shadow);
     justify-content: space-between;
-    /* background-color: var(--vert); */
+
 
 }
 
@@ -112,8 +113,8 @@ methods: {
     flex-direction: column;
     justify-content: space-evenly;
     padding: 10px;
-    /* background-color: var(--vert);
-  color: var(--blanc); */
+
+  color: var(--blanc);
 
 }
 
@@ -196,7 +197,7 @@ iframe {
     color: #5f6368ff;
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 0px 0px 10px #8888884f;
+    box-shadow: var(--shadow-small);
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
     margin-top: 15px;
@@ -210,6 +211,8 @@ iframe {
     opacity: 0;
     transition: all 0.3s;
     display: none;
+    box-shadow: var(--shadow-small);
+    color: #5f6368ff;
 
 }
 

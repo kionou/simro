@@ -10,16 +10,18 @@
     <section class="description" id="about">
       <Description />
     </section>
-    <!-- section magasin debut -->
-    <section class="magasin" id="magasin">
-      <h2>Liste des Magasins</h2>
-      <Magasin />
-    </section>
+
     <!-- section tableau debut -->
     <section class="tableau" id="stock">
       <h2>Dernier prix des produits</h2>
       <Tableau />
     </section>
+    <!-- section magasin debut -->
+    <section class="magasin" id="magasin">
+      <h2>Liste des Magasins</h2>
+      <Magasin />
+    </section>
+    
     <!-- section partenaire debut -->
     <section class="partenaire" id="partenaire">
       <Partenaire />
@@ -97,8 +99,8 @@ export default {
   width: 100%;
   height: auto;
   padding: 20px 10px;
-  /* background-color: var(--vert); */
-  /* color: var(--blanc); */
+  background-color: var(--blanc); 
+   
 }
 
 .magasin h2 {
@@ -108,6 +110,7 @@ export default {
   font-size: 30px;
   line-height: 36px;
   text-transform: uppercase;
+  color: var(--vert);
 }
 
 /* tableau debut */
@@ -115,7 +118,7 @@ export default {
   width: 100%;
   height: auto;
   padding: 20px 0;
-  background-color: var(--blanc);
+  color: var(--vert);
 }
 
 .tableau h2 {
