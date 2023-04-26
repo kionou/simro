@@ -74,7 +74,7 @@ export default {
 /* slide debut */
 .slide {
   width: 100%;
-  background-color: var(--vert);
+  /* background-color: var(--vert); */
   padding: 10px;
 
 }

@@ -1,6 +1,4 @@
 <template>
-
-
     <div class="map-wrap">
       <a href="https://www.maptiler.com" class="watermark"><img
           src="https://api.maptiler.com/resources/logo.svg" alt="MapTiler logo"/></a>
@@ -15,11 +13,7 @@ import axios from 'axios';
 
 export default {
   name: "MapR",
-  data() {
-    return {
-      maps:''
-    };
-  },
+
   setup () {
     const mapContainer = shallowRef(null);
     const map = shallowRef(null);
@@ -40,6 +34,7 @@ export default {
       markers.value = response.data;
       
       markers.value.forEach(marker => {
+        marker.show = false;
         const newMarker = new Marker({color: "#FF0000"})
           .setLngLat([marker.longitude, marker.latitude])
           .addTo(map.value);
@@ -68,18 +63,7 @@ export default {
         showPopup
     };
   },
-  methods: {
-    //  showPopup() {
-    //   console.log('rrr',this.marker);
-    //   const coordinates = [this.marker.longitude, this.marker.latitude];
-    //   this.maps.value.flyTo({ center: coordinates, zoom: 14 });
-    //   new Popup()
-    //     .setLngLat(coordinates)
-    //     .setHTML(`<div><h3>${this.marker.nom}</h3><p>${this.marker.description}</p></div>`)
-    //     .addTo(this.maps.value);
-    // }
-  },
-
+ 
 
 };
 </script>

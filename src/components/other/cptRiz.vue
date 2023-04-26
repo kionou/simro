@@ -1,8 +1,6 @@
 <template>
     <section class="table__header">
-        <!-- <h1> Marché de Pitoa </h1> -->
-
-        <h1 v-if="toggle">Le prix debs produits <span class="produits"> {{ produits[0]?.famille_produit }}</span> dans la
+        <h1 v-if="toggle">Le prix des produits <span class="produits"> {{ produits[0]?.famille_produit }}</span> dans la
             Region <span class="produits">{{ selected.nom_region }}</span> </h1>
         <i class="fa-solid fa-bars" @click="ouvert"></i>
     </section>
