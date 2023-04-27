@@ -77,10 +77,14 @@ export default {
   top: 0;
   /* font-size: 50px; */
   left: 0;
-  width: calc(100% / 2);
+  width: 67% ;
   color: var(--noir);
   /* border: 1px solid red; */
-  /* background-color: #b9bdc2d4; */
+  /* background-color: #51D7AD; */
+  /* background-image: url('@/assets/images/pngtree-light-green-green-light-green-bloom-image_11709.jpg');
+  background-position: center;
+  background-size: cover; */
+
   height: 100%;
   text-align: center;
   padding: 5px;
@@ -93,7 +97,7 @@ export default {
 }
 .Acc-texte .card{
   /* border: 1px solid red; */
-  width: 95%;
+  width: 60%;
   /* height: 95%; */
   padding: 10px;
   background-color: var(--blanc);
@@ -139,7 +143,9 @@ ul li span{
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: AAE0CE;
+  /* background-color: 51D7AD; */ background-image: url('@/assets/images/pngtree-light-green-green-light-green-bloom-image_11709.jpg');
+  background-position: center;
+  background-size: cover;
 }
 
 .carousel-item .image{
@@ -148,11 +154,12 @@ ul li span{
     right: -16%;
     transform: translate(-50%, -50%);
     width: 33%;
-    height: 96%;
+    height: 100%;
     /* border: 1px solid red; */
     padding: 10px;
     display: flex;
     align-items: center;
+    /* background-color: white; */
 
 }
 .image img{
