@@ -33,9 +33,9 @@
                                         return curr.prix_kg;
                                     }
                                     return acc;
-                                }, "--")
+                                }, "-")
                             }}
-                            F CFA
+                           
                         </td>
                     </template>
                 </tr>

@@ -3,11 +3,11 @@
     <Header :slides="slides" :textes="textes" :titres="titres" :height="60" />
     <Corps />
     <Top />
-     <!-- $store.getters.getregion[0].nom_region  -->
   </div>
 </template>
 
 <script>
+// import axiosClient from '@/axiosClient';
 import Header from '@/components/section/header.vue';
 import Corps from '@/components/corps.vue'
 import Top from '@/components/other/icone.vue';
@@ -19,33 +19,92 @@ export default {
 
   data() {
     return {
+
+  produits:[
+    {
+        "id":1,
+        "nom":"Poudre oignon",
+        "prix":"1000",
+        "image":"images/oignon/poudre.jpg"
+    },
+    {
+        "id":2,
+        "nom":"oignon bulbe",
+        "prix":"300",
+        "image":"images/oignon/bulbe.png"
+    },
+    {
+        "id":3,
+        "nom":"Riz Nerica 3",
+        "prix":"200",
+        "image":"images/riz/nerica.jpg"
+    },
+    {
+        "id":4,
+        "nom":"Riz Nerica L36",
+        "prix":"200",
+        "image":"images/riz/nerica.jpg"
+    },
+    {
+        "id":5,
+        "nom":"Riz Nerica N56",
+        "prix":"200",
+        "image":"images/riz/nerica.jpg"
+    },
+    {
+        "id":6,
+        "nom":"Riz étuvé",
+        "prix":"200",
+        "image":"images/riz/etuve.jpg"
+    },
+    {
+        "id":7,
+        "nom":"Lamelle Sèchée",
+        "prix":"200",
+        "image":"images/oignon/seche.png"
+    },
+    {
+        "id":8,
+        "nom":"Farine de riz",
+        "prix":"200",
+        "image":"images/riz/farine.png"
+    },
+    {
+        "id":9,
+        "nom":"Long grain",
+        "prix":"200",
+        "image":"images/riz/long_grain.jpg"
+    },
+    {
+        "id":10,
+        "nom":"Riz complet",
+        "prix":"200",
+        "image":"images/riz/complet.png"
+    }
+
+
+],
       slides: [
-        "images/bg1.jpg",
-        "images/bg2.jpg",
-        "images/bg3.jpg",
-        "images/bg5.jpg",
-        "images/bg4.jpg",
+       
 
       ],
       textes: [
-        `Lorem ipsum dolor sit amet consectetur adipisicing.`,
-        'texte2',
-        'texte3',
-        'texte4',
-        'texte5',
+        
       ],
       titres: [
-        'Titre1',
-        'Titre2',
-        'Titre3',
-        'Titre4',
-        'Titre5',
+       
       ]
     };
   },
 
   mounted() {
+     this.slides =this.produits.map(produit => produit.image);
+   this.textes = this.produits.map(produit => produit.prix);
+   this.titres = this.produits.map(produit => produit.nom);
 
+console.log(this.slides);
+console.log( this.textes);
+console.log( this.titres);
   },
 
 

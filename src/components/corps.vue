@@ -1,11 +1,11 @@
 <template>
   <div class="container-fluid">
     <!-- section carousel debut -->
-    <section class="slide">
+    <!-- <section class="slide">
       <div class="slide-content">
         <Slide />
       </div>
-    </section>
+    </section> -->
     <!-- section description debut -->
     <section class="description" id="about">
       <Description />
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import Slide from './section/slide1.vue';
+// import Slide from './section/slide1.vue';
 import Contact from './section/contact.vue';
 import Description from './section/description.vue';
 import Magasin from './section/magasin.vue';
@@ -45,7 +45,7 @@ import Partenaire from './section/partenaire.vue';
 
 export default {
   name: 'CptCorps',
-  components: { Slide, Description, Magasin, Partenaire, Tableau, Contact, },
+  components: {  Description, Magasin, Partenaire, Tableau, Contact, },
 
   data() {
     return {

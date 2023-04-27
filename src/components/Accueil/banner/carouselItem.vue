@@ -1,6 +1,6 @@
 <template>
   <transition :name="transitionEffect">
-    <div class="carousel-item" v-show="currentSlide === index" @mouseenter="$emit('mouseenter')" @mouseout="$emit('mouseout')">
+    <div class="carousel-item" v-show="currentSlide === index" @mouseenter="$emit('mouseenter')" @mouseout="$emit('mouseout')" >
       <img :src="getImage(slide)" />
       <div class="Acc-texte">
           <h1>{{titre}}</h1>
@@ -11,9 +11,15 @@
 </template>
 
 <script>
+
 export default {
   emits: ["mouseenter", "mouseout"],
   props: ["slide", "currentSlide", "index", "direction", 'texte','titre'],
+  data() {
+    return {
+      property: 'value',
+    };
+  },
   methods:{
     getImage(path){
       try{
@@ -27,7 +33,8 @@ export default {
     transitionEffect() {
       return this.direction === "right" ? "slide-out" : "slide-in";
     },
-  },
+  }
+
 };
 </script>
 
