@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header :slides="slides" :textes="textes" :titres="titres" :height="60" />
+    <Header :slides="slides" :textes="textes" :titres="titres" :height="63" />
     <Corps />
     <Top />
   </div>
@@ -21,7 +21,7 @@ export default {
     return {
 
   produits:[
-    {
+  {
         "id":1,
         "nom":"Poudre oignon",
         "prix":"1000",

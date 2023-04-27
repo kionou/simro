@@ -1,10 +1,41 @@
 <template>
   <transition :name="transitionEffect">
     <div class="carousel-item" v-show="currentSlide === index" @mouseenter="$emit('mouseenter')" @mouseout="$emit('mouseout')" >
+      <div class="image">
       <img :src="getImage(slide)" />
+      </div>
       <div class="Acc-texte">
-          <h1>{{titre}}</h1>
-          <p>{{ texte }}</p>
+        <p>Le prix moyen dans chaque region</p>
+        <div class="card">
+          <div class="titre">
+            <p>Gamme de BULBLE</p>
+          </div>
+          <ul>
+            <li>
+              <span>Ouest</span>
+              <div style="font-weight:bold;paddin-right:10px;">100</div>
+            </li>
+            <li>
+              <span>Extreme-Nord</span>
+              <div style="font-weight:bold;paddin-right:10px;">100</div>
+            </li>
+            <li>
+              <span>Nord-Ouest</span>
+              <div style="font-weight:bold;paddin-right:10px;">100</div>
+            </li>
+            <li>
+              <span>Nord</span>
+              <div style="font-weight:bold;paddin-right:10px;">100</div>
+            </li>
+            <li>
+              <span>Centre</span>
+              <div style="font-weight:bold;paddin-right:10px;">100</div>
+            </li>
+          </ul>
+          <!-- <h1>{{titre}}</h1>
+          <p>{{ texte }}</p> -->
+        </div>
+          
       </div>
     </div>
   </transition>
@@ -44,17 +75,56 @@ export default {
   position: absolute;
   z-index: 1;
   top: 0;
-  font-size: 50px;
+  /* font-size: 50px; */
   left: 0;
-  width: calc(100% / 3);
+  width: calc(100% / 2);
   color: var(--noir);
   /* border: 1px solid red; */
-  background-color: #b9bdc2d4;
+  /* background-color: #b9bdc2d4; */
   height: 100%;
   text-align: center;
   padding: 5px;
   text-align: left;
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
   
+}
+.Acc-texte .card{
+  /* border: 1px solid red; */
+  width: 95%;
+  /* height: 95%; */
+  padding: 10px;
+  background-color: var(--blanc);
+  box-shadow: var( --shadow-small);
+}
+
+.card .titre{
+  border: 1px solid blue;
+  text-align: center;
+    padding: 6px;
+    margin-bottom: 10px;
+  
+
+}
+
+ul{
+  list-style: none;
+  vertical-align: top;
+}
+ul li{
+  text-align: right;
+    width: 100%;
+    overflow: hidden;
+    vertical-align: top;
+    /* border-bottom: 1px solid #dfdfdf; */
+    padding: 0 0 6px 5px;
+    margin: 0 0 6px -5px;
+}
+
+ul li span{
+  float: left;
 }
 .Acc-texte h1{
   font-size: 50px;
@@ -69,13 +139,29 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
+  background-color: AAE0CE;
 }
-.carousel-item img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* filter: brightness(50%); */
-  
+
+.carousel-item .image{
+  position: absolute;
+    top: 50%;
+    right: -16%;
+    transform: translate(-50%, -50%);
+    width: 33%;
+    height: 96%;
+    /* border: 1px solid red; */
+    padding: 10px;
+    display: flex;
+    align-items: center;
+
+}
+.image img{
+    width: 100%;
+    /* height: 100%; */
+    -o-object-fit: cover;
+    object-fit: cover;
+    /* filter: brightness(50%); */
+    
   
 }
 .slide-in-enter-active,

@@ -1,5 +1,5 @@
 <template>
- <div id="app" class="wrapper">
+ <!-- <div id="app" class="wrapper">
   <div class="title">
     VUE💚 select
     <div class="line"></div>
@@ -30,12 +30,18 @@
       
     </div>
   </div>
+</div> -->
+<div class="container">
+  <Test/>
+
 </div>
 </template>
 
 <script>
+import Test from '@/components/other/test.vue';
 export default {
     name: 'SimroTesr',
+    components:{Test},
 
   data() {
     return {
@@ -68,7 +74,19 @@ export default {
   } 
 };
 </script>
+<style scoped>
 
+.container{
+
+width: 100%;
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+background-color: bisque;
+}
+</style>
+<!-- 
 <style lang="css" scoped>
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
 /*
@@ -229,4 +247,4 @@ body {
   transform: rotate(180deg);
 }
 
-</style>
+</style> -->

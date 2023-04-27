@@ -118,7 +118,7 @@ export default {
   display: flex;
   justify-content: center;
   padding:  10px;
-  background-color: var(--blanc);
+  /* background-color: var(--blanc); */
 }
 .carousel-inner {
   position: relative;
