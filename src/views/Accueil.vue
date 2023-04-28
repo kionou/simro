@@ -7,7 +7,7 @@
 </template>
 
 <script>
-// import axiosClient from '@/axiosClient';
+ import axiosClient from '@/axiosClient';
 import Header from '@/components/section/header.vue';
 import Corps from '@/components/corps.vue'
 import Top from '@/components/other/icone.vue';
@@ -20,92 +20,64 @@ export default {
   data() {
     return {
 
-  produits:[
-  {
-        "id":1,
-        "nom":"Poudre oignon",
-        "prix":"1000",
-        "image":"images/oignon/poudre.jpg"
-    },
-    {
-        "id":2,
-        "nom":"oignon bulbe",
-        "prix":"300",
-        "image":"images/oignon/bulbe.png"
-    },
-    {
-        "id":3,
-        "nom":"Riz Nerica 3",
-        "prix":"200",
-        "image":"images/riz/nerica.jpg"
-    },
-    {
-        "id":4,
-        "nom":"Riz Nerica L36",
-        "prix":"200",
-        "image":"images/riz/nerica.jpg"
-    },
-    {
-        "id":5,
-        "nom":"Riz Nerica N56",
-        "prix":"200",
-        "image":"images/riz/nerica.jpg"
-    },
-    {
-        "id":6,
-        "nom":"Riz étuvé",
-        "prix":"200",
-        "image":"images/riz/etuve.jpg"
-    },
-    {
-        "id":7,
-        "nom":"Lamelle Sèchée",
-        "prix":"200",
-        "image":"images/oignon/seche.png"
-    },
-    {
-        "id":8,
-        "nom":"Farine de riz",
-        "prix":"200",
-        "image":"images/riz/farine.png"
-    },
-    {
-        "id":9,
-        "nom":"Long grain",
-        "prix":"200",
-        "image":"images/riz/long_grain.jpg"
-    },
-    {
-        "id":10,
-        "nom":"Riz complet",
-        "prix":"200",
-        "image":"images/riz/complet.png"
-    }
 
-
-],
-      slides: [
-       
-
-      ],
-      textes: [
-        
-      ],
-      titres: [
-       
-      ]
+      slides: [ ],
+      titres: [ ],
+      textes: [ ],
     };
   },
 
-  mounted() {
-     this.slides =this.produits.map(produit => produit.image);
-   this.textes = this.produits.map(produit => produit.prix);
-   this.titres = this.produits.map(produit => produit.nom);
+ async mounted() {
+  await axiosClient
+            .get('/simro/marche')
+            .then((response) => {
+              console.log('responseAcc',response.data.prix_moyen)
+              this.slides = response.data.produit.filter(function(produit) {
+               return produit.affichage_ecran === 1;
+             });
 
-console.log(this.slides);
-console.log( this.textes);
-console.log( this.titres);
-  },
+
+             var produitsAvecPrix = [];
+for (var i = 0; i < this.slides.length; i++) {
+    for (var j = 0; j < response.data.prix_moyen.length; j++) {
+        if (this.slides[i].nom_produit === response.data.prix_moyen[j].produit) {
+            produitsAvecPrix.push([ response.data.prix_moyen[j]]);
+                  
+              }
+    }
+  
+}
+
+const groupedData = produitsAvecPrix.reduce((acc, curr) => {
+    const productName = curr[0].produit;
+    if (!acc[productName]) {
+      acc[productName] = [];
+    }
+    acc[productName].push(curr[0]);
+    return acc;
+  }, {});
+  const groupedArray = Object.keys(groupedData).map((key) => {
+        return groupedData[key];
+      });
+      this.textes =  groupedArray
+   console.log('groupedData',groupedArray);
+
+
+            
+})
+
+
+
+
+
+},
+    
+
+
+
+
+  
+  
 
 
   methods: {

@@ -3,7 +3,7 @@
     <div class="carousel-inner">
       <carousel-indicators v-if="indicators" :total="slides.length" :current-index="currentSlide" @switch="switchSlide($event)"></carousel-indicators>
       <carousel-item v-for="(slide, index) in slides" :slide="slide" :key="`item-${index}`" :current-slide="currentSlide" :index="index" :direction="direction"
-       :texte="textes[index]" :titre="titres[index]" @mouseenter="stopSlideTimer" @mouseout="startSlideTimer"></carousel-item>
+       :texte="textes[index]" :titre="titres[index]" @mouseenter="stopSlideTimer" @mouseout="startSlideTimer" ></carousel-item>
       <carousel-controls v-if="controls" @prev="prev" @next="next"></carousel-controls>
     </div>
   </div>

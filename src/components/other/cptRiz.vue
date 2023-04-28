@@ -1,12 +1,12 @@
 <template>
     <section class="table__header">
-        <h1 v-if="toggle">Le prix des produits <span class="produits"> {{ produits[0]?.famille_produit }}</span> dans la
+        <h1 v-if="toggle">Le prix <span class="produits">(EN FCFA)</span> des produits <span class="produits"> {{ produits[0]?.famille_produit }}</span> dans la
             Region <span class="produits">{{ selected.nom_region }}</span> </h1>
         <i class="fa-solid fa-bars" @click="ouvert"></i>
     </section>
     <div class="alert" v-if="alertRegion">
         {{ alertRegion }}
-    </div>
+    </div> 
     <section class="table__body" v-else>
         <table>
             <thead>
@@ -30,12 +30,12 @@
                             {{
                                 prixproduit.produits.reduce((acc, curr) => {
                                     if (curr.produit === produit.nom_produit) {
-                                        return curr.prix_kg;
+                                        return curr.prix_kg.toFixed(0) ;
                                     }
                                     return acc;
                                 }, "-")
                             }}
-                           
+
                         </td>
                     </template>
                 </tr>
@@ -310,4 +310,5 @@ tbody tr.hide td p {
     color: var(--red);
 
 
-}</style>
+}
+</style>

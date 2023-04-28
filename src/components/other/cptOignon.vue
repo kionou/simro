@@ -1,7 +1,7 @@
 <template>
   
        
-                <section class="table__header">
+     <section class="table__header">
             <h1> Marché de Pitoa </h1> 
             <p>Les informations sur le marché de Pito</p>  
             <div class="btn">
