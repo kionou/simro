@@ -38,15 +38,28 @@ export default {
 
 
              var produitsAvecPrix = [];
-    for (var i = 0; i < this.slides.length; i++) {
-    for (var j = 0; j < response.data.prix_moy.length; j++) {
-        if (this.slides[i].nom_produit === response.data.prix_moy[j].produit) {
+             var ppp = []
+           for (var i = 0; i < this.slides.length; i++) {
+           for (var j = 0; j < response.data.prix_moy.length; j++) {
+           if (this.slides[i].nom_produit === response.data.prix_moy[j].produit) {
             produitsAvecPrix.push([ response.data.prix_moy[j]]);
+            ppp.push(this.slides[j * i]);
+
                   
               }
     }
+}
+var ttt = []
+for (let index = 0; index < ppp.length; index++) {
+  if (ppp[index] !== undefined) {
+    ttt.push(ppp[index]);
+  }
   
 }
+console.log('fffffff',ttt);
+
+console.log('fahaha',ppp);
+
 
 const groupedData = produitsAvecPrix.reduce((acc, curr) => {
     const productName = curr[0].produit;

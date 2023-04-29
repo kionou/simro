@@ -1,5 +1,5 @@
 <template>
-  <div v-if="texte">
+  <div v-if="slide && texte">
     <transition :name="transitionEffect">
     <div class="carousel-item" v-show="currentSlide === index" @mouseenter="$emit('mouseenter')" @mouseout="$emit('mouseout')" >
       <div class="image">
@@ -84,9 +84,7 @@
    
   </transition>
   </div>
-  <div v-else>
-    <transition :name="transitionEffect" style="display: none;"></transition>
-  </div>
+
  
 </template>
 
@@ -217,7 +215,9 @@ ul li span{
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #6fc7b8;
+  border: 1px solid blue;
+  overflow: hidden;
+  /* background-color: #6fc7b8; */
    /* background-image: url('@/assets/images/pngtree-light-green-green-light-green-bloom-image_11709.jpg');
   background-position: center;
   background-size: cover; */
@@ -230,8 +230,8 @@ ul li span{
     transform: translate(-50%, -50%);
     width: 33%;
     height: 100%;
-    /* border: 1px solid red; */
-    padding: 10px;
+    border: 1px solid red;
+    padding: 2px;
     display: flex;
     align-items: center;
     /* background-color: white; */
@@ -239,9 +239,9 @@ ul li span{
 }
 .image img{
     width: 100%;
-    /* height: 100%; */
+    height: 100%;
     -o-object-fit: cover;
-    object-fit: cover;
+    /* object-fit: cover; */
     /* filter: brightness(50%); */
     
   

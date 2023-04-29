@@ -1,8 +1,7 @@
 <template>
     <div>
-        <Carousel :slides="slides" :interval="5000" :textes="textes" :titres="titres" indicators class="carou" :style="{
-            height: height + 'vh'
-        }" />
+        <Carousel :slides="slides" :interval="5000" :textes="textes" :titres="titres" indicators class="carou" 
+         />
     </div>
 </template>
 
@@ -25,9 +24,12 @@ export default {
 <style>
 .Acc-headd {
     z-index: 998;
+  
 }
 
 .carou {
     object-fit: cover;
+    height: 48vh;
+    border: 1px solid red;
 }
 </style>
