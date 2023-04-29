@@ -31,7 +31,7 @@ export default {
     },
     interval: {
       type: Number,
-      default: 5000,
+      default: 9999999999000,
     },
     textes: {
       type: Array,

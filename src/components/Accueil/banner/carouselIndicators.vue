@@ -29,7 +29,7 @@
     width: 15px;
     height: 15px;
     border: none;
-    background: #fff;
+    background: hsla(260,11%,85%,1);
     opacity: 0.5;
     margin: 0.2em;
     border-radius: 50%;

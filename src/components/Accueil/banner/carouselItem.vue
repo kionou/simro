@@ -38,7 +38,7 @@
         </div> -->
 <div class="tableau">
   <section class="table__header">
-    <h1 >Le prix en <span class="produits"> (FCFA)</span> moyen du produit <span class="produits"> {{ slide.nom_produit }}</span> dans chaque la Region .</h1> 
+    <h1 >Le prix moyen <span class="produits"> (en FCFA)</span> par Region du produit <span class="produits"> {{ slide.nom_produit }}</span>.</h1> 
             
         </section>
 <!-- <template > -->
@@ -46,10 +46,18 @@
             <table>
                 <thead>
                     <tr>
-                        <th> Regions </th>
-                        <th> Prix moyen </th>
-                        <th> Marché visité </th>
-                        <th> Dernière date </th>
+                        <th rowspan="2"> Regions </th>
+                        <th colspan="3"> Prix (FCFA) </th>
+                        <th rowspan="2"> Marchés visités </th>
+                        <th rowspan="2"> Dernière date </th>
+                        
+                     
+                    </tr>
+                    <tr>
+                        <th > Min </th>
+                        <th>  Max </th>
+                        <th>  Moyen </th>
+
                         
                      
                     </tr>
@@ -57,6 +65,14 @@
                 <tbody>
    <tr v-for="(localite, index) in localites" :key="index">
   <td>{{ localite.nom_region}}</td>
+  <td v-if="texte.some(item => item.region === localite.nom_region)">
+    {{ texte.find(item => item.region === localite.nom_region).prix_moy.toFixed(0) }}
+  </td>
+  <td v-else>-</td>
+  <td v-if="texte.some(item => item.region === localite.nom_region)">
+    {{ texte.find(item => item.region === localite.nom_region).prix_moy.toFixed(0) }}
+  </td>
+  <td v-else>-</td>
   <td v-if="texte.some(item => item.region === localite.nom_region)">
     {{ texte.find(item => item.region === localite.nom_region).prix_moy.toFixed(0) }}
   </td>
@@ -171,6 +187,19 @@ margin: 0.5rem auto;
     font-size: 12px;
 
 }
+thead th{
+  padding: 6px;
+  border: 1px solid;
+}
+table, th, td {
+    padding: 7px;
+
+}
+@media (max-width: 1000px) {
+    td:not(:first-of-type) {
+        min-width: 7rem;
+    }
+}
 .Acc-texte .card{
   /* border: 1px solid red; */
   width: 60%;
@@ -215,9 +244,9 @@ ul li span{
   left: 0;
   right: 0;
   bottom: 0;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   overflow: hidden;
-  /* background-color: #6fc7b8; */
+  background-color: var(--blanc);
    /* background-image: url('@/assets/images/pngtree-light-green-green-light-green-bloom-image_11709.jpg');
   background-position: center;
   background-size: cover; */
@@ -228,9 +257,9 @@ ul li span{
     top: 50%;
     right: -16%;
     transform: translate(-50%, -50%);
-    width: 33%;
+    width: 32%;
     height: 100%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     padding: 2px;
     display: flex;
     align-items: center;
@@ -240,7 +269,6 @@ ul li span{
 .image img{
     width: 100%;
     height: 100%;
-    -o-object-fit: cover;
     /* object-fit: cover; */
     /* filter: brightness(50%); */
     

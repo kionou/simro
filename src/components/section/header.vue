@@ -30,6 +30,6 @@ export default {
 .carou {
     object-fit: cover;
     height: 48vh;
-    border: 1px solid red;
+
 }
 </style>
