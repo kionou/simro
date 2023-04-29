@@ -8,6 +8,9 @@ export default {
   SET_ALLPRIX(state, data) {
     state.prixAll = data;
   },
+  SET_ALLPRIX_MOY(state, data) {
+    state.prix_moyAll = data;
+  },
   SET_ALLPRODUIT(state, data) {
     state.produitAll = data;
   },

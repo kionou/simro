@@ -31,17 +31,17 @@ export default {
   await axiosClient
             .get('/simro/marche')
             .then((response) => {
-              console.log('responseAcc',response.data.prix_moyen)
+              console.log('responseAcc',response.data.prix_moy)
               this.slides = response.data.produit.filter(function(produit) {
                return produit.affichage_ecran === 1;
              });
 
 
              var produitsAvecPrix = [];
-for (var i = 0; i < this.slides.length; i++) {
-    for (var j = 0; j < response.data.prix_moyen.length; j++) {
-        if (this.slides[i].nom_produit === response.data.prix_moyen[j].produit) {
-            produitsAvecPrix.push([ response.data.prix_moyen[j]]);
+    for (var i = 0; i < this.slides.length; i++) {
+    for (var j = 0; j < response.data.prix_moy.length; j++) {
+        if (this.slides[i].nom_produit === response.data.prix_moy[j].produit) {
+            produitsAvecPrix.push([ response.data.prix_moy[j]]);
                   
               }
     }

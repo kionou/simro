@@ -1,5 +1,6 @@
 <template>
-  <transition :name="transitionEffect">
+  <div v-if="texte">
+    <transition :name="transitionEffect">
     <div class="carousel-item" v-show="currentSlide === index" @mouseenter="$emit('mouseenter')" @mouseout="$emit('mouseout')" >
       <div class="image">
       <img :src="slide.image" />
@@ -37,7 +38,7 @@
         </div> -->
 <div class="tableau">
   <section class="table__header">
-    <h1 >Le prix moyen du produit <span class="produits"> {{ slide.nom_produit }}</span> dans chaque la Region en <span class="produits"> (FCFA)</span>  </h1> 
+    <h1 >Le prix en <span class="produits"> (FCFA)</span> moyen du produit <span class="produits"> {{ slide.nom_produit }}</span> dans chaque la Region .</h1> 
             
         </section>
 <!-- <template > -->
@@ -54,20 +55,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(region, index) in regions" :key="index">
-  <td>{{ region.nom_region }}</td>
-  <td v-if="texte.some(item => item.region === region.nom_region)">
-    {{ texte.find(item => item.region === region.nom_region).prix_moy.toFixed(0) }}
+   <tr v-for="(localite, index) in localites" :key="index">
+  <td>{{ localite.nom_region}}</td>
+  <td v-if="texte.some(item => item.region === localite.nom_region)">
+    {{ texte.find(item => item.region === localite.nom_region).prix_moy.toFixed(0) }}
   </td>
-  <td v-else>0</td>
-  <td v-if="texte.some(item => item.region === region.nom_region)">
-    {{ texte.find(item => item.region === region.nom_region).nb_marche }}
+  <td v-else>-</td>
+  <td v-if="texte.some(item => item.region === localite.nom_region)">
+    {{ texte.find(item => item.region === localite.nom_region).nb_marche }}
   </td>
-  <td v-else>0</td>
-  <td v-if="texte.some(item => item.region === region.nom_region)">
-    {{ texte.find(item => item.region === region.nom_region).dernier_date }}
+  <td v-else>-</td>
+  <td class="date" v-if="texte.some(item => item.region === localite.nom_region)">
+    {{ texte.find(item => item.region === localite.nom_region).dernier_date }}
   </td>
-  <td v-else>0</td>
+  <td v-else>-</td>
 </tr>
                 </tbody>
             </table>
@@ -82,6 +83,11 @@
     </div>
    
   </transition>
+  </div>
+  <div v-else>
+    <transition :name="transitionEffect" style="display: none;"></transition>
+  </div>
+ 
 </template>
 
 <script>
@@ -91,7 +97,7 @@ export default {
   props: ["slide", "currentSlide", "index", "direction", 'texte','titre'],
   data() {
     return {
-      regions: '',
+      localites: '',
       
     };
   },
@@ -115,7 +121,7 @@ export default {
             .get('/simro/marche')
             .then((response) => {
               console.log('responseregion',response.data.region)
-              this.regions = response.data.region
+              this.localites = response.data.region
              
             
             })

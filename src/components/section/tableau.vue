@@ -109,7 +109,7 @@ export default {
         await axiosClient
             .get('/simro/marche')
             .then((response) => {
-                console.log('response',response)
+                console.log('responsejjj',response)
                 this.items = response.data.gamme
                 this.initialProduit = response.data.gamme[0].nom_famille_produit
                 const produit = response.data.produit
