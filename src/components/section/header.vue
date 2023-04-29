@@ -29,7 +29,15 @@ export default {
 
 .carou {
     object-fit: cover;
-    height: 48vh;
+    height: 315px;
 
+}
+
+@media (max-width: 500px) {
+    .carou {
+    
+    height: 350px;
+
+}
 }
 </style>

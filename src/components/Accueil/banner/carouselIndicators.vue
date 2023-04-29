@@ -22,7 +22,7 @@
     position: absolute;
     transform: translateX(-50%);
     left: 50%;
-    bottom: 1.5em;
+    bottom: -2px;
     z-index: 2;
   }
   .carousel-indicator-item {

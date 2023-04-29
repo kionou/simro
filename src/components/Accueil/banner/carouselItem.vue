@@ -6,42 +6,12 @@
       <img :src="slide.image" />
       </div>
       <div class="Acc-texte">
-        <!-- <p>Le prix moyen dans chaque region</p> -->
-        <!-- <div class="card">
-          <div class="titre">
-            <p>Gamme de BULBLE</p>
-          </div>
-          <ul>
-            <li>
-              <span>Ouest</span>
-              <div style="font-weight:bold;paddin-right:10px;">100</div>
-            </li>
-            <li>
-              <span>Extreme-Nord</span>
-              <div style="font-weight:bold;paddin-right:10px;">100</div>
-            </li>
-            <li>
-              <span>Nord-Ouest</span>
-              <div style="font-weight:bold;paddin-right:10px;">100</div>
-            </li>
-            <li>
-              <span>Nord</span>
-              <div style="font-weight:bold;paddin-right:10px;">100</div>
-            </li>
-            <li>
-              <span>Centre</span>
-              <div style="font-weight:bold;paddin-right:10px;">100</div>
-            </li>
-          </ul>
-          <h1>{{titre}}</h1>
-          <p>{{ texte }}</p>
-        </div> -->
+       
 <div class="tableau">
   <section class="table__header">
     <h1 >Le prix moyen <span class="produits"> (en FCFA)</span> par Region du produit <span class="produits"> {{ slide.nom_produit }}</span>.</h1> 
             
         </section>
-<!-- <template > -->
   <section class="table__body"  >
             <table>
                 <thead>
@@ -145,21 +115,24 @@ export default {
 </script>
 
 <style scoped>
+.carousel-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  background-color: var(--blanc);
+
+}
 
 .Acc-texte{
   position: absolute;
   z-index: 1;
   top: 0;
-  /* font-size: 50px; */
   left: 0;
   width: 67% ;
   color: var(--noir);
-  /* border: 1px solid red; */
-  /* background-color: #51D7AD; */
-  /* background-image: url('@/assets/images/pngtree-light-green-green-light-green-bloom-image_11709.jpg');
-  background-position: center;
-  background-size: cover; */
-
   height: 100%;
   text-align: center;
   padding: 5px;
@@ -168,11 +141,13 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    /* border: 1px solid red; */
   
 }
 .tableau{
 /* border: 1px solid blue; */
 width: 100%;
+/* height:270px; */
   box-shadow: var( --shadow-small);
 background-color: var(--blanc);
 
@@ -182,10 +157,15 @@ background-color: var(--blanc);
 
 max-height: none;
 margin: 0.5rem auto;
+max-height: calc(100% - 2.6rem);
+}
+.table__header {
+
+padding:10px 5px 0;
+
 }
 .table__header h1 {
     font-size: 12px;
-
 }
 thead th{
   padding: 6px;
@@ -194,62 +174,6 @@ thead th{
 table, th, td {
     padding: 7px;
 
-}
-@media (max-width: 1000px) {
-    td:not(:first-of-type) {
-        min-width: 7rem;
-    }
-}
-.Acc-texte .card{
-  /* border: 1px solid red; */
-  width: 60%;
-  /* height: 95%; */
-  padding: 10px;
-  background-color: var(--blanc);
-  box-shadow: var( --shadow-small);
-}
-
-.card .titre{
-  border: 1px solid blue;
-  text-align: center;
-    padding: 6px;
-    margin-bottom: 10px;
-  
-
-}
-
-ul{
-  list-style: none;
-  vertical-align: top;
-}
-ul li{
-  text-align: right;
-    width: 100%;
-    overflow: hidden;
-    vertical-align: top;
-    /* border-bottom: 1px solid #dfdfdf; */
-    padding: 0 0 6px 5px;
-    margin: 0 0 6px -5px;
-}
-
-ul li span{
-  float: left;
-}
-
-
-
-.carousel-item {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  /* border: 1px solid blue; */
-  overflow: hidden;
-  background-color: var(--blanc);
-   /* background-image: url('@/assets/images/pngtree-light-green-green-light-green-bloom-image_11709.jpg');
-  background-position: center;
-  background-size: cover; */
 }
 
 .carousel-item .image{
@@ -263,12 +187,13 @@ ul li span{
     padding: 2px;
     display: flex;
     align-items: center;
-    /* background-color: white; */
+
 
 }
 .image img{
     width: 100%;
-    height: 100%;
+    /* border:1px solid blue; */
+    height:60% ;
     /* object-fit: cover; */
     /* filter: brightness(50%); */
     
@@ -293,20 +218,32 @@ ul li span{
   transform: translateX(-100%);
 }
 
-@media (max-width:768px) {
-  .Acc-texte{
-    left: 0;
-    width: 100%;
-    z-index: 9;
-    bottom: 0;
-    height: 27%;
-    top: auto;
+@media (max-width: 1000px) {
+    td:not(:first-of-type) {
+        min-width: 7rem;
+    }
+}
+
+@media (max-width: 960px) {
+    td:not(:first-of-type) {
+        min-width: 4rem;
+    }
+}
+
+@media (max-width: 800px) {
+  .carousel-item .image{
+display: none;
+  
   }
-  .Acc-texte h1{
-  font-size: 20px;
+  .Acc-texte{
+  
+  width: 100%;
+  }
 }
-.Acc-texte p{
-  font-size: 15px;
-}
+
+@media (max-width: 600px) {
+  td:not(:first-of-type) {
+        min-width: 0rem;
+    }
 }
 </style>
