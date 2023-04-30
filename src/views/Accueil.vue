@@ -32,6 +32,7 @@ export default {
             .get('/simro/marche')
             .then((response) => {
               console.log('responseAcc',response.data.prix_moy)
+              this.titres = response.data.region
               this.slides = response.data.produit.filter(function(produit) {
                return produit.affichage_ecran === 1;
              });

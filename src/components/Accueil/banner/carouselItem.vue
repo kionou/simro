@@ -4,6 +4,7 @@
     <div class="carousel-item" v-show="currentSlide === index" @mouseenter="$emit('mouseenter')" @mouseout="$emit('mouseout')" >
       <div class="image">
       <img :src="slide.image" />
+      <!-- {{ titre }} -->
       </div>
       <div class="Acc-texte">
        
@@ -183,7 +184,7 @@ table, th, td {
     transform: translate(-50%, -50%);
     width: 32%;
     height: 88%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     padding: 2px;
     display: flex;
     align-items: center;
@@ -192,9 +193,12 @@ table, th, td {
 
 }
 .image img{
-    width: 230px;
-    border:1px solid blue;
+    width: 250px;
+    /* border:5px solid hsla(240,7%,97%,1); */
+    border: 1px solid blue;
     height:230px ;
+  /* box-shadow: var( --shadow-small); */
+
     /* object-fit: cover; */
     /* filter: brightness(50%); */
     
