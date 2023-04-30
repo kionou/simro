@@ -182,18 +182,19 @@ table, th, td {
     right: -16%;
     transform: translate(-50%, -50%);
     width: 32%;
-    height: 100%;
-    /* border: 1px solid red; */
+    height: 88%;
+    border: 1px solid red;
     padding: 2px;
     display: flex;
     align-items: center;
+    justify-content: center;
 
 
 }
 .image img{
-    width: 100%;
-    /* border:1px solid blue; */
-    height:60% ;
+    width: 230px;
+    border:1px solid blue;
+    height:230px ;
     /* object-fit: cover; */
     /* filter: brightness(50%); */
     
