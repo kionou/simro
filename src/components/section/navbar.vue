@@ -96,7 +96,7 @@ export default {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  padding: 10px 0 0 10px;
+  padding: 10px 0 ;
   transition: all 0.5s ease-in-out;
 }
 
@@ -201,6 +201,7 @@ hr{
     width: 100px;
 
   }
+
 }
 
 

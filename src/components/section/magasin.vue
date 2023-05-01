@@ -1,138 +1,135 @@
 <template>
-    
-        <div class="container">
-            <div class="magasin-content">
-                <div class="texte">
+    <div class="container">
+        <div class="magasin-content">
+            <div class="texte">
 
-                    <div class="select">
-                        <input class="effect-6" type="text" placeholder="Magasin ou Region...">
-                        <span class="focus-border"></span>
+                <div class="select">
+                    <input class="effect-6" type="text" placeholder="Magasin ou Region...">
+                    <span class="focus-border"></span>
+                </div>
+                <div class="select" v-for="(marker, index) in markers" :key="index" @click="showPopup(marker)">
+                    <div @click="toggleSelect(index)" class="button">
+                        <span>Magasin {{ marker.nom }}</span>
+                        <span class="icon material-symbols-outlined " :class="marker.show ? 'close' : ''">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </span>
                     </div>
-                    <div class="select" v-for="(marker, index) in markers" :key="index" @click="showPopup(marker)" >
-                        <div   @click="toggleSelect(index)" class="button">
-                            <span>Magasin {{ marker.nom }}</span>
-                            <span class="icon material-symbols-outlined " :class="marker.show ? 'close' : ''">
-                                <i class="fa-solid fa-chevron-down"></i>
-                            </span>
-                        </div>
-                        <div :class="`select-block ${marker.show ? 'open' : ''}`">
-                            <div class="scroll">
-                                <div class="content-header">
-                                    <div class="content">
-                                        <p>Region:</p>
-                                        <span>{{ marker.localite }}</span>
-                                    </div>
-                                    <div class="content">
-                                        <p>Collecteur:</p>
-                                        <span>{{ marker.collecteur }}</span>
-                                    </div>
-                                    <div class="content">
-                                        <p>Description:</p>
-                                        <span>{{ marker.description }}</span>
-                                    </div>
+                    <div :class="`select-block ${marker.show ? 'open' : ''}`">
+                        <div class="scroll">
+                            <div class="content-header">
+                                <div class="content">
+                                    <p>Region:</p>
+                                    <span>{{ marker.localite }}</span>
+                                </div>
+                                <div class="content">
+                                    <p>Collecteur:</p>
+                                    <span>{{ marker.collecteur }}</span>
+                                </div>
+                                <div class="content">
+                                    <p>Description:</p>
+                                    <span>{{ marker.description }}</span>
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                 </div>
 
-                <div class="maps">
-                        <div class="map-wrap">
-      <a href="https://www.maptiler.com" class="watermark"><img
-          src="https://api.maptiler.com/resources/logo.svg" alt="MapTiler logo"/></a>
-      <div class="map" ref="mapContainer"></div>
-     
-    </div>
-                </div>
             </div>
 
+            <div class="maps">
+                <div class="map-wrap">
+                    <a href="https://www.maptiler.com" class="watermark"><img
+                            src="https://api.maptiler.com/resources/logo.svg" alt="MapTiler logo" /></a>
+                    <div class="map" ref="mapContainer"></div>
+
+                </div>
+            </div>
         </div>
 
+    </div>
 </template>
 
 <script>
 
 import { Map, NavigationControl, Marker, Popup } from 'maplibre-gl';
 import { shallowRef, onMounted, onUnmounted, markRaw } from 'vue';
-// import axios from 'axios';
 import axiosClient from '@/axiosClient';
 export default {
     name: 'CPtMagasin',
     components: {
-        
+
     },
 
     data() {
         return {
             show: false,
             magasins: '',
-            marker:''
+            marker: ''
         };
     },
 
-    setup () {
-    const mapContainer = shallowRef(null);
-    const map = shallowRef(null);
-    const markers = shallowRef([]);
-    onMounted(async () => {
-      const apiKey = 'R0tHx9tGeRGXSyvwlX0q';
-      const initialState = { lng: 11.52, lat: 3.91, zoom: 10 };
+    setup() {
+        const mapContainer = shallowRef(null);
+        const map = shallowRef(null);
+        const markers = shallowRef([]);
+        onMounted(async () => {
+            const apiKey = 'R0tHx9tGeRGXSyvwlX0q';
+            const initialState = { lng: 11.52, lat: 3.91, zoom: 10 };
 
-      map.value = markRaw(new Map({
-        container: mapContainer.value,
-        style: `https://api.maptiler.com/maps/ad28fe8c-deb1-4b20-a08e-65d8e0998fa1/style.json?key=${apiKey}`,
-        center: [initialState.lng, initialState.lat],
-        zoom: initialState.zoom
-      }));
-      map.value.addControl(new NavigationControl(), 'top-right');
+            map.value = markRaw(new Map({
+                container: mapContainer.value,
+                style: `https://api.maptiler.com/maps/ad28fe8c-deb1-4b20-a08e-65d8e0998fa1/style.json?key=${apiKey}`,
+                center: [initialState.lng, initialState.lat],
+                zoom: initialState.zoom
+            }));
+            map.value.addControl(new NavigationControl(), 'top-right');
 
-      const response = await axiosClient.get('/simro/magasin');
-      markers.value = response.data;
-      
-      markers.value.forEach(marker => {
-        marker.show = false;
-        const newMarker = new Marker({color: "#FF0000"})
-          .setLngLat([marker.longitude, marker.latitude])
-          .addTo(map.value);
+            const response = await axiosClient.get('/simro/magasin');
+            markers.value = response.data;
 
-        const popupContent = `<div><h3>Magasin ${marker.nom}</h3><p> <h4>Description:</h4> ${marker.description}</p></div>`;
-        newMarker.setPopup(new Popup().setHTML(popupContent));
-      });
-    }),
+            markers.value.forEach(marker => {
+                marker.show = false;
+                const newMarker = new Marker({ color: "#FF0000" })
+                    .setLngLat([marker.longitude, marker.latitude])
+                    .addTo(map.value);
 
-    onUnmounted(() => {
-      map.value?.remove();
-    })
+                const popupContent = `<div><h3>Magasin ${marker.nom}</h3><p> <h4>Description:</h4> ${marker.description}</p></div>`;
+                newMarker.setPopup(new Popup().setHTML(popupContent));
+            });
+        }),
 
-    function showPopup(marker) {
-        // this.markers[index].show = !this.markers[index].show;
-      const coordinates = [marker.longitude, marker.latitude];
-      map.value.flyTo({ center: coordinates, zoom: 13 });
-      new Popup()
-    .setLngLat(coordinates)
-    .setHTML(`<div><h3>Magasin ${marker.nom}</h3><p><h4>Description:</h4> ${marker.description}</p></div>`)
-    .addTo(map.value);
-if (map.value.getZoom() > 16) {
-    map.value.zoomTo(16, { duration: 500, center: coordinates });
-}
-    }
+            onUnmounted(() => {
+                map.value?.remove();
+            })
 
-    return {
-      map, mapContainer, markers,
-        showPopup
-    };
-  },
-  methods: {
-    toggleSelect(index ) {
-      console.log(this.markers[index].show);
-       
-        this.markers[index].show = !this.markers[index].show;
+        function showPopup(marker) {
+            // this.markers[index].show = !this.markers[index].show;
+            const coordinates = [marker.longitude, marker.latitude];
+            map.value.flyTo({ center: coordinates, zoom: 13 });
+            new Popup()
+                .setLngLat(coordinates)
+                .setHTML(`<div><h3>Magasin ${marker.nom}</h3><p><h4>Description:</h4> ${marker.description}</p></div>`)
+                .addTo(map.value);
+            if (map.value.getZoom() > 16) {
+                map.value.zoomTo(16, { duration: 500, center: coordinates });
+            }
+        }
+
+        return {
+            map, mapContainer, markers,
+            showPopup
+        };
     },
+    methods: {
+        toggleSelect(index) {
+            console.log(this.markers[index].show);
+
+            this.markers[index].show = !this.markers[index].show;
+        },
 
 
-}
+    }
 }
 </script>
 
@@ -158,7 +155,7 @@ if (map.value.getZoom() > 16) {
     justify-content: space-evenly;
     padding: 10px;
 
-  color: var(--blanc);
+    color: var(--blanc);
 
 }
 
@@ -170,24 +167,26 @@ if (map.value.getZoom() > 16) {
 
 
 }
+
 @media (max-width: 768px) {
     .magasin-content {
         max-width: 600px;
         width: 90%;
         flex-direction: column;
-       
+
     }
 
     .magasin-content .texte {
-    width:100%;
-    max-width:100% ;
-    display: flex;
-    align-items: center;
- 
-  
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        align-items: center;
 
+
+
+    }
 }
-}
+
 input[type="text"] {
 
     color: #333;
@@ -216,34 +215,36 @@ input[type="text"] {
 }
 
 @import '~maplibre-gl/dist/maplibre-gl.css';
-  
-  .map-wrap {
+
+.map-wrap {
     position: relative;
     width: 100%;
-    height:100%;
-  }
-  
-  .map {
+    height: 100%;
+}
+
+.map {
     position: absolute;
     width: 100%;
     height: 100%;
-  }
-  
-  .watermark {
+}
+
+.watermark {
     position: absolute;
     left: 10px;
     bottom: 10px;
     z-index: 999;
-  }
+}
 
-   .mapboxgl-popup,.maplibregl-popup {
+.mapboxgl-popup,
+.maplibregl-popup {
     top: -26px !important;
- 
-} 
 
-.mapboxgl-popup-close-button,.maplibregl-popup-close-button {
+}
+
+.mapboxgl-popup-close-button,
+.maplibregl-popup-close-button {
     border: none !important;
-    right: 4px !important;  
+    right: 4px !important;
 }
 
 

@@ -4,14 +4,13 @@
     <div class="carousel-item" v-show="currentSlide === index" @mouseenter="$emit('mouseenter')" @mouseout="$emit('mouseout')" >
       <div class="image">
       <img :src="slide.image" />
-      <!-- {{ titre }} -->
       </div>
       <div class="Acc-texte">
        
 <div class="tableau">
   <section class="table__header">
     <h1 >Le prix moyen <span class="produits"> (en FCFA)</span> par Region du produit <span class="produits"> {{ slide.nom_produit }}</span>.</h1> 
-            
+          
         </section>
   <section class="table__body"  >
             <table>
@@ -76,13 +75,12 @@
 </template>
 
 <script>
-import axiosClient from '@/axiosClient';
+
 export default {
   emits: ["mouseenter", "mouseout"],
-  props: ["slide", "currentSlide", "index", "direction", 'texte','titre'],
+  props: ["slide", "currentSlide", "index", "direction", 'texte','localites'],
   data() {
     return {
-      localites: '',
       
     };
   },
@@ -101,16 +99,7 @@ export default {
     },
   
   },
-  async mounted() {
-      await axiosClient
-            .get('/simro/marche')
-            .then((response) => {
-              console.log('responseregion',response.data.region)
-              this.localites = response.data.region
-             
-            
-            })
-    },
+
 
 };
 </script>
@@ -193,9 +182,9 @@ table, th, td {
 
 }
 .image img{
-    width: 250px;
-    /* border:5px solid hsla(240,7%,97%,1); */
-    border: 1px solid blue;
+    width: 255px;
+    border:5px solid hsla(240,7%,97%,1);
+    /* border: 1px solid blue; */
     height:230px ;
   /* box-shadow: var( --shadow-small); */
 
