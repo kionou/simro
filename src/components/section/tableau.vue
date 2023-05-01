@@ -4,7 +4,6 @@
         <div class="search_wrap search_wrap_5">
             <Select @ClickItem="getClickItem" :items="items" />
         </div>
-
         <main class="table">
             <div class="alert" v-if="alert">
                 {{ alert }}
@@ -28,13 +27,8 @@
                 </div>
                 <div class="two-section">
                     <Riz :prix="prix" :produits="produits" :alertRegion="alertRegion"  :selected="selected"/>
-                    <!-- <Oignon  /> -->
-
                 </div>
-
             </div>
-
-
         </main>
     </div>
 </template>
@@ -45,7 +39,6 @@
 // import store from '@/store'
 import axiosClient from '@/axiosClient';
 import Select from '../other/select.vue';
-// import Oignon from '../other/cptOignon.vue';
 import Riz from '../other/cptRiz.vue';
 import Loader from '../other/loader.vue';
 export default {
@@ -121,7 +114,6 @@ export default {
 
                         filteredProduit = [...filteredProduit, produit[i]];
                     }
-                    // console.log('filteredProduit',filteredProduit);
                 }
                 if (filteredProduit.length === 0) {
                     this.alert = "Il n'y a pas de produits pour le moment !"
@@ -130,15 +122,11 @@ export default {
                     this.alert = false
                 }
 
-
                 this.regions = response.data.region
-                this.selected.nom_region = response.data.region[0].nom_region
-                this.initial = response.data.region[0].nom_region
-               const prix = JSON.parse(JSON.stringify(this.$store.getters.getprix));
+                this.selected.nom_region = 'EXTREME-NORD'
+                this.initial ='EXTREME-NORD'
+                const prix = response.data.prix
            
-
-    
-
                 let filteredMarchePrix = [];
                 for (let i = 0; i < prix.length; i++) {
 
@@ -147,10 +135,11 @@ export default {
                         filteredMarchePrix = [...filteredMarchePrix, prix[i]];
                     }
                 }
+                console.log('filteredMarchePrix',filteredMarchePrix);
     const regroupedData = filteredMarchePrix.reduce((acc, curr) => {
     const { marche, produit, prix_kg, date_enquete , region } = curr;
     if (!acc[marche]) {
-      acc[marche] = { marche, produits: [{ produit, prix_kg, date_enquete  , region}] };
+      acc[marche] = { marche, produits: [{ produit, prix_kg, date_enquete , region}] };
     } else {
       acc[marche].produits.push({ produit, prix_kg, date_enquete , region });
     }
@@ -177,8 +166,6 @@ console.log('uniqueData',uniqueData);
 
                 }
 
-
-
             })
 
 
@@ -187,7 +174,6 @@ console.log('uniqueData',uniqueData);
     methods: {
 
         rech() {
-            // console.log('onjour');
             this.rechdisplay = !this.rechdisplay
         },
         getClickItem(value) {
@@ -202,7 +188,6 @@ console.log('uniqueData',uniqueData);
                 }
             }
 
-           
             if (filteredProduit.length === 0) {
     this.alert =" Il n'y a pas de produits pour le moment !"
     
@@ -228,9 +213,9 @@ console.log('uniqueData',uniqueData);
             const regroupedData = filteredMarchePrix.reduce((acc, curr) => {
     const { marche, produit, prix_kg, date_enquete ,region } = curr;
     if (!acc[marche]) {
-      acc[marche] = { marche, produits: [{ produit, prix_kg, date_enquete  , region}] };
+      acc[marche] = { marche, produits: [{ produit, prix_kg, date_enquete , region }] };
     } else {
-      acc[marche].produits.push({ produit, prix_kg, date_enquete , region });
+      acc[marche].produits.push({ produit, prix_kg , date_enquete ,region });
     }
     return acc;
   }, {});

@@ -16,8 +16,6 @@
 
                     <th> Date </th>
                     <th v-for="produit in produits" :key='produit.id'> {{ produit.nom_produit }} </th>
-
-
                 </tr>
             </thead>
             <tbody>
@@ -39,9 +37,6 @@
                         </td>
                     </template>
                 </tr>
-
-
-
             </tbody>
         </table>
     </section>

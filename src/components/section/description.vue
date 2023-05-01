@@ -1,138 +1,155 @@
 <template>
-  <div>
-    <div class="content">
-
-      <h2>{{ array1.titre_texte }}</h2>
-      <p>{{ array1.corps_texte }}</p>
-      <div class="content-card">
-        <div class="card" v-for="(texte, index) in textes" :key="index.id_texte">
-          <div class="image">
-            <img :src="texte.image" alt="">
+    <div>
+        <div class="content">
+          {{ array1 }}
+        <h2>Bienvenue A Simro</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis explicabo laboriosam vero, quis ullam aperiam, incidunt repellendus culpa est obcaecati tempora quibusdam maiores minima quisquam sed tempore harum assumenda voluptatibus!</p>
+        <div class="content-card">
+          <div class="card">
+            <div class="image">
+              <img src="@/assets/images/vision.jpg" alt="">
+            </div>
+            <h4>Nos missions</h4>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat perferendis tempore incidunt. Minima iste consequuntur facilis totam! Facilis, autem accusantium? Nisi quidem consectetur culpa asperiores nulla natus aliquid cum a!</p>
           </div>
-          <h4>{{ texte.titre_texte }}</h4>
-          <p>{{ texte.corps_texte }}</p>
-        </div>
-        <!-- <div class="card">
+          <div class="card">
             <div class="image">
               <img src="@/assets/images/vision.jpg" alt="">
             </div>
             <h4>Notre vision</h4>
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat perferendis tempore incidunt. Minima iste consequuntur facilis totam! Facilis, autem accusantium? Nisi quidem consectetur culpa asperiores nulla natus aliquid cum a!</p>
-          </div> -->
+          </div>
+          <div class="card">
+            <div class="image">
+              <img src="@/assets/images/vision.jpg" alt="">
+            </div>
+            <h4>Nos valeurs</h4>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat perferendis tempore incidunt. Minima iste consequuntur facilis totam! Facilis, autem accusantium? Nisi quidem consectetur culpa asperiores nulla natus aliquid cum a!</p>
+          </div>
+
+        </div>
+
+{{ textes }}
       </div>
     </div>
-  </div>
 </template>
 
 <script>
-import axiosClient from '@/axiosClient';
+// import axiosClient from '@/axiosClient';
 export default {
-  name: 'CptDescription',
+    name: 'CptDescription',
 
-  data() {
-    return {
-      textes: '',
-      array1: ''
-    };
-  },
+    data() {
+        return {
+            textes:'',
+            array1:''
+        };
+    },
 
+    
+    //   async mounted() {
+    //     try {
+    //   const response = await axiosClient.get('/simro/marche');
+    //   console.log('response.data.texte',response.data.texte);
+    //    this.textes = response.data.texte
+    //   this.array1 = response.data.texte.shift()
+    //   console.log(' this.array1', this.array1);
+    //   console.log('this.textes',this.textes);
 
-  async mounted() {
-    try {
-      const response = await axiosClient.get('/simro/marche');
-      console.log('response.data.texte', response.data.texte);
-      this.textes = response.data.texte
-      this.array1 = response.data.texte.shift()
-    } catch (error) {
-      console.log(error);
-    }
+          
+    //     } catch (error) {
+    //       console.log(error);
+    //     }
+  
+    // },
 
-  },
-
-  methods: {
-
-  },
+    methods: {
+        
+    },
 };
 </script>
 
 <style lang="css" scoped>
-.content {
+ .content{
   max-width: var(--max-width);
   margin: 0 auto;
   height: auto;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
 
 }
-
-.content h2 {
+ .content h2{
   text-align: center;
-  padding: 20px;
-  font-weight: bold;
-  font-size: 30px;
-  line-height: 36px;
-  text-transform: uppercase;
-  color: var(--vert);
+    padding: 20px;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 36px;
+    text-transform: uppercase;
+    color: var(--vert);
 }
-
-.content p {
+ .content p{
   padding: 10px;
   text-align: center;
+
+}
+ .content .content-card{
+width: 100%;
+height: auto;
+display: flex;
+justify-content: space-around;
+text-align: justify;
+margin-top: 10px;
+
+
 }
 
-.content .content-card {
-  width: 100%;
-  height: auto;
-  display: flex;
-  justify-content: space-around;
-  text-align: justify;
-  margin-top: 10px;
-}
-
-.content .content-card .card {
+ .content .content-card .card{
   width: 30%;
   height: 99%;
   margin: 0 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  padding: 10px;
-  border-radius: var(--raduis);
-  box-shadow: var(--shadow-medium);
+      display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding:10px;
+    border-radius: var(--raduis);
+    box-shadow: var(--shadow-medium);
 
 }
-
-.card h4 {
+.card h4{
   padding: 10px 0;
 
 }
-
-.content .content-card .card .image {
+ .content .content-card .card .image{
   width: 90px;
   height: 90px;
 
 }
-
-.content .content-card .card .image img {
+ .content .content-card .card .image img{
   width: 100%;
   height: 100%;
 }
-
 @media (max-width: 768px) {
-  .content .content-card {
+   .content .content-card{
 
-    flex-direction: column;
-    align-items: center;
+flex-direction: column;
+align-items: center;
+
+
+}
+ .content .content-card .card{
+
+width: 100%;
+max-width: 290px;
+height: 261px;
+margin:  10px;
+
+
   }
-  .content .content-card .card {
 
-    width: 100%;
-    max-width: 290px;
-    height: 261px;
-    margin: 10px;
-  }
+}
 
-}</style>
+</style>
