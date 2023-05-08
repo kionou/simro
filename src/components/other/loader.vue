@@ -1,5 +1,5 @@
-<template>
-    <div class="general_loader">
+<!-- <template>
+    <div class="general_loader" :class="{ 'hidden': !isloading }">
         <div class="pixel-spinner" :style="{
         width: width + 'px',
         height: height + 'px',
@@ -17,13 +17,14 @@ export default {
 
     data() {
         return {
+          isloading: false,
             
         };
     },
 
     mounted() {
-        
-    },
+ 
+  },
 
     methods: {
         
@@ -35,18 +36,35 @@ export default {
 
     .general_loader{
     width: 100%;
-    height: 125%;
+    height: 100%;
     z-index: 999;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    position: absolute;
+    position: fixed;
     background-color: #00000038;
     left: 0;
-    top: -96px;
-    bottom: 27px;
+    top: 0;
+    bottom: 0;
     right: 0;
     }
+.general_loader.hidden {
+  animation-name: loader;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  }
+  @keyframes loader {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(100%, 100%);
+  }
+}
+
     .pixel-spinner {
     margin: 10px auto;
     display: flex;
@@ -108,4 +126,58 @@ export default {
   }
 
    
+</style> -->
+<template>
+  <div class="loader-container">
+    <div class="loader-circle"></div>
+  </div>
+</template>
+<script>
+export default {
+name:'CptZ'
+
+
+}
+
+</script>
+
+<style>
+  .loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+  }
+
+  .loader-circle {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    border-top-color: transparent;
+    animation: spin 1s ease-in-out infinite;
+  }
+
+  .loader-container.leave {
+  opacity: 0;
+}
+
+.loader-container.leave-active {
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  transform: translateY(-100%);
+}
+
+
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
 </style>

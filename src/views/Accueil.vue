@@ -1,13 +1,22 @@
 <template>
-  <div>
-    <Header :slides="slides" :textes="textes" :titres="titres" :height="63" />
+
+<div>
+    <Loader v-if="isLoading" ></Loader>
+    <div v-show="!isLoading">
+      <Header :slides="slides" :textes="textes" :titres="titres" :height="63" />
     <Corps />
     <Top />
+    </div>
   </div>
+
+ 
+ 
+  
 </template>
 
 <script>
 import axiosClient from '@/axiosClient';
+import Loader from '@/components/other/loader.vue';
 import Header from '@/components/section/header.vue';
 import Corps from '@/components/corps.vue';
 import Top from '@/components/other/icone.vue';
@@ -16,6 +25,7 @@ export default {
   name: 'ViewsAccueil',
   components: {
     Header,
+    Loader,
     Corps,
     Top
   },
@@ -24,13 +34,18 @@ export default {
     return {
       slides: [],
       titres: [],
-      textes: []
+      textes: [],
+      isLoading: false,
+ 
+  
     };
   },
 
   async mounted() {
     try {
+      //  document.body.classList.add('loading');
       const response = await axiosClient.get('/simro/marche');
+      console.log("eeee",response.data.region);
       this.titres = response.data.region;
       
       const array1 = response.data.produit.filter((produit) => produit.affichage_ecran === 1);
@@ -62,9 +77,26 @@ export default {
       });
 
       this.textes = groupedArray;
+       this.isLoading = false
+      // document.body.classList.remove('loading');
     } catch (error) {
       console.error(error);
     }
-  }
+  },
+  methods: {
+   
+  },
+
+ 
+
 };
 </script>
+
+<style>
+body.loading {
+  overflow: hidden; 
+  transition:  3s ease-in-out; 
+}
+
+
+</style>

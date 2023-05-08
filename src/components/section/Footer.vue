@@ -11,8 +11,8 @@
       <nav>
         <ul class="menu">
           <li><router-link class="Acc-lien" to="#">Accueil</router-link></li>
-          <li><router-link to="/#magasin" class="Acc-lien">Magasin</router-link></li>
           <li><router-link to="/#stock" class="Acc-lien">Prix</router-link></li>
+          <li><router-link to="/#magasin" class="Acc-lien">Magasin</router-link></li>
           <li><router-link to="/#partenaire" class="Acc-lien">Partenaires</router-link></li>
           <li><router-link to="/#contact" class="Acc-lien">Contact</router-link></li>
         </ul>

@@ -86,6 +86,7 @@ export default {
             map.value.addControl(new NavigationControl(), 'top-right');
 
             const response = await axiosClient.get('/simro/magasin');
+            console.log('magasin',response.data);
             markers.value = response.data;
 
             markers.value.forEach(marker => {

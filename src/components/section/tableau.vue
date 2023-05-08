@@ -123,8 +123,8 @@ export default {
                 }
 
                 this.regions = response.data.region
-                this.selected.nom_region = 'EXTREME-NORD'
-                this.initial ='EXTREME-NORD'
+                this.selected.nom_region = response.data.region[0].nom_region
+                this.initial = response.data.region[0].nom_region
                 const prix = response.data.prix
            
                 let filteredMarchePrix = [];

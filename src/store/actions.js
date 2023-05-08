@@ -3,7 +3,7 @@
  export default{
 async simroAll({ commit }) {
     try {
-      const data = await  axiosClient.get('/simro/')
+      const data = await  axiosClient.get('/simro/marche')
       commit("SET_ALLGAMME", data.data.gamme);
       commit("SET_ALLMARCHE", data.data.marche);
       commit("SET_ALLPRIX", data.data.prix);

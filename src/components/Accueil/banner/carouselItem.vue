@@ -20,27 +20,22 @@
                         <th colspan="3"> Prix (FCFA) </th>
                         <th rowspan="2"> Marchés visités </th>
                         <th rowspan="2"> Dernière date </th>
-                        
-                     
                     </tr>
                     <tr>
                         <th > Min </th>
                         <th>  Max </th>
                         <th>  Moyen </th>
-
-                        
-                     
                     </tr>
                 </thead>
                 <tbody>
    <tr v-for="(localite, index) in localites" :key="index">
   <td>{{ localite.nom_region}}</td>
   <td v-if="texte.some(item => item.region === localite.nom_region)">
-    {{ texte.find(item => item.region === localite.nom_region).prix_moy.toFixed(0) }}
+    {{ texte.find(item => item.region === localite.nom_region).prix_min.toFixed(0) }}
   </td>
   <td v-else>-</td>
   <td v-if="texte.some(item => item.region === localite.nom_region)">
-    {{ texte.find(item => item.region === localite.nom_region).prix_moy.toFixed(0) }}
+    {{ texte.find(item => item.region === localite.nom_region).prix_max.toFixed(0) }}
   </td>
   <td v-else>-</td>
   <td v-if="texte.some(item => item.region === localite.nom_region)">

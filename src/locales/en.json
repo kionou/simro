@@ -1,0 +1,7 @@
+{
+    "hello": "Hello",
+    "world": "World",
+    "titre_texte": {
+      "greeting": "Hello, {name}!"
+   }   
+  }

@@ -15,10 +15,26 @@
       </div>
       <ul class="Acc-menu">
         <li><router-link to="/" class="Acc-lien">Accueil</router-link></li>
-        <li><router-link to="/#magasin" class="Acc-lien">Magasin</router-link></li>
         <li><router-link to="/#stock" class="Acc-lien">Prix</router-link></li>
+        <li><router-link to="/#magasin" class="Acc-lien">Magasin</router-link></li>
         <li><router-link to="/#partenaire" class="Acc-lien">Partenaires</router-link></li>
         <li><router-link to="/#contact" class="Acc-lien">Contact</router-link></li>
+        <li>
+          <select name="select" id="" @change="handleChange" v-model="lang">
+            <option value="fr">Francais</option>
+            <option value="en">Anglais</option>
+
+          </select>
+          <!-- <div class="compte-users" @click="profil">
+          <div class="profile">
+            <i class="fa-solid fa-language"></i>
+          </div>
+          <div class="menu">
+            <span>Francais</span>
+            <span>Anglais</span>
+          </div>
+          </div> -->
+        </li>
       </ul>
       <div class="burger">
         <div class="line1"></div>
@@ -34,9 +50,22 @@ export default {
   name: 'CptNavBar',
   data() {
     return {
+      lang: localStorage.getItem('lang') || 'fr'
 
     }
   }, methods: {
+    async profil(){
+      const toggleMenu = document.querySelector(".menu")
+        toggleMenu.classList.toggle('active')
+    },
+
+    handleChange(e){
+      console.log('rrr',e.target.value);
+    localStorage.setItem('lang',e.target.value)
+    window.location.reload()
+   
+    
+    }
 
   },
   mounted() {
@@ -46,6 +75,8 @@ export default {
       burger.classList.toggle("burger-active")
       Navmenu.classList.toggle("Acc-menu-active")
     })
+
+    
   },
   setup() {
 
@@ -258,4 +289,64 @@ hr{
     top: 0px;
   }
 
-}</style>
+}
+
+.compte-users {
+  padding: 0 5px;
+  position: relative;
+}
+.compte-users .profile {
+ margin-top: 5px;
+  cursor: pointer;
+   font-size: 20px;
+}
+.compte-users .menu {
+  position: absolute;
+  top: 26px;
+  right: 2px;
+  padding: 10px 10px;
+  background-color: var(--blanc);
+  width: 130px;
+  border-radius: 6px;
+  transition: 0.5s;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 101;
+  display: flex;
+   flex-direction: column;
+    box-shadow: var(--shadow-medium)
+}
+.compte-users .menu.active {
+  visibility: visible;
+  opacity: 1;
+}.compte-users .menu::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: 15px;
+  width: 17px;
+  height: 17px;
+  background-color: var(--blanc);
+  transform: rotate(45deg);
+}
+
+.compte-users .menu span{
+
+
+padding: 5px 3px;
+
+
+}
+
+.compte-users .menu span:hover{
+
+background-color: #0000000b;
+cursor: pointer;
+width: 100%;
+
+
+}
+
+
+
+</style>
