@@ -3,28 +3,36 @@
         <div class="content">
           {{ array1 }}
         <h2>Bienvenue A Simro</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis explicabo laboriosam vero, quis ullam aperiam, incidunt repellendus culpa est obcaecati tempora quibusdam maiores minima quisquam sed tempore harum assumenda voluptatibus!</p>
+        <p>SIMRO, plus qu’une plateforme d’information, un véritable outil d’aide à la prise de décision de la production.</p>
         <div class="content-card">
           <div class="card">
             <div class="image">
-              <img src="@/assets/images/vision.jpg" alt="">
+              <img src="@/assets/images/mission1.jpg" alt="">
             </div>
             <h4>Nos missions</h4>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat perferendis tempore incidunt. Minima iste consequuntur facilis totam! Facilis, autem accusantium? Nisi quidem consectetur culpa asperiores nulla natus aliquid cum a!</p>
+            <p>1.	Mettre à la disposition des utilisateurs de informations de meilleure qualité sur les marchés ;</p>
+            <p>2.	Planifier en toute connaissance de cause de la production et la commercialisation des produits agricoles en connaissance de cause ; </p>
+            <p>3.	Renforcer la mise en relation des acteurs ; </p>
+            <p>4.	Améliorer la rentabilité des exploitations agricoles à travers les meilleurs prix obtenus sur le marché ; </p>
+            <p>5.	S’orienter vers des bonnes pratiques de gestion du savoir. </p>
+
+          </div> 
+          <div class="card">
+            <div class="image">
+              <img src="@/assets/images/goal.svg" alt="">
+            </div>
+            <h4>Nos valeurs</h4>
+            <p>1-	Fiabilité et impartialité : elle est le reflet des conditions des marchés ;</p>
+            <p>2-	Accessibilité : elle est disponible pour tous les intéressés ;</p>
+            <p>3-	Représentativité : elle est représentative pour le producteur et l’acheteur.</p>
+
           </div>
           <div class="card">
             <div class="image">
               <img src="@/assets/images/vision.jpg" alt="">
             </div>
             <h4>Notre vision</h4>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat perferendis tempore incidunt. Minima iste consequuntur facilis totam! Facilis, autem accusantium? Nisi quidem consectetur culpa asperiores nulla natus aliquid cum a!</p>
-          </div>
-          <div class="card">
-            <div class="image">
-              <img src="@/assets/images/vision.jpg" alt="">
-            </div>
-            <h4>Nos valeurs</h4>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat perferendis tempore incidunt. Minima iste consequuntur facilis totam! Facilis, autem accusantium? Nisi quidem consectetur culpa asperiores nulla natus aliquid cum a!</p>
+            <p>Créer un cadre où toute monde a accès aux informations de qualité sur les marchés, pour un commerce équitable. </p>
           </div>
 
         </div>
@@ -91,7 +99,7 @@ export default {
     color: var(--vert);
 }
  .content p{
-  padding: 10px;
+  padding-bottom: 5px;
   text-align: center;
 
 }
@@ -144,7 +152,7 @@ align-items: center;
 
 width: 100%;
 max-width: 290px;
-height: 261px;
+/* height: 261px; */
 margin:  10px;
 
 
