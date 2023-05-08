@@ -20,11 +20,11 @@
         <li><router-link to="/#partenaire" class="Acc-lien">Partenaires</router-link></li>
         <li><router-link to="/#contact" class="Acc-lien">Contact</router-link></li>
         <li>
-          <select name="select" id="" @change="handleChange" v-model="lang">
+          <!-- <select name="select" id="" @change="handleChange" v-model="lang">
             <option value="fr">Francais</option>
             <option value="en">Anglais</option>
 
-          </select>
+          </select> -->
           <!-- <div class="compte-users" @click="profil">
           <div class="profile">
             <i class="fa-solid fa-language"></i>
