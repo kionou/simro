@@ -7,37 +7,30 @@
         <div class="content-card">
           <div class="card">
             <div class="image">
-              <img src="@/assets/images/mission1.jpg" alt="">
-            </div>
-            <h4>Nos missions</h4>
-            <p>1.	Mettre à la disposition des utilisateurs de informations de meilleure qualité sur les marchés ;</p>
-            <p>2.	Planifier en toute connaissance de cause de la production et la commercialisation des produits agricoles en connaissance de cause ; </p>
-            <p>3.	Renforcer la mise en relation des acteurs ; </p>
-            <p>4.	Améliorer la rentabilité des exploitations agricoles à travers les meilleurs prix obtenus sur le marché ; </p>
-            <p>5.	S’orienter vers des bonnes pratiques de gestion du savoir. </p>
-
-          </div> 
-          <div class="card">
-            <div class="image">
-              <img src="@/assets/images/goal.svg" alt="">
-            </div>
-            <h4>Nos valeurs</h4>
-            <p>1-	Fiabilité et impartialité : elle est le reflet des conditions des marchés ;</p>
-            <p>2-	Accessibilité : elle est disponible pour tous les intéressés ;</p>
-            <p>3-	Représentativité : elle est représentative pour le producteur et l’acheteur.</p>
-
-          </div>
-          <div class="card">
-            <div class="image">
               <img src="@/assets/images/vision.jpg" alt="">
             </div>
             <h4>Notre vision</h4>
             <p>Créer un cadre où toute monde a accès aux informations de qualité sur les marchés, pour un commerce équitable. </p>
           </div>
+          <div class="card">
+            <div class="image">
+              <img src="@/assets/images/mission1.jpg" alt="">
+            </div>
+            <h4>Nos missions</h4>
+            <p>Mettre à la disposition des utilisateurs de informations de meilleure qualité sur les marchés ;</p>
+
+          </div> 
+         
+          <div class="card">
+            <div class="image">
+              <img src="@/assets/images/goal.svg" alt="">
+            </div>
+            <h4>Nos valeurs</h4>
+            <p>Fiabilité et impartialité : elle est le reflet des conditions des marchés ;</p>
+          </div>
+         
 
         </div>
-
-{{ textes }}
       </div>
     </div>
 </template>
