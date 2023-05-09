@@ -10,14 +10,14 @@
               <img src="@/assets/images/vision.jpg" alt="">
             </div>
             <h4>Notre vision</h4>
-            <p>Créer un cadre où toute monde a accès aux informations de qualité sur les marchés, pour un commerce équitable. </p>
+            <p>Créer une plateforme d'accès aux informations sur les produits, pour un commerce équitable. </p>
           </div>
           <div class="card">
             <div class="image">
               <img src="@/assets/images/mission1.jpg" alt="">
             </div>
             <h4>Nos missions</h4>
-            <p>Mettre à la disposition des utilisateurs de informations de meilleure qualité sur les marchés ;</p>
+            <p>Mettre à la disposition des acteurs des informations de qualité sur les marchés</p>
 
           </div> 
          
@@ -26,7 +26,7 @@
               <img src="@/assets/images/goal.svg" alt="">
             </div>
             <h4>Nos valeurs</h4>
-            <p>Fiabilité et impartialité : elle est le reflet des conditions des marchés ;</p>
+            <p>Fiabilité et impartialité : elle est le reflet des conditions des marchés</p>
           </div>
          
 

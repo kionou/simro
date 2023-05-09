@@ -172,6 +172,7 @@ export default {
     margin: .8rem auto;
     overflow: auto;
     overflow: overlay;
+    padding-bottom:10px
 }
 
 .table__body::-webkit-scrollbar {
