@@ -1,4 +1,74 @@
-{
+{ 
+"fr": {
+  "logo": "@/assets/images/france-flag.svg"
+},
+    "navbar":{
+      "accueil":"Accueil",
+      "prix":"Prix",
+      "magasin":"Magasin",
+      "partenaire":"Partenaires",
+      "contact":"Contact"
+
+    },
+    "slide":{
+      "sous_titre1":"Le prix moyen",
+      "sous_titre2":"par Region du produit",
+      "sous_titre3":" ",
+      "nb":"(EN FCFA)",
+      "region":"REGIONS",
+      "prix":"Prix (FCFA)",
+      "marche":"Marchés visités",
+      "date":"Dernière date",
+      "moyen":"moyen"
+    
+    },
+    "description":{
+      "titre":"Bienvenue A Simro",
+      "corps":"SIMRO, plus qu’une plateforme d’information, un véritable outil d’aide à la prise de décision de la production.",
+      "vision_titre":"Notre vision",
+      "vision_corps":"Créer une plateforme d'accès aux informations sur les produits, pour un commerce équitable.",
+      "mission_titre":"Nos missions",
+      "mission_corps":"Mettre à la disposition des acteurs des informations de qualité sur les marchés",
+      "valeur_titre":"Nos valeurs",
+      "valeur_corps":"Fiabilité et impartialité : elle est le reflet des conditions des marchés"
+    },
+    "prix":{
+      "titre":"Dernier prix des produits",
+      "select":"Recherchez un prodiut ou une gamme",
+      "region":"REGIONS",
+      "sous_titre1":"Le prix",
+      "sous_titre2":"des produits",
+      "sous_titre3":"dans la Region",
+      "nb":"(EN FCFA)",
+      "marche":"Marchés",
+      "date":"Date",
+      "msg_marche":"Aucun marche pour l'instant !",
+      "msg_produit":"Il n'y a pas de produits pour le moment !"
+    },
+    "magasin":{
+      "titre":"Liste des Magasins",
+      "placeholder":"Magasin ou Region...",
+      "sous_titre":"Magasin"
+    },
+    "partenaire":{
+      "titre":"Nos Partenaires",
+      "sous_titre":"Ils nous accompagnemt"
+    },
+    "contact":{
+      "titre":"contact",
+      "localite":" Rond point Cité Keur Gorgui",
+      "numero":"+237 222 89 56 23 77",
+      "email":"simro@gmail.com",
+      "jour":"Du Lundi au Vendredi",
+      "heure":" 08h00 à 18h00"
+    
+    },
+    "footer":{
+      "titre1":"Système d'Information sur les Marchés",
+      "titre2":"du Riz et de l'Oignon au Cameroun",
+      "copyright":"© 2023 Tous droits réservés, SIMRO"
+    },
+
     "hello": "Bonjour",
     "world": "Monde",
     "titre_texte": {

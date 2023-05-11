@@ -1,7 +1,6 @@
 <template>
     <section class="table__header">
-        <h1 v-if="toggle">Le prix <span class="produits">(EN FCFA)</span> des produits <span class="produits"> {{ produits[0]?.famille_produit }}</span> dans la
-            Region <span class="produits">{{ selected.nom_region }}</span> </h1>
+        <h1 v-if="toggle">{{ $t('prix.sous_titre1')}} <span class="produits">{{ $t('prix.nb')}}</span> {{ $t('prix.sous_titre2')}} <span class="produits"> {{ produits[0]?.famille_produit }}</span> {{ $t('prix.sous_titre3')}} <span class="produits">{{ selected.nom_region }}</span> </h1>
         <i class="fa-solid fa-bars" @click="ouvert"></i>
     </section>
     <div class="alert" v-if="alertRegion">
@@ -12,9 +11,9 @@
             <thead>
 
                 <tr>
-                    <th> Marchés </th>
+                    <th> {{ $t('prix.marche')}} </th>
 
-                    <th> Date </th>
+                    <th> {{ $t('prix.date')}} </th>
                     <th v-for="produit in produits" :key='produit.id'> {{ produit.nom_produit }} </th>
                 </tr>
             </thead>

@@ -13,12 +13,12 @@
 
     <!-- section tableau debut -->
     <section class="tableau" id="stock">
-      <h2>Dernier prix des produits</h2>
+      <h2>{{ $t('prix.titre')}}</h2>
       <Tableau />
     </section>
     <!-- section magasin debut -->
     <section class="magasin" id="magasin">
-      <h2>Liste des Magasins</h2>
+      <h2>{{ $t('magasin.titre')}}</h2>
       <Magasin />
     </section>
     

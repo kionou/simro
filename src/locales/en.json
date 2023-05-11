@@ -1,7 +1,74 @@
 {
-    "hello": "Hello",
-    "world": "World",
-    "titre_texte": {
-      "greeting": "Hello, {name}!"
-   }   
+  
+    "en": {
+      "logo": "@/assets/images/france-flag.svg"
+    },
+  
+  "navbar":{
+    "accueil":"Home",
+    "prix":"Price",
+    "magasin":"Store",
+    "partenaire":"Partners",
+    "contact":"Contact"
+
+  },
+  "slide":{
+    "sous_titre1":"The average price",
+    "sous_titre2":"by region of the ",
+    "sous_titre3":"product ",
+    "nb":"(IN FCFA)",
+    "region":"REGIONS",
+    "prix":"Price (FCFA)",
+    "marche":"Markets visited",
+    "date":"Last date",
+    "moyen":"average"
+  },
+  "description":{
+    "titre":"WELCOME TO SIMRO",
+    "corps":"SIMRO is more than an information platform, it is a real decision-making tool for production.",
+    "vision_titre":"Our vision",
+    "vision_corps":"Create a platform for access to product information for fair trade.",
+    "mission_titre":"Our missions",
+    "mission_corps":"To provide actors with quality information on the markets",
+    "valeur_titre":"Our values",
+    "valeur_corps":"Reliability and impartiality: it reflects market conditions"
+  },
+  "prix":{
+    "titre":"LATEST PRODUCT PRICES",
+    "select":"Search for a product or range",
+    "region":"REGIONS",
+    "sous_titre1":"THE PRICE",
+    "sous_titre2":"OF PRODUCTS",
+    "sous_titre3":"IN THE REGION",
+    "nb":"(IN CFA)",
+    "marche":"Markets",
+    "date":"Date",
+    "msg_marche":"There are no markets available at the moment !",
+    "msg_produit":"There are no products available at the moment !"
+
+  },
+  "magasin":{
+    "titre":"LIST OF STORES",
+    "placeholder":"Store or Region...",
+    "sous_titre":"Store"
+  },
+  "partenaire":{
+    "titre":"OUR PARTNERS",
+    "sous_titre":"They accompany us"
+  },
+  "contact":{
+    "titre":"contact",
+    "localite":"Roundabout Cité Keur Gorgui",
+    "numero":"+237 222 89 56 23 77",
+    "email":"simro@gmail.com",
+    "jour":"Monday to Friday",
+    "heure":"08:00 to 18:00"
+  
+  },
+  "footer":{
+    "titre1":"Market Information System",
+    "titre2":"of Rice and Onion in Cameroon",
+    "copyright":"2023 All rights reserved, SIMRO"
+  }
+      
   }

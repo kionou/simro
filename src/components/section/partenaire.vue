@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="partenaire-content">
-      <h2>Nos Partenaires</h2>
-      <p>Ils nous accompagnemt</p>
+      <h2>{{ $t('partenaire.titre')}}</h2>
+      <p>{{ $t('partenaire.sous_titre')}}</p>
       <SlidePartenaire />
     </div>
   </div>

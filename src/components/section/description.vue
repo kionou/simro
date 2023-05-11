@@ -1,23 +1,23 @@
 <template>
     <div>
         <div class="content">
-          {{ array1 }}
-        <h2>Bienvenue A Simro</h2>
-        <p>SIMRO, plus qu’une plateforme d’information, un véritable outil d’aide à la prise de décision de la production.</p>
+         
+        <h2>{{ $t('description.titre')}}</h2>
+        <p>{{ $t('description.corps')}}</p>
         <div class="content-card">
           <div class="card">
             <div class="image">
               <img src="@/assets/images/vision.jpg" alt="">
             </div>
-            <h4>Notre vision</h4>
-            <p>Créer une plateforme d'accès aux informations sur les produits, pour un commerce équitable. </p>
+            <h4>{{ $t('description.vision_titre')}}</h4>
+            <p>{{ $t('description.vision_corps')}} </p>
           </div>
           <div class="card">
             <div class="image">
               <img src="@/assets/images/mission1.jpg" alt="">
             </div>
-            <h4>Nos missions</h4>
-            <p>Mettre à la disposition des acteurs des informations de qualité sur les marchés</p>
+            <h4>{{ $t('description.mission_titre')}}</h4>
+            <p>{{ $t('description.mission_corps')}}</p>
 
           </div> 
          
@@ -25,11 +25,9 @@
             <div class="image">
               <img src="@/assets/images/goal.svg" alt="">
             </div>
-            <h4>Nos valeurs</h4>
-            <p>Fiabilité et impartialité : elle est le reflet des conditions des marchés</p>
+            <h4>{{ $t('description.valeur_titre')}}</h4>
+            <p>{{ $t('description.valeur_corps')}}</p>
           </div>
-         
-
         </div>
       </div>
     </div>

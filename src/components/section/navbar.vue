@@ -1,10 +1,9 @@
 <template>
   <nav class="Acc-nav">
     <div class="container-nav">
-      <div  class="logo">
+      <div class="logo">
         <div class="desktop">
-        <img src="@/assets/images/logo3.png" alt=""  @click="$router.push({ path: '/' })"
-                style="cursor: pointer" >
+          <img src="@/assets/images/logo3.png" alt="" @click="$router.push({ path: '/' })" style="cursor: pointer">
           <div class="texte">
             <p class="fr">Système d'Information sur les Marchés du Riz et de l'Oignon au Cameroun</p>
             <hr>
@@ -14,26 +13,24 @@
         <img src="@/assets/images/logo.png" alt="" class="mobile">
       </div>
       <ul class="Acc-menu">
-        <li><router-link to="/" class="Acc-lien">Accueil</router-link></li>
-        <li><router-link to="/#stock" class="Acc-lien">Prix</router-link></li>
-        <li><router-link to="/#magasin" class="Acc-lien">Magasin</router-link></li>
-        <li><router-link to="/#partenaire" class="Acc-lien">Partenaires</router-link></li>
-        <li><router-link to="/#contact" class="Acc-lien">Contact</router-link></li>
+        <li><router-link to="/" class="Acc-lien">{{ $t('navbar.accueil') }}</router-link></li>
+        <li><router-link to="/#stock" class="Acc-lien">{{ $t('navbar.prix') }}</router-link></li>
+        <li><router-link to="/#magasin" class="Acc-lien">{{ $t('navbar.magasin') }}</router-link></li>
+        <li><router-link to="/#partenaire" class="Acc-lien">{{ $t('navbar.partenaire') }}</router-link></li>
+        <li><router-link to="/#contact" class="Acc-lien">{{ $t('navbar.contact') }}</router-link></li>
         <li>
-          <!-- <select name="select" id="" @change="handleChange" v-model="lang">
-            <option value="fr">Francais</option>
-            <option value="en">Anglais</option>
+          <div @click="toggleLanguageDropdown" class="select">
+            {{ getLanguageName(selectedLanguage) }}
+            <img :src="getFlagSrc(selectedLanguage)" alt="">
+          </div>
+          <div v-show="isLanguageDropdownOpen"  class="select_content">
+            <div v-for="(language, index) in languages" :key="index" @click="changeLanguage(language.value)"
+              class="select_item">
+              {{ language.name }}
+              <img :src="language.flagSrc" alt="">
+            </div>
+          </div>
 
-          </select> -->
-          <!-- <div class="compte-users" @click="profil">
-          <div class="profile">
-            <i class="fa-solid fa-language"></i>
-          </div>
-          <div class="menu">
-            <span>Francais</span>
-            <span>Anglais</span>
-          </div>
-          </div> -->
         </li>
       </ul>
       <div class="burger">
@@ -50,21 +47,38 @@ export default {
   name: 'CptNavBar',
   data() {
     return {
-      lang: localStorage.getItem('lang') || 'fr'
+      selectedLanguage: 'fr', // par défaut, la langue est en anglais
+      languages: [
+        { value: 'fr', name: 'Français', flagSrc: require(`@/assets/images/france-flag-icon.svg`) },
+        { value: 'en', name: 'English', flagSrc: require(`@/assets/images/unit.svg`) },
+        // autres langues disponibles
+      ],
+      isLanguageDropdownOpen: false
 
     }
   }, methods: {
-    async profil(){
+    async profil() {
       const toggleMenu = document.querySelector(".menu")
-        toggleMenu.classList.toggle('active')
+      toggleMenu.classList.toggle('active')
     },
 
-    handleChange(e){
-      console.log('rrr',e.target.value);
-    localStorage.setItem('lang',e.target.value)
-    window.location.reload()
-   
-    
+    toggleLanguageDropdown() {
+      this.isLanguageDropdownOpen = !this.isLanguageDropdownOpen
+    },
+    changeLanguage(language) {
+     
+      this.selectedLanguage = language
+      this.$i18n.locale = language // mettre à jour la langue utilisée par i18n
+       this.isLanguageDropdownOpen = !this.isLanguageDropdownOpen
+      
+
+
+    },
+    getFlagSrc(language) {
+      return this.languages.find(l => l.value === language).flagSrc
+    },
+    getLanguageName(language) {
+      return this.languages.find(l => l.value === language).name
     }
 
   },
@@ -76,7 +90,9 @@ export default {
       Navmenu.classList.toggle("Acc-menu-active")
     })
 
-    
+
+
+
   },
   setup() {
 
@@ -85,6 +101,7 @@ export default {
 }
 </script>
 <style scoped></style>
+
 
 <style>
 .Acc-nav {
@@ -127,8 +144,9 @@ export default {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  padding: 10px 0 ;
+  padding: 10px 0;
   transition: all 0.5s ease-in-out;
+  position: relative;
 }
 
 .Acc-nav .container-nav ul {
@@ -185,10 +203,10 @@ export default {
   background-color: var(--noir);
 }
 
-@media only screen and (max-width: 1014px)  {
+@media only screen and (max-width: 1014px) {
   .logo .desktop {
     font-size: 11px;
-  
+
   }
 }
 
@@ -197,26 +215,29 @@ export default {
     display: block;
     display: flex;
     align-items: center;
-  font-family: 'Playfair Display', serif;
+    font-family: 'Playfair Display', serif;
 
   }
-  .logo .desktop img {
-  height: 4rem;
-  border: none;
-  width:auto ;
-}
-hr{
-  margin: 5px 0;
-  border: 1px solid ;
-}
-.fr{
-  color: var(--red);
-}
 
-.en{
-  color: var(--vert);
-  text-align: center;
-}
+  .logo .desktop img {
+    height: 4rem;
+    border: none;
+    width: auto;
+  }
+
+  hr {
+    margin: 5px 0;
+    border: 1px solid;
+  }
+
+  .fr {
+    color: var(--red);
+  }
+
+  .en {
+    color: var(--vert);
+    text-align: center;
+  }
 
   .logo .mobile {
     display: none;
@@ -291,35 +312,48 @@ hr{
 
 }
 
-.compte-users {
-  padding: 0 5px;
-  position: relative;
-}
-.compte-users .profile {
- margin-top: 5px;
-  cursor: pointer;
-   font-size: 20px;
-}
-.compte-users .menu {
-  position: absolute;
-  top: 26px;
-  right: 2px;
-  padding: 10px 10px;
-  background-color: var(--blanc);
-  width: 130px;
-  border-radius: 6px;
-  transition: 0.5s;
-  visibility: hidden;
-  opacity: 0;
-  z-index: 101;
+.select {
+  /* border: 1px solid red; */
   display: flex;
-   flex-direction: column;
-    box-shadow: var(--shadow-medium)
+  align-items: center;
+  position: relative;
+  justify-content: center;
+  cursor: pointer;
+
 }
-.compte-users .menu.active {
-  visibility: visible;
-  opacity: 1;
-}.compte-users .menu::before {
+
+.select img {
+  height: 13px;
+  margin-left: 5px;
+  margin-top: 2px;
+}
+
+.select_item {
+
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+  padding: 10px 5px 0;
+}
+
+.select_item:hover {
+
+  background-color: #0000000b;
+  cursor: pointer;
+  width: 100%;
+  padding-bottom: 10px;
+
+
+}
+
+.select_item img {
+  height: 13px;
+  margin-left: 5px;
+  margin-top: 2px;
+}
+
+.select_content::before {
   content: '';
   position: absolute;
   top: -8px;
@@ -330,23 +364,14 @@ hr{
   transform: rotate(45deg);
 }
 
-.compte-users .menu span{
+.select_content {
+  background-color: var(--blanc);
+  box-shadow: var(--box-shadow);
+  position: absolute;
+  width: 130px;
+  right: 0;
+  top: 57px;
+  border-radius: 6px;
+  padding-bottom: 10px;
 
-
-padding: 5px 3px;
-
-
-}
-
-.compte-users .menu span:hover{
-
-background-color: #0000000b;
-cursor: pointer;
-width: 100%;
-
-
-}
-
-
-
-</style>
+}</style>

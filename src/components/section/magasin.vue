@@ -4,12 +4,12 @@
             <div class="texte">
 
                 <div class="select">
-                    <input class="effect-6" type="text" placeholder="Magasin ou Region...">
+                    <input class="effect-6" type="text" v-bind:placeholder="$t('magasin.placeholder')">
                     <span class="focus-border"></span>
                 </div>
                 <div class="select" v-for="(marker, index) in markers" :key="index" @click="showPopup(marker)">
                     <div @click="toggleSelect(index)" class="button">
-                        <span>Magasin {{ marker.nom }}</span>
+                        <span>{{ $t('magasin.sous_titre')}} {{ marker.nom }}</span>
                         <span class="icon material-symbols-outlined " :class="marker.show ? 'close' : ''">
                             <i class="fa-solid fa-chevron-down"></i>
                         </span>
@@ -55,8 +55,10 @@
 import { Map, NavigationControl, Marker, Popup } from 'maplibre-gl';
 import { shallowRef, onMounted, onUnmounted, markRaw } from 'vue';
 import axiosClient from '@/axiosClient';
+import i18n from '@/i18n';
 export default {
     name: 'CPtMagasin',
+    i18n:i18n,
     components: {
 
     },
@@ -95,7 +97,15 @@ export default {
                     .setLngLat([marker.longitude, marker.latitude])
                     .addTo(map.value);
 
-                const popupContent = `<div><h3>Magasin ${marker.nom}</h3><p> <h4>Description:</h4> ${marker.description}</p></div>`;
+                const popupContent =
+                 `
+                <div>
+                   
+                    <h3> ${('magasin.sous_titre')}  ${marker.nom}</h3>
+                    <p> <h4>Description:</h4> ${marker.description}</p>
+                  
+                </div>
+                `;
                 newMarker.setPopup(new Popup().setHTML(popupContent));
             });
         }),
@@ -124,8 +134,10 @@ export default {
     },
     methods: {
         toggleSelect(index) {
+            const message = this.$t('message')
+      console.log(message)
             console.log(this.markers[index].show);
-
+            
             this.markers[index].show = !this.markers[index].show;
         },
 

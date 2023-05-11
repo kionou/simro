@@ -12,7 +12,7 @@
                 <div class="sidebar close ">
                     <div class="sidebar_content">
                         <div class="titre">
-                            <h1>REGIONS</h1>
+                            <h1>{{ $t('prix.region')}}</h1>
                         </div>
                         <ul class="nav-links">
                             <li v-for="region in regions" :key='region.code_region' @click="makeActive(region)"
@@ -116,7 +116,7 @@ export default {
                     }
                 }
                 if (filteredProduit.length === 0) {
-                    this.alert = "Il n'y a pas de produits pour le moment !"
+                    this.alert = this.$t('prix.msg_produit')
                 } else {
                     this.produits = filteredProduit
                     this.alert = false
@@ -159,7 +159,7 @@ export default {
 console.log('uniqueData',uniqueData);
 
                 if (uniqueData.length === 0) {
-                    this.alertRegion = "Aucun marche pour l'instant !"
+                    this.alertRegion = this.$t('prix.msg_marche')
                 } else {
                     this.prix = uniqueData
                     this.alertRegion = false
@@ -189,7 +189,7 @@ console.log('uniqueData',uniqueData);
             }
 
             if (filteredProduit.length === 0) {
-    this.alert =" Il n'y a pas de produits pour le moment !"
+    this.alert =this.$t('prix.msg_produit')
     
 } else {
     let selle = JSON.parse(JSON.stringify(filteredProduit));
@@ -233,7 +233,7 @@ console.log('uniqueData',uniqueData);
   console.log(uniqueData);
 
             if (uniqueData.length === 0) {
-                this.alertRegion = "Aucun marche pour l'instant !"
+                this.alertRegion = this.$t('prix.msg_marche')
             } else {
                 this.prix = uniqueData
                 this.alertRegion = false
@@ -281,7 +281,7 @@ console.log('uniqueData',uniqueData);
   
   console.log(uniqueData);
             if (uniqueData.length === 0) {
-                this.alertRegion = "Aucun marche pour l'instant !"
+                this.alertRegion = this.$t('prix.msg_marche')
             } else {
                 this.prix = uniqueData
                 this.alertRegion = false

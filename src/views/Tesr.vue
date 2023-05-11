@@ -1,5 +1,5 @@
 <template>
- <!-- <div id="app" class="wrapper">
+ <div id="app" class="wrapper">
   <div class="title">
     VUE💚 select
     <div class="line"></div>
@@ -9,10 +9,10 @@
       <div class="select">
           <div class="label">Primary select</div>
           <div @click="toggleSelect" class="button">
-            <span v-if="!selected.value">
-              Select
-            </span>
-            <span v-else>
+             <span v-if="!selected.value" >
+              {{selectedLanguage}}
+            </span> 
+            <span >
               {{ selected.text }}
             </span>
             <span class="icon material-symbols-outlined" :class="show ? 'close' : ''">expand_more</span>
@@ -20,7 +20,11 @@
           <div :class="`select-block ${show ? 'open': ''}`">
             <div class="scroll">
               <ul>
-                <li v-for="item in items" :key='item.value' @click="clickItem(item)" :class="item.value === selected.value ? 'active' : ''">{{ item.text }}</li>
+                <li v-for="item in items" :key='item.value' @click="clickItem(item)" :class="item.value === selected.value ? 'active' : ''">
+                  {{ item.text }}
+          <img src="@/assets/images/france-flag.svg" alt="">
+
+                </li>
               </ul>
             </div>
           </div>
@@ -30,22 +34,23 @@
       
     </div>
   </div>
-</div> -->
+</div>
 <div class="container">
-  <Test/>
+  <!-- <Test/> -->
 
 </div>
 </template>
 
 <script>
-import Test from '@/components/other/test.vue';
+// import Test from '@/components/other/test.vue';
 export default {
     name: 'SimroTesr',
-    components:{Test},
+    // components:{Test},
 
   data() {
     return {
         show: true,
+        selectedLanguage: this.$i18n.locale,
     items: [
       { text: 'Vue', value: 'Vue' },
       { text: 'React', value: 'React' },
@@ -74,7 +79,7 @@ export default {
   } 
 };
 </script>
-<style scoped>
+<!-- <style scoped>
 
 .container{
 
@@ -85,8 +90,8 @@ justify-content: center;
 align-items: center;
 background-color: bisque;
 }
-</style>
-<!-- 
+</style> -->
+
 <style lang="css" scoped>
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
 /*
@@ -247,4 +252,4 @@ body {
   transform: rotate(180deg);
 }
 
-</style> -->
+</style> 

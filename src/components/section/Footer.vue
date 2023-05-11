@@ -4,17 +4,17 @@
       <div class="logo">
         <img src="@/assets/images/logo.png" @click="$router.push({ path: '#' })"
                 style="cursor: pointer">
-        Système d'Information sur les Marchés <br> du Riz et de l'Oignon au Cameroun
+                {{ $t('footer.titre1')}} <br> {{ $t('footer.titre2')}}
       </div>
     </div>
     <div class="corps-footer-menu">
       <nav>
         <ul class="menu">
-          <li><router-link class="Acc-lien" to="#">Accueil</router-link></li>
-          <li><router-link to="/#stock" class="Acc-lien">Prix</router-link></li>
-          <li><router-link to="/#magasin" class="Acc-lien">Magasin</router-link></li>
-          <li><router-link to="/#partenaire" class="Acc-lien">Partenaires</router-link></li>
-          <li><router-link to="/#contact" class="Acc-lien">Contact</router-link></li>
+          <li><router-link to="/" class="Acc-lien">{{ $t('navbar.accueil')}}</router-link></li>
+        <li><router-link to="/#stock" class="Acc-lien">{{ $t('navbar.prix')}}</router-link></li>
+        <li><router-link to="/#magasin" class="Acc-lien">{{ $t('navbar.magasin')}}</router-link></li>
+        <li><router-link to="/#partenaire" class="Acc-lien">{{ $t('navbar.partenaire')}}</router-link></li>
+        <li><router-link to="/#contact" class="Acc-lien">{{ $t('navbar.contact')}}</router-link></li>
         </ul>
       </nav>
     </div>
@@ -30,7 +30,7 @@
 
     </div>
     <div class="corps-footer-text">
-      <p>© 2023 Tous droits réservés, SIMRO</p>
+      <p>{{ $t('footer.copyright')}}</p>
     </div>
   </div>
 </template>

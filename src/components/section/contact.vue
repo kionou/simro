@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>contact</h2>
+    <h2>{{ $t('contact.titre')}}</h2>
     <div class="contact-content">
       <div class="texte">
 
@@ -9,7 +9,7 @@
             <i class="fa-solid fa-location-dot"></i>
           </div>
           <p>
-            Rond point Cité Keur Gorgui,
+            {{ $t('contact.localite')}},
           </p>
 
         </div>
@@ -19,7 +19,7 @@
           </div>
 
           <p>
-            +237 222 89 56 23 77
+            {{ $t('contact.numero')}}
           </p>
 
         </div>
@@ -29,7 +29,8 @@
           </div>
 
           <p>
-            Email: simro@gmail.com
+            
+                 Email: simro@gmail.com
           </p>
 
         </div>
@@ -39,7 +40,7 @@
           </div>
 
           <p>
-            Du Lundi au Vendredi <br> 08h00 à 18h00
+            {{ $t('contact.jour')}} <br> {{ $t('contact.heure')}}
           </p>
 
         </div>

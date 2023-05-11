@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Accueil from '../views/Accueil.vue'
-import Maps from '../views/maps.vue'
+import Maps from '../views/Tesr.vue'
 
 
 

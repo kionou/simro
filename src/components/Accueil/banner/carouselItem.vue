@@ -9,22 +9,22 @@
        
 <div class="tableau">
   <section class="table__header">
-    <h1 >Le prix moyen <span class="produits"> (en FCFA)</span> par Region du produit <span class="produits"> {{ slide.nom_produit }}</span>.</h1> 
+    <h1 >{{ $t('slide.sous_titre1')}} <span class="produits"> {{ $t('slide.nb')}}</span> {{ $t('slide.sous_titre2')}} <span class="produits"> {{ slide.nom_produit }} </span>  {{ $t('slide.sous_titre3')}} .</h1> 
           
         </section>
   <section class="table__body"  >
             <table>
                 <thead>
                     <tr>
-                        <th rowspan="2"> Regions </th>
-                        <th colspan="3"> Prix (FCFA) </th>
-                        <th rowspan="2"> Marchés visités </th>
-                        <th rowspan="2"> Dernière date </th>
+                        <th rowspan="2"> {{ $t('slide.region')}} </th>
+                        <th colspan="3"> {{ $t('slide.prix')}}</th>
+                        <th rowspan="2"> {{ $t('slide.marche')}} </th>
+                        <th rowspan="2">{{ $t('slide.date')}} </th>
                     </tr>
                     <tr>
                         <th > Min </th>
                         <th>  Max </th>
-                        <th>  Moyen </th>
+                        <th> {{ $t('slide.moyen')}} </th>
                     </tr>
                 </thead>
                 <tbody>

@@ -2,7 +2,7 @@
   <div class="select">
     <div @click="toggleSelect" class="button">
       <span v-if="!selected.nom_famille_produit">
-        Recherchez un prodiut ou une gamme
+        {{ $t('prix.select')}}
       </span>
       <span v-else>
          {{ selected.nom_famille_produit }}
