@@ -309,6 +309,17 @@ export default {
   .Acc-menu.Acc-menu.Acc-menu-active {
     top: 0px;
   }
+  .Acc-nav .container-nav {
+  position: initial;
+}
+.select_content::before {
+  top: 44px !important;
+  right: 121px !important;
+}
+.select_content {
+  right: 227px !important;
+  top: 159px !important;
+}
 
 }
 
@@ -374,4 +385,5 @@ export default {
   border-radius: 6px;
   padding-bottom: 10px;
 
-}</style>
+}
+</style>
