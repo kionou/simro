@@ -53,15 +53,11 @@ export default {
         { value: 'en', name: 'English', flagSrc: require(`@/assets/images/unit.svg`) },
         // autres langues disponibles
       ],
-      isLanguageDropdownOpen: false
+      isLanguageDropdownOpen: false,
 
     }
   }, methods: {
-    async profil() {
-      const toggleMenu = document.querySelector(".menu")
-      toggleMenu.classList.toggle('active')
-    },
-
+  
     toggleLanguageDropdown() {
       this.isLanguageDropdownOpen = !this.isLanguageDropdownOpen
     },
@@ -70,9 +66,6 @@ export default {
       this.selectedLanguage = language
       this.$i18n.locale = language // mettre à jour la langue utilisée par i18n
        this.isLanguageDropdownOpen = !this.isLanguageDropdownOpen
-      
-
-
     },
     getFlagSrc(language) {
       return this.languages.find(l => l.value === language).flagSrc
@@ -94,10 +87,6 @@ export default {
 
 
   },
-  setup() {
-
-  }
-
 }
 </script>
 <style scoped></style>
@@ -313,12 +302,12 @@ export default {
   position: initial;
 }
 .select_content::before {
-  top: 44px !important;
-  right: 121px !important;
+  top: -8px !important;
+  right: 60px !important;
 }
 .select_content {
-  right: 227px !important;
-  top: 159px !important;
+  position: sticky !important;
+  margin-top: 14px;
 }
 
 }
