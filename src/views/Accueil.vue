@@ -35,7 +35,7 @@ export default {
       slides: [],
       titres: [],
       textes: [],
-      isLoading: false,
+      isLoading: true,
  
   
     };
@@ -43,7 +43,7 @@ export default {
 
   async mounted() {
     try {
-      //  document.body.classList.add('loading');
+        document.body.classList.add('loading');
       const response = await axiosClient.get('/simro/marche');
       console.log("eeee",response.data.region);
       this.titres = response.data.region;
@@ -78,7 +78,7 @@ export default {
 
       this.textes = groupedArray;
        this.isLoading = false
-      // document.body.classList.remove('loading');
+       document.body.classList.remove('loading');
     } catch (error) {
       console.error(error);
     }

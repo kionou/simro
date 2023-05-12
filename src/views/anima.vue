@@ -1,6 +1,6 @@
 <template>
 	<div class="loader-container">
-		<img src="@/assets/images/logo3-removebg-preview.png" alt="">
+		<img src="@/assets/images/logo3.png" alt="">
 		<div class="pl">
 	<div class="pl__outer-ring"></div>
 	<div class="pl__inner-ring"></div>
@@ -60,7 +60,8 @@ img{
     top: 0;
     left: 0;
     width: 100vw;
-    background-color: var(--bg);
+ 
+    /* background-color: rgba(0, 0, 0, 0.5); */
     z-index: 9999;
     opacity: 1;
   transition: opacity 0.5s ease-in-out;
@@ -79,7 +80,7 @@ img{
 	position: relative;
 	width: 16em;
 	height: 16em;
-
+	border: 1px solid blue;
 }
 .pl__ball,
 .pl__ball-inner-shadow,
