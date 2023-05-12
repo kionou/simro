@@ -191,10 +191,23 @@ export default {
 .Acc-nav_active .burger div {
   background-color: var(--noir);
 }
+@media only screen and (max-width: 1031px) {
+  .logo .desktop {
+    font-size: 13px;
+
+  }
+}
 
 @media only screen and (max-width: 1014px) {
   .logo .desktop {
     font-size: 11px;
+
+  }
+}
+
+@media only screen and (max-width: 930px) {
+  .logo .desktop {
+    font-size: 10px;
 
   }
 }

@@ -19,12 +19,12 @@ export default {
     const map = shallowRef(null);
     const markers = shallowRef([]);
     onMounted(async () => {
-      const apiKey = 'R0tHx9tGeRGXSyvwlX0q';
+      // const apiKey = 'R0tHx9tGeRGXSyvwlX0q';
       const initialState = { lng: 11.52, lat: 3.91, zoom: 10 };
 
       map.value = markRaw(new Map({
         container: mapContainer.value,
-        style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${apiKey}`,
+        // style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${apiKey}`,
         center: [initialState.lng, initialState.lat],
         zoom: initialState.zoom
       }));
