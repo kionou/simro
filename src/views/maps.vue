@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'SimroMaps',
 
@@ -14,8 +15,9 @@ export default {
     };
   },
 
-  mounted() {
-    
+ async mounted() {
+   const response = await axios.get('https://simro-kberthe.pythonanywhere.com/api/liste-dernier-prix-marche/')
+   console.log('axios',response)
   },
 
   methods: {
