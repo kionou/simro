@@ -43,6 +43,7 @@ export default {
 
   async mounted() {
     try {
+    
         document.body.classList.add('loading');
       const response = await axiosClient.get('/simro/marche');
       console.log("eeee",response.data.region);

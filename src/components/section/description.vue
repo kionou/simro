@@ -34,7 +34,8 @@
 </template>
 
 <script>
-// import axiosClient from '@/axiosClient';
+import axiosClient from '@/axiosClient';
+import axios from 'axios';
 export default {
     name: 'CptDescription',
 
@@ -46,21 +47,23 @@ export default {
     },
 
     
-    //   async mounted() {
-    //     try {
-    //   const response = await axiosClient.get('/simro/marche');
-    //   console.log('response.data.texte',response.data.texte);
-    //    this.textes = response.data.texte
-    //   this.array1 = response.data.texte.shift()
-    //   console.log(' this.array1', this.array1);
-    //   console.log('this.textes',this.textes);
+      async mounted() {
+        try {
+          const responses = await axios.get('https://simro-kberthe.pythonanywhere.com/api/liste-dernier-prix-marche/')
+   console.log('axios',responses)
+      const response = await axiosClient.get('/simro/marche');
+      // console.log('response.data.texte',response.data.texte);
+       this.textes = response.data.texte
+      this.array1 = response.data.texte.shift()
+      console.log(' this.array1', this.array1);
+      console.log('this.textes',this.textes);
 
           
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
+        } catch (error) {
+          console.log(error);
+        }
   
-    // },
+    },
 
     methods: {
         
