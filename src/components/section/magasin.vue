@@ -76,12 +76,12 @@ export default {
         const map = shallowRef(null);
         const markers = shallowRef([]);
         onMounted(async () => {
-            const apiKey = 'R0tHx9tGeRGXSyvwlX0q';
+             const apiKey = 'R0tHx9tGeRGXSyvwlX0q';
             const initialState = { lng: 11.52, lat: 3.91, zoom: 10 };
 
             map.value = markRaw(new Map({
                 container: mapContainer.value,
-                style: `https://api.maptiler.com/maps/ad28fe8c-deb1-4b20-a08e-65d8e0998fa1/style.json?key=${apiKey}`,
+                 style: `https://api.maptiler.com/maps/ad28fe8c-deb1-4b20-a08e-65d8e0998fa1/style.json?key=${apiKey}`,
                 center: [initialState.lng, initialState.lat],
                 zoom: initialState.zoom
             }));
@@ -146,7 +146,7 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="css" scoped >
 .magasin-content {
     max-width: var(--max-width);
     margin: 0 auto;
@@ -240,6 +240,7 @@ input[type="text"] {
     width: 100%;
     height: 100%;
 }
+
 
 .watermark {
     position: absolute;

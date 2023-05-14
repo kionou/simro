@@ -12,7 +12,7 @@
                 <div class="sidebar close ">
                     <div class="sidebar_content">
                         <div class="titre">
-                            <h1>{{ $t('prix.region')}}</h1>
+                            <h1>{{ $t('prix.region') }}</h1>
                         </div>
                         <ul class="nav-links">
                             <li v-for="region in regions" :key='region.code_region' @click="makeActive(region)"
@@ -26,7 +26,7 @@
 
                 </div>
                 <div class="two-section">
-                    <Riz :prix="prix" :produits="produits" :alertRegion="alertRegion"  :selected="selected"/>
+                    <Riz :prix="prix" :produits="produits" :alertRegion="alertRegion" :selected="selected" />
                 </div>
             </div>
         </main>
@@ -35,9 +35,9 @@
 
 <script>
 
-// import { computed  } from 'vue';
-// import store from '@/store'
+
 import axiosClient from '@/axiosClient';
+import axios from 'axios';
 import Select from '../other/select.vue';
 import Riz from '../other/cptRiz.vue';
 import Loader from '../other/loader.vue';
@@ -63,110 +63,88 @@ export default {
 
         };
     },
-    computed: {
-
-        //   regions() {
-        //     if (this.selected.nom_region != this.$store.getters.getregion[0]?.nom_region) {
-
-        //     console.log('bonsoir');
-
-        // }
-        //      console.log(this.$store.getters.getregion[0]?.nom_region);
-        //      return this.$store.getters.getregion;
-        // },
-        // this.regions = this.$store.getters.getregion[0]?.nom_region
-        // console.log(this.regions);
-
-        //    this.regions =  computed(() => {
-        //     if (this.selected.nom_region != this.$store.getters.getregion[0]?.nom_region) {
-        //         this.selected.nom_region = this.$store.getters.getregion[0]?.nom_region
-        //         console.log('bonsoir');
-
-        //     }
-
-        //       console.log(this.selected.nom_region);
-
-        //       return store.getters.getregion;
-        //     });
-
-        //     this.$store.dispatch('simroAll')
-
-        //  this.selected.value = this.items[0].value
-
-    },
-
-
+    computed: {},
     async mounted() {
+        let endpoints = [
+            '/simro/produit/',
+            '/simro/gamme/',
+            '/simro/prix/',
+            '/simro/region/',
+        ];
 
-        this.$store.dispatch('simroAll')
-        await axiosClient
-            .get('/simro/marche')
-            .then((response) => {
-                console.log('responsejjj',response)
-                this.items = response.data.gamme
-                this.initialProduit = response.data.gamme[0].nom_famille_produit
-                const produit = response.data.produit
-                this.ClickItem = this.initialProduit 
-                let filteredProduit = [];
-                for (let i = 0; i < produit.length; i++) {
+        try {
+            this.$store.dispatch('simroAll')
+            const [produits, gamme, prixAll, region] = await axios.all(endpoints.map((endpoint) => axiosClient.get(endpoint)));
 
-                    if (produit[i].famille_produit === this.initialProduit ) {
+            console.log('zzzzzaaaaa', produits, prixAll, region, gamme)
+            console.log('responsejjjhh', gamme.data)
+            this.items = gamme.data
+            this.initialProduit = gamme.data[0].nom_famille_produit
+            const produit = produits.data
+            this.ClickItem = this.initialProduit
+            let filteredProduit = [];
+            for (let i = 0; i < produit.length; i++) {
 
-                        filteredProduit = [...filteredProduit, produit[i]];
-                    }
+                if (produit[i].famille_produit === this.initialProduit) {
+
+                    filteredProduit = [...filteredProduit, produit[i]];
                 }
-                if (filteredProduit.length === 0) {
-                    this.alert = this.$t('prix.msg_produit')
+            }
+            if (filteredProduit.length === 0) {
+                this.alert = this.$t('prix.msg_produit')
+            } else {
+                this.produits = filteredProduit
+                this.alert = false
+            }
+
+            this.regions = region.data
+            this.selected.nom_region = region.data[0].nom_region
+            this.initial = region.data[0].nom_region
+            const prix = prixAll.data
+
+            let filteredMarchePrix = [];
+            for (let i = 0; i < prix.length; i++) {
+
+                if (prix[i].famille_produit === this.initialProduit && prix[i].region === this.initial) {
+
+                    filteredMarchePrix = [...filteredMarchePrix, prix[i]];
+                }
+            }
+            console.log('filteredMarchePrix', filteredMarchePrix);
+            const regroupedData = filteredMarchePrix.reduce((acc, curr) => {
+                const { marche, produit, prix_kg, date_enquete, region } = curr;
+                if (!acc[marche]) {
+                    acc[marche] = { marche, produits: [{ produit, prix_kg, date_enquete, region }] };
                 } else {
-                    this.produits = filteredProduit
-                    this.alert = false
+                    acc[marche].produits.push({ produit, prix_kg, date_enquete, region });
                 }
+                return acc;
+            }, {});
 
-                this.regions = response.data.region
-                this.selected.nom_region = response.data.region[0].nom_region
-                this.initial = response.data.region[0].nom_region
-                const prix = response.data.prix
-           
-                let filteredMarchePrix = [];
-                for (let i = 0; i < prix.length; i++) {
-
-                    if (prix[i].famille_produit ===  this.initialProduit && prix[i].region === this.initial) {
-
-                        filteredMarchePrix = [...filteredMarchePrix, prix[i]];
-                    }
-                }
-                console.log('filteredMarchePrix',filteredMarchePrix);
-    const regroupedData = filteredMarchePrix.reduce((acc, curr) => {
-    const { marche, produit, prix_kg, date_enquete , region } = curr;
-    if (!acc[marche]) {
-      acc[marche] = { marche, produits: [{ produit, prix_kg, date_enquete , region}] };
-    } else {
-      acc[marche].produits.push({ produit, prix_kg, date_enquete , region });
-    }
-    return acc;
-  }, {});
-  
-  const uniqueData = [];
-  Object.values(regroupedData).forEach(({ marche, produits }) => {
-    const existingIndex = uniqueData.findIndex((el) => el.marche === marche);
-    if (existingIndex === -1) {
-      uniqueData.push({ marche, produits });
-    } else {
-      uniqueData[existingIndex].produits.push(...produits);
-    }
-  });
-  
-console.log('uniqueData',uniqueData);
-
-                if (uniqueData.length === 0) {
-                    this.alertRegion = this.$t('prix.msg_marche')
+            const uniqueData = [];
+            Object.values(regroupedData).forEach(({ marche, produits }) => {
+                const existingIndex = uniqueData.findIndex((el) => el.marche === marche);
+                if (existingIndex === -1) {
+                    uniqueData.push({ marche, produits });
                 } else {
-                    this.prix = uniqueData
-                    this.alertRegion = false
-
+                    uniqueData[existingIndex].produits.push(...produits);
                 }
+            });
 
-            })
+            console.log('uniqueData', uniqueData);
+
+            if (uniqueData.length === 0) {
+                this.alertRegion = this.$t('prix.msg_marche')
+            } else {
+                this.prix = uniqueData
+                this.alertRegion = false
+
+            }
+        } catch (error) {
+            console.error(error);
+        }
+
+
 
 
     },
@@ -189,15 +167,15 @@ console.log('uniqueData',uniqueData);
             }
 
             if (filteredProduit.length === 0) {
-    this.alert =this.$t('prix.msg_produit')
-    
-} else {
-    let selle = JSON.parse(JSON.stringify(filteredProduit));
-    this.produits =  selle
-    this.alert = false
-    
-}
-              const prix = JSON.parse(JSON.stringify(this.$store.getters.getprix));
+                this.alert = this.$t('prix.msg_produit')
+
+            } else {
+                let selle = JSON.parse(JSON.stringify(filteredProduit));
+                this.produits = selle
+                this.alert = false
+
+            }
+            const prix = JSON.parse(JSON.stringify(this.$store.getters.getprix));
 
 
             let filteredMarchePrix = [];
@@ -211,26 +189,26 @@ console.log('uniqueData',uniqueData);
                 }
             }
             const regroupedData = filteredMarchePrix.reduce((acc, curr) => {
-    const { marche, produit, prix_kg, date_enquete ,region } = curr;
-    if (!acc[marche]) {
-      acc[marche] = { marche, produits: [{ produit, prix_kg, date_enquete , region }] };
-    } else {
-      acc[marche].produits.push({ produit, prix_kg , date_enquete ,region });
-    }
-    return acc;
-  }, {});
-  
-  const uniqueData = [];
-  Object.values(regroupedData).forEach(({ marche, produits }) => {
-    const existingIndex = uniqueData.findIndex((el) => el.marche === marche);
-    if (existingIndex === -1) {
-      uniqueData.push({ marche, produits });
-    } else {
-      uniqueData[existingIndex].produits.push(...produits);
-    }
-  });
-  
-  console.log(uniqueData);
+                const { marche, produit, prix_kg, date_enquete, region } = curr;
+                if (!acc[marche]) {
+                    acc[marche] = { marche, produits: [{ produit, prix_kg, date_enquete, region }] };
+                } else {
+                    acc[marche].produits.push({ produit, prix_kg, date_enquete, region });
+                }
+                return acc;
+            }, {});
+
+            const uniqueData = [];
+            Object.values(regroupedData).forEach(({ marche, produits }) => {
+                const existingIndex = uniqueData.findIndex((el) => el.marche === marche);
+                if (existingIndex === -1) {
+                    uniqueData.push({ marche, produits });
+                } else {
+                    uniqueData[existingIndex].produits.push(...produits);
+                }
+            });
+
+            console.log(uniqueData);
 
             if (uniqueData.length === 0) {
                 this.alertRegion = this.$t('prix.msg_marche')
@@ -245,8 +223,6 @@ console.log('uniqueData',uniqueData);
         makeActive: function (value) {
             this.selected.nom_region = value.nom_region;
             console.log("aaaaaa", value.nom_region);
-
-
             const prix = JSON.parse(JSON.stringify(this.$store.getters.getprix));
 
             let filteredMarchePrix = [];
@@ -259,27 +235,27 @@ console.log('uniqueData',uniqueData);
                 }
             }
 
-    const regroupedData = filteredMarchePrix.reduce((acc, curr) => {
-    const { marche, produit, prix_kg, date_enquete ,region } = curr;
-    if (!acc[marche]) {
-      acc[marche] = { marche, produits: [{ produit, prix_kg, date_enquete ,region }] };
-    } else {
-      acc[marche].produits.push({ produit, prix_kg, date_enquete  , region});
-    }
-    return acc;
-  }, {});
-  
-  const uniqueData = [];
-  Object.values(regroupedData).forEach(({ marche, produits }) => {
-    const existingIndex = uniqueData.findIndex((el) => el.marche === marche);
-    if (existingIndex === -1) {
-      uniqueData.push({ marche, produits });
-    } else {
-      uniqueData[existingIndex].produits.push(...produits);
-    }
-  });
-  
-  console.log(uniqueData);
+            const regroupedData = filteredMarchePrix.reduce((acc, curr) => {
+                const { marche, produit, prix_kg, date_enquete, region } = curr;
+                if (!acc[marche]) {
+                    acc[marche] = { marche, produits: [{ produit, prix_kg, date_enquete, region }] };
+                } else {
+                    acc[marche].produits.push({ produit, prix_kg, date_enquete, region });
+                }
+                return acc;
+            }, {});
+
+            const uniqueData = [];
+            Object.values(regroupedData).forEach(({ marche, produits }) => {
+                const existingIndex = uniqueData.findIndex((el) => el.marche === marche);
+                if (existingIndex === -1) {
+                    uniqueData.push({ marche, produits });
+                } else {
+                    uniqueData[existingIndex].produits.push(...produits);
+                }
+            });
+
+            console.log(uniqueData);
             if (uniqueData.length === 0) {
                 this.alertRegion = this.$t('prix.msg_marche')
             } else {
@@ -287,9 +263,6 @@ console.log('uniqueData',uniqueData);
                 this.alertRegion = false
 
             }
-
-
-
         },
     },
 };
@@ -317,7 +290,6 @@ main.table {
     box-shadow: 0px 0px 10px #8888884f;
     overflow: hidden;
     position: relative;
-    /* padding-bottom: 12px; */
 }
 
 .sidebar {
@@ -341,11 +313,8 @@ main.table {
 }
 
 .sidebar .sidebar_content {
-
-    /* border: 1px solid red; */
     width: 100%;
     height: 100%;
-    /* display: flex; */
     flex-direction: column;
     justify-content: center;
 }
@@ -354,7 +323,6 @@ main.table {
     position: relative;
     min-height: 280px;
     height: auto;
-    /* height: 418px; */
     left: 180px;
     width: calc(100% - 180px);
     position: relative;
@@ -362,34 +330,11 @@ main.table {
 }
 
 .sidebar .nav-links {
-    /* overflow: auto !important; */
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* height: 370px; */
 }
-
-/* .sidebar.close .nav-links  {
-    overflow: visible;
-
-} */
-
-/* .sidebar .nav-links::-webkit-scrollbar{
-    width: 0.5rem;
-    height: 0.5rem;
-}
-
-.sidebar .nav-links::-webkit-scrollbar-thumb{
-    border-radius: .5rem;
-    background-color: hsl(162.17deg 89.52% 62.43% / 52%);
-    visibility: hidden;
-
-}
-
-.sidebar .nav-links:hover::-webkit-scrollbar-thumb{ 
-    visibility: visible;
-} */
 
 .sidebar .nav-links li {
     position: relative;
@@ -407,8 +352,6 @@ main.table {
 .sidebar .titre .act {
     opacity: 1 !important;
     pointer-events: none;
-
-
 }
 
 .sidebar .nav-links li:hover {
@@ -444,8 +387,6 @@ main.table {
 }
 
 @media (max-width: 768px) {
-
-
     .sidebar.close {
         width: 40px;
     }
@@ -465,9 +406,6 @@ main.table {
         pointer-events: none;
 
     }
-
-
-
 }
 
 .alert {
@@ -475,7 +413,5 @@ main.table {
     padding: 70px;
     color: var(--red);
     background-color: var(--blanc);
-
-
 }
 </style>

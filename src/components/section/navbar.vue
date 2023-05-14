@@ -207,7 +207,7 @@ export default {
 
 @media only screen and (max-width: 930px) {
   .logo .desktop {
-    font-size: 10px;
+    font-size: 9.5px;
 
   }
 }

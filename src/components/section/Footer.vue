@@ -20,7 +20,7 @@
     </div>
     <div class="corps-footer-reseau">
       <div class="corps-footer-reseau-content">
-        <a href="#" target="_blank" style="color: #1977f2"><i class="fab fa-facebook-square"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=100092242584768" target="_blank" style="color: #1977f2"><i class="fab fa-facebook-square"></i></a>
         <a href="#" target="_blank" style="color: red"><i class="fab fa-youtube-square"></i></a>
         <a href="#" style="color: #02c100;" target="_blank">
           <i class="fab fa-whatsapp-square"></i>

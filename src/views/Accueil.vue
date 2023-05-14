@@ -1,21 +1,17 @@
 <template>
-
-<div>
-    <Loader v-if="isLoading" ></Loader>
+  <div>
+    <Loader v-if="isLoading"></Loader>
     <div v-show="!isLoading">
       <Header :slides="slides" :textes="textes" :titres="titres" :height="63" />
-    <Corps />
-    <Top />
+      <Corps />
+      <Top />
     </div>
   </div>
-
- 
- 
-  
 </template>
 
 <script>
 import axiosClient from '@/axiosClient';
+import axios from 'axios';
 import Loader from '@/components/other/loader.vue';
 import Header from '@/components/section/header.vue';
 import Corps from '@/components/corps.vue';
@@ -36,68 +32,77 @@ export default {
       titres: [],
       textes: [],
       isLoading: true,
- 
-  
+
+
     };
   },
 
   async mounted() {
-    try {
-    
-        document.body.classList.add('loading');
-      const response = await axiosClient.get('/simro/marche');
-      console.log("eeee",response.data.region);
-      this.titres = response.data.region;
-      
-      const array1 = response.data.produit.filter((produit) => produit.affichage_ecran === 1);
+  let endpoints = [
+    '/simro/produit/',
+    '/simro/prix_moy/',
+    '/simro/region/',
+  ];
 
-      this.slides = array1.filter((produit) =>
-        response.data.prix_moy.some((p) => p.code_produit === produit.code_produit)
-      );
+  try {
+    const [produit, prix_moy, region] = await axios.all(endpoints.map((endpoint) => axiosClient.get(endpoint)));
 
-      var produitsAvecPrix = [];
-      for (var i = 0; i < this.slides.length; i++) {
-        for (var j = 0; j < response.data.prix_moy.length; j++) {
-          if (this.slides[i].nom_produit === response.data.prix_moy[j].produit) {
-            produitsAvecPrix.push([response.data.prix_moy[j]]);
-          }
+    console.log('apiiiiii', produit, region, prix_moy);
+
+    document.body.classList.add('loading');
+
+    this.titres = region.data;
+
+    const array1 = produit.data.filter((produit) => produit.affichage_ecran === 1);
+    console.log("eeee", array1);
+    this.slides = array1.filter((produit) =>
+      prix_moy.data.some((p) => p.code_produit === produit.code_produit)
+    );
+    console.log("slides", this.slides);
+
+    var produitsAvecPrix = [];
+    for (var i = 0; i < this.slides.length; i++) {
+      for (var j = 0; j < prix_moy.data.length; j++) {
+        if (this.slides[i].nom_produit === prix_moy.data[j].produit) {
+          produitsAvecPrix.push([prix_moy.data[j]]);
         }
       }
-
-      const groupedData = produitsAvecPrix.reduce((acc, curr) => {
-        const productName = curr[0].produit;
-        if (!acc[productName]) {
-          acc[productName] = [];
-        }
-        acc[productName].push(curr[0]);
-        return acc;
-      }, {});
-
-      const groupedArray = Object.keys(groupedData).map((key) => {
-        return groupedData[key];
-      });
-
-      this.textes = groupedArray;
-       this.isLoading = false
-       document.body.classList.remove('loading');
-    } catch (error) {
-      console.error(error);
     }
-  },
+
+    const groupedData = produitsAvecPrix.reduce((acc, curr) => {
+      const productName = curr[0].produit;
+      if (!acc[productName]) {
+        acc[productName] = [];
+      }
+      acc[productName].push(curr[0]);
+      return acc;
+    }, {});
+
+    const groupedArray = Object.keys(groupedData).map((key) => {
+      return groupedData[key];
+    });
+
+    this.textes = groupedArray;
+    this.isLoading = false
+    document.body.classList.remove('loading');
+  } catch (error) {
+    console.error(error);
+  }
+},
+
+
   methods: {
-   
+
   },
 
- 
+
 
 };
 </script>
 
 <style>
 body.loading {
-  overflow: hidden; 
-  transition:  3s ease-in-out; 
+  overflow: hidden;
+  transition: 3s ease-in-out;
 }
-
-
 </style>
