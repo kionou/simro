@@ -1,6 +1,5 @@
 <template>
     <div class="container">
-        <Loader v-if="isloading" :height="90" :width="90"></Loader>
         <div class="search_wrap search_wrap_5">
             <Select @ClickItem="getClickItem" :items="items" />
         </div>
@@ -40,10 +39,9 @@ import axiosClient from '@/axiosClient';
 import axios from 'axios';
 import Select from '../other/select.vue';
 import Riz from '../other/cptRiz.vue';
-import Loader from '../other/loader.vue';
 export default {
     name: 'CptTableau',
-    components: { Select, Riz, Loader },
+    components: { Select, Riz },
 
     data() {
         return {

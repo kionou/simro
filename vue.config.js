@@ -10,8 +10,8 @@ module.exports = defineConfig({
     headers: { "Access-Control-Allow-Origin": "*" ,
      "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
   },
-    //  proxy:'https://simro.onrender.com',
-     proxy:'https://clever-crow-wear.cyclic.app',
+     proxy:'https://simro.onrender.com',
+    //  proxy:'https://clever-crow-wear.cyclic.app',
 
      
   }
