@@ -1,6 +1,6 @@
 <template>
    <div class="cards"  v-for="produit in produits" :key="produit.id">
-        <img :src="getImage(produit.image)" alt="">
+        <img :src="getImage(produit.image)" alt="produit">
         <p> {{ produit.nom }}</p>
          <p>{{ produit.prix }} F CFA </p>
     </div>

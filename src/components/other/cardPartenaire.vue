@@ -1,7 +1,7 @@
 <template>
     <div class="cards" v-for="partenaire in partenaires" :key="partenaire.id">
         <div class="image">
-        <img :src="getImage(partenaire.image)" alt="">
+        <img :src="getImage(partenaire.image)" alt="partenaire`${partenaire.id}`">
         </div>
       </div>
 </template>

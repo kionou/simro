@@ -1,6 +1,6 @@
 <template>
 	<div class="loader-container">
-		<img src="@/assets/images/logo3-removebg-preview.png" alt="">
+		<img src="@/assets/images/logo3-removebg-preview.png" alt="logo">
 		<div class="pl">
 	<div class="pl__outer-ring"></div>
 	<div class="pl__inner-ring"></div>

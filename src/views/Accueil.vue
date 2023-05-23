@@ -1,7 +1,7 @@
 <template>
   <div>
     <Loader v-if="isLoading"></Loader>
-    <div v-show="!isLoading">
+    <div v-else>
       <Header :slides="slides" :textes="textes" :titres="titres" :height="63" />
       <Corps />
       <Top />

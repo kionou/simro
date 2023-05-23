@@ -3,7 +3,7 @@
       <figure class="card">
         <img
           src="https://source.unsplash.com/Co8AlcOhIgE/640x640"
-          alt=""
+          alt="test"
         />
         <figcaption>
           <blockquote>

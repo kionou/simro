@@ -16,7 +16,7 @@
                         <ul class="nav-links">
                             <li v-for="region in regions" :key='region.code_region' @click="makeActive(region)"
                                 :class="region.nom_region === selected.nom_region ? 'active' : ''">
-                                <img src="@/assets/images/international.png" alt="">
+                                <img src="@/assets/images/international.png" alt="international">
                                 <span class="link_name">{{ region.nom_region }}</span>
                             </li>
 

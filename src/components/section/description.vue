@@ -7,14 +7,14 @@
         <div class="content-card">
           <div class="card">
             <div class="image">
-              <img src="@/assets/images/vision.jpg" alt="">
+              <img src="@/assets/images/vision.jpg" alt="vision">
             </div>
             <h4>{{ $t('description.vision_titre')}}</h4>
             <p>{{ $t('description.vision_corps')}} </p>
           </div>
           <div class="card">
             <div class="image">
-              <img src="@/assets/images/mission1.jpg" alt="">
+              <img src="@/assets/images/mission1.jpg" alt="mission">
             </div>
             <h4>{{ $t('description.mission_titre')}}</h4>
             <p>{{ $t('description.mission_corps')}}</p>
@@ -23,7 +23,7 @@
          
           <div class="card">
             <div class="image">
-              <img src="@/assets/images/goal.svg" alt="">
+              <img src="@/assets/images/goal.svg" alt="valeur">
             </div>
             <h4>{{ $t('description.valeur_titre')}}</h4>
             <p>{{ $t('description.valeur_corps')}}</p>

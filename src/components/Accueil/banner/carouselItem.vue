@@ -3,7 +3,7 @@
     <transition :name="transitionEffect">
     <div class="carousel-item" v-show="currentSlide === index" @mouseenter="$emit('mouseenter')" @mouseout="$emit('mouseout')" >
       <div class="image">
-      <img :src="slide.image" />
+      <img :src="slide.image"  alt="slide"/>
       </div>
       <div class="Acc-texte">
        

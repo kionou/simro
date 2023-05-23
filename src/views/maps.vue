@@ -1,13 +1,14 @@
 <template>
   <div>
-    SimroMaps'
+   <Maps></Maps>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import Maps from '@/components/other/maps.vue'
 export default {
   name: 'SimroMaps',
+  components:{Maps},
 
   data() {
     return {
@@ -16,8 +17,7 @@ export default {
   },
 
  async mounted() {
-   const response = await axios.get('https://simro-kberthe.pythonanywhere.com/api/liste-dernier-prix-marche/')
-   console.log('axios',response)
+   
   },
 
   methods: {

@@ -2,7 +2,7 @@
     <div class="container">
         <div class="titre">
            
-        <img src="@/assets/images/logo3.png" alt=""  >
+        <img src="@/assets/images/logo3.png" alt="logo"  >
           <div class="textes">
             <p class="fr">Système d'Information sur les Marchés du Riz et de l'Oignon au Cameroun</p>
             <hr>

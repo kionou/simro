@@ -3,14 +3,14 @@
     <div class="container-nav">
       <div class="logo">
         <div class="desktop">
-          <img src="@/assets/images/logo3.png" alt="" @click="$router.push({ path: '/' })" style="cursor: pointer">
+          <img src="@/assets/images/logo3.png" alt="logo" @click="$router.push({ path: '/' })" style="cursor: pointer">
           <div class="texte">
             <p class="fr">Système d'Information sur les Marchés du Riz et de l'Oignon au Cameroun</p>
             <hr>
             <p class="en">Information System on Rice and Onion Markets in Cameroon</p>
           </div>
         </div>
-        <img src="@/assets/images/logo.png" alt="" class="mobile">
+        <img src="@/assets/images/logo.png" alt="logo_mobile" class="mobile">
       </div>
       <ul class="Acc-menu">
         <li><router-link to="/" class="Acc-lien">{{ $t('navbar.accueil') }}</router-link></li>
@@ -27,7 +27,7 @@
             <div v-for="(language, index) in languages" :key="index" @click="changeLanguage(language.value)"
               class="select_item">
               {{ language.name }}
-              <img :src="language.flagSrc" alt="">
+              <img :src="language.flagSrc" alt="logo_flag">
             </div>
           </div>
 

@@ -34,16 +34,6 @@ const router = createRouter({
       
     } else if (to.hash){
 
-    
-      //  return{ el: to.hash}
-      
-
-      // const options = {
-      // top:document.querySelector(to.hash).offsetTop,
-      // behavior:'smooth',
-      
-      // };
-      // window.scrollTo(options)
 
       return{
           el: to.hash,

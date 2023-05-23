@@ -37,7 +37,7 @@
 
             </div>
 
-            <div class="maps">
+            <div class="maps_container">
                 <div class="map-wrap">
                     <a href="https://www.maptiler.com" class="watermark"><img
                             src="https://api.maptiler.com/resources/logo.svg" alt="MapTiler logo" /></a>
@@ -55,10 +55,8 @@
 import { Map, NavigationControl, Marker, Popup } from 'maplibre-gl';
 import { shallowRef, onMounted, onUnmounted, markRaw } from 'vue';
 import axiosClient from '@/axiosClient';
-import i18n from '@/i18n';
 export default {
     name: 'CPtMagasin',
-    i18n:i18n,
     components: {
 
     },
@@ -76,12 +74,12 @@ export default {
         const map = shallowRef(null);
         const markers = shallowRef([]);
         onMounted(async () => {
-             const apiKey = 'R0tHx9tGeRGXSyvwlX0q';
+              const apiKey = 'R0tHx9tGeRGXSyvwlX0q';
             const initialState = { lng: 11.52, lat: 3.91, zoom: 10 };
 
             map.value = markRaw(new Map({
                 container: mapContainer.value,
-                 style: `https://api.maptiler.com/maps/ad28fe8c-deb1-4b20-a08e-65d8e0998fa1/style.json?key=${apiKey}`,
+                  style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${apiKey}`,
                 center: [initialState.lng, initialState.lat],
                 zoom: initialState.zoom
             }));
@@ -134,8 +132,7 @@ export default {
     },
     methods: {
         toggleSelect(index) {
-            const message = this.$t('message')
-      console.log(message)
+    
             console.log(this.markers[index].show);
             
             this.markers[index].show = !this.markers[index].show;
@@ -146,7 +143,7 @@ export default {
 }
 </script>
 
-<style lang="css" scoped >
+<style  scoped >
 .magasin-content {
     max-width: var(--max-width);
     margin: 0 auto;
@@ -219,7 +216,7 @@ input[type="text"] {
 
 
 
-.maps {
+.maps_container{
     width: 100%;
     height: 450px;
     padding: 10px;

@@ -2,7 +2,7 @@
     <div>
         <div class="card">
         <div class="image">
-            <img src="@/assets/images/m2.png" alt="">
+            <img src="@/assets/images/m2.png" alt="magasin">
         </div>
         <span>Magasin du Centre</span>
        </div>

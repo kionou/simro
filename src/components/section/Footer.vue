@@ -2,15 +2,17 @@
   <div class="corps-footer">
     <div class="corps-footer-logo">
       <div class="logo">
-        <img src="@/assets/images/logo.png" @click="$router.push({ path: '#' })"
-                style="cursor: pointer">
+        <router-link to="/">
+          <img src="@/assets/images/logo.png" style="cursor: pointer" alt="logo" >
+        </router-link>
+        
                 {{ $t('footer.titre1')}} <br> {{ $t('footer.titre2')}}
       </div>
     </div>
     <div class="corps-footer-menu">
       <nav>
         <ul class="menu">
-          <li><router-link to="/" class="Acc-lien">{{ $t('navbar.accueil')}}</router-link></li>
+          <li><router-link to="/#" class="Acc-lien">{{ $t('navbar.accueil')}}</router-link></li>
         <li><router-link to="/#stock" class="Acc-lien">{{ $t('navbar.prix')}}</router-link></li>
         <li><router-link to="/#magasin" class="Acc-lien">{{ $t('navbar.magasin')}}</router-link></li>
         <li><router-link to="/#partenaire" class="Acc-lien">{{ $t('navbar.partenaire')}}</router-link></li>
