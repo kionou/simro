@@ -1,11 +1,6 @@
 <template>
   <div class="container-fluid">
-    <!-- section carousel debut -->
-    <!-- <section class="slide">
-      <div class="slide-content">
-        <Slide />
-      </div>
-    </section> -->
+
     <!-- section description debut -->
     <section class="description" id="about">
       <Description />
@@ -16,6 +11,7 @@
       <h2>{{ $t('prix.titre')}}</h2>
       <Tableau />
     </section>
+
     <!-- section magasin debut -->
     <section class="magasin" id="magasin">
       <h2>{{ $t('magasin.titre')}}</h2>
@@ -36,7 +32,6 @@
 </template>
 
 <script>
-// import Slide from './section/slide1.vue';
 import Contact from './section/contact.vue';
 import Description from './section/description.vue';
 import Magasin from './section/magasin.vue';
@@ -71,10 +66,8 @@ export default {
 
 }
 
-/* slide debut */
 .slide {
   width: 100%;
-  /* background-color: var(--vert); */
   padding: 10px;
 
 }

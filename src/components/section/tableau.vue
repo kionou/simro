@@ -25,7 +25,7 @@
 
                 </div>
                 <div class="two-section">
-                    <Riz :prix="prix" :produits="produits" :alertRegion="alertRegion" :selected="selected" />
+                    <Produits :prix="prix" :produits="produits" :alertRegion="alertRegion" :selected="selected" />
                 </div>
             </div>
         </main>
@@ -38,10 +38,10 @@
 import axiosClient from '@/axiosClient';
 import axios from 'axios';
 import Select from '../other/select.vue';
-import Riz from '../other/cptRiz.vue';
+import Produits from '../other/cptProduit.vue';
 export default {
     name: 'CptTableau',
-    components: { Select, Riz },
+    components: { Select, Produits },
 
     data() {
         return {
@@ -64,18 +64,15 @@ export default {
     computed: {},
     async mounted() {
         let endpoints = [
-            '/simro/produit/',
-            '/simro/gamme/',
-            '/simro/prix/',
-            '/simro/region/',
+            '/produit/',
+            '/gamme/',
+            '/prix/',
+            '/region/',
         ];
 
         try {
             this.$store.dispatch('simroAll')
             const [produits, gamme, prixAll, region] = await axios.all(endpoints.map((endpoint) => axiosClient.get(endpoint)));
-
-            console.log('zzzzzaaaaa', produits, prixAll, region, gamme)
-            console.log('responsejjjhh', gamme.data)
             this.items = gamme.data
             this.initialProduit = gamme.data[0].nom_famille_produit
             const produit = produits.data
@@ -108,7 +105,6 @@ export default {
                     filteredMarchePrix = [...filteredMarchePrix, prix[i]];
                 }
             }
-            console.log('filteredMarchePrix', filteredMarchePrix);
             const regroupedData = filteredMarchePrix.reduce((acc, curr) => {
                 const { marche, produit, prix_kg, date_enquete, region } = curr;
                 if (!acc[marche]) {
@@ -129,8 +125,6 @@ export default {
                 }
             });
 
-            console.log('uniqueData', uniqueData);
-
             if (uniqueData.length === 0) {
                 this.alertRegion = this.$t('prix.msg_marche')
             } else {
@@ -142,24 +136,14 @@ export default {
             console.error(error);
         }
 
-
-
-
     },
 
     methods: {
-
-        rech() {
-            this.rechdisplay = !this.rechdisplay
-        },
         getClickItem(value) {
-            console.log("value", this.ClickItem = value);
             const sel = JSON.parse(JSON.stringify(this.$store.getters.getproduit));
             let filteredProduit = [];
             for (let i = 0; i < sel.length; i++) {
-
                 if (sel[i].famille_produit === this.ClickItem) {
-
                     filteredProduit = [...filteredProduit, sel[i]];
                 }
             }
@@ -178,9 +162,6 @@ export default {
 
             let filteredMarchePrix = [];
             for (let i = 0; i < prix.length; i++) {
-                console.log("produitfamille", this.ClickItem);
-                console.log("region", this.selected.nom_region);
-
                 if (prix[i].famille_produit === value && prix[i].region === this.selected.nom_region) {
 
                     filteredMarchePrix = [...filteredMarchePrix, prix[i]];
@@ -206,8 +187,6 @@ export default {
                 }
             });
 
-            console.log(uniqueData);
-
             if (uniqueData.length === 0) {
                 this.alertRegion = this.$t('prix.msg_marche')
             } else {
@@ -220,13 +199,10 @@ export default {
 
         makeActive: function (value) {
             this.selected.nom_region = value.nom_region;
-            console.log("aaaaaa", value.nom_region);
             const prix = JSON.parse(JSON.stringify(this.$store.getters.getprix));
 
             let filteredMarchePrix = [];
             for (let i = 0; i < prix.length; i++) {
-                console.log("produit", this.ClickItem);
-
                 if (prix[i].famille_produit === (this.ClickItem) && prix[i].region === this.selected.nom_region) {
 
                     filteredMarchePrix = [...filteredMarchePrix, prix[i]];
@@ -253,7 +229,6 @@ export default {
                 }
             });
 
-            console.log(uniqueData);
             if (uniqueData.length === 0) {
                 this.alertRegion = this.$t('prix.msg_marche')
             } else {

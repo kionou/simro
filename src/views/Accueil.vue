@@ -39,26 +39,21 @@ export default {
 
   async mounted() {
   let endpoints = [
-    '/simro/produit/',
-    '/simro/prix_moy/',
-    '/simro/region/',
+    '/produit/',
+    '/prix_moy/',
+    '/region/',
   ];
 
   try {
     const [produit, prix_moy, region] = await axios.all(endpoints.map((endpoint) => axiosClient.get(endpoint)));
-
-    console.log('apiiiiii', produit, region, prix_moy);
-
     document.body.classList.add('loading');
 
     this.titres = region.data;
 
     const array1 = produit.data.filter((produit) => produit.affichage_ecran === 1);
-    console.log("eeee", array1);
     this.slides = array1.filter((produit) =>
       prix_moy.data.some((p) => p.code_produit === produit.code_produit)
     );
-    console.log("slides", this.slides);
 
     var produitsAvecPrix = [];
     for (var i = 0; i < this.slides.length; i++) {
@@ -89,13 +84,6 @@ export default {
     console.error(error);
   }
 },
-
-
-  methods: {
-
-  },
-
-
 
 };
 </script>

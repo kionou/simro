@@ -176,14 +176,6 @@ img{
 	width: calc(100% - 1.5em);
 	height: calc(100% - 1.5em);
 }
-/* .pl__track-cover {
-	animation-name: trackCover;
-	background-image: conic-gradient(hsla(223, 90%, 95%, 1) 210deg, hsla(223, 90%, 95%, 0) 270deg);
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-} */
 
 /* Animations */
 @keyframes ball {

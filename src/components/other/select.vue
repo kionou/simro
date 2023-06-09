@@ -26,9 +26,6 @@
 </template>
 
 <script>
-// import axiosClient from '@/axiosClient'
-// import { computed } from 'vue';
-// import store from '@/store'
 export default {
   name: 'CptSelect',
   props:["items"],
@@ -96,7 +93,6 @@ export default {
 
 .select .select-block {
   width: 100%;
-  /* height: 200px; */
   box-shadow: 0px 0px 10px #8888884f;
   position: absolute;
   background-color: var(--blanc);
@@ -138,16 +134,6 @@ export default {
   padding: 5px 0;
   width: 100%;
 }
-
-/* .select .select-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: 0;
-  opacity: 0;
-} */
 
 .select .icon {
   position: absolute;

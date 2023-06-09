@@ -10,37 +10,16 @@
                 <div class="select" v-for="(marker, index) in markers" :key="index" @click="showPopup(marker)">
                     <div @click="toggleSelect(index)" class="button">
                         <span>{{ $t('magasin.sous_titre')}} {{ marker.nom }}</span>
-                        <span class="icon material-symbols-outlined " :class="marker.show ? 'close' : ''">
-                            <i class="fa-solid fa-chevron-down"></i>
-                        </span>
                     </div>
-                    <div :class="`select-block ${marker.show ? 'open' : ''}`">
-                        <div class="scroll">
-                            <div class="content-header">
-                                <div class="content">
-                                    <p>Region:</p>
-                                    <span>{{ marker.localite }}</span>
-                                </div>
-                                <div class="content">
-                                    <p>Collecteur:</p>
-                                    <span>{{ marker.collecteur }}</span>
-                                </div>
-                                <div class="content">
-                                    <p>Description:</p>
-                                    <span>{{ marker.description }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
 
             </div>
 
             <div class="maps_container">
                 <div class="map-wrap">
-                    <a href="https://www.maptiler.com" class="watermark"><img
-                            src="https://api.maptiler.com/resources/logo.svg" alt="MapTiler logo" /></a>
+                    <a href="https://www.maptiler.com" class="watermark">
+                        <img  src="https://api.maptiler.com/resources/logo.svg" alt="MapTiler logo" />
+                    </a>
                     <div class="map" ref="mapContainer"></div>
 
                 </div>
@@ -85,8 +64,7 @@ export default {
             }));
             map.value.addControl(new NavigationControl(), 'top-right');
 
-            const response = await axiosClient.get('/simro/magasin');
-            console.log('magasin',response.data);
+            const response = await axiosClient.get('/magasin');
             markers.value = response.data;
 
             markers.value.forEach(marker => {
@@ -113,7 +91,6 @@ export default {
             })
 
         function showPopup(marker) {
-            // this.markers[index].show = !this.markers[index].show;
             const coordinates = [marker.longitude, marker.latitude];
             map.value.flyTo({ center: coordinates, zoom: 13 });
             new Popup()
@@ -131,10 +108,7 @@ export default {
         };
     },
     methods: {
-        toggleSelect(index) {
-    
-            console.log(this.markers[index].show);
-            
+        toggleSelect(index) {            
             this.markers[index].show = !this.markers[index].show;
         },
 
@@ -148,7 +122,6 @@ export default {
     max-width: var(--max-width);
     margin: 0 auto;
     display: flex;
-    /* align-items: center; */
     justify-content: space-evenly;
     box-shadow: var(--box-shadow);
     justify-content: space-between;
@@ -160,22 +133,17 @@ export default {
     width: 98%;
     max-width: 290px;
     height: auto;
-    /* display: flex; */
     flex-direction: column;
     justify-content: space-evenly;
     padding: 10px;
-
     color: var(--blanc);
 
 }
 
 .magasin-content .texte .texte-content {
-    /* display: flex; */
     justify-content: flex-start;
     padding: 10px;
     align-items: center;
-
-
 }
 
 @media (max-width: 768px) {
@@ -297,7 +265,6 @@ input[type="text"] {
 }
 
 .select .select-block .scroll {
-
     overflow-y: auto;
 }
 
@@ -310,36 +277,4 @@ input[type="text"] {
 
 }
 
-.content-header {
-    margin: 0;
-    padding: 0 0 10px 10px;
-}
-
-.content-header .content {
-
-    display: flex;
-}
-
-.content-header .content p {
-    font-weight: bolder;
-}
-
-.content-header .content span {
-    font-size: 14px;
-    text-transform: lowercase;
-    width: 100%;
-
-}
-
-
-.select .icon {
-    position: absolute;
-    right: 10px;
-    top: 15px;
-    transition: all 0.3s;
-}
-
-.select .icon.close {
-    transform: rotate(180deg);
-}
 </style>

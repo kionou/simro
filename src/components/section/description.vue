@@ -34,33 +34,14 @@
 </template>
 
 <script>
-// import axiosClient from '@/axiosClient';
 export default {
     name: 'CptDescription',
 
     data() {
         return {
-            textes:'',
-            array1:''
         };
     },
 
-    
-    //   async mounted() {
-    //     try {
-    //   const response = await axiosClient.get('/simro/marche');
-    //   console.log('response.data.texte',response.data.texte);
-    //    this.textes = response.data.texte
-    //   this.array1 = response.data.texte.shift()
-    //   console.log(' this.array1', this.array1);
-    //   console.log('this.textes',this.textes);
-
-          
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-  
-    // },
 
     methods: {
         
@@ -143,7 +124,6 @@ align-items: center;
 
 width: 100%;
 max-width: 290px;
-/* height: 261px; */
 margin:  10px;
 
 

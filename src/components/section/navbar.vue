@@ -326,7 +326,6 @@ export default {
 }
 
 .select {
-  /* border: 1px solid red; */
   display: flex;
   align-items: center;
   position: relative;
