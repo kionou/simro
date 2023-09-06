@@ -139,11 +139,12 @@ export default {
     },
 
     methods: {
-        getClickItem(value) {
+        getClickItem(value) { 
             const sel = JSON.parse(JSON.stringify(this.$store.getters.getproduit));
+
             let filteredProduit = [];
             for (let i = 0; i < sel.length; i++) {
-                if (sel[i].famille_produit === this.ClickItem) {
+                if (sel[i].famille_produit === value) {
                     filteredProduit = [...filteredProduit, sel[i]];
                 }
             }
