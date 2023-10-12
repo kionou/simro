@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div class="container">
         <div class="magasin-content">
             <div class="texte">
@@ -54,7 +54,7 @@ export default {
         const markers = shallowRef([]);
         onMounted(async () => {
               const apiKey = 'R0tHx9tGeRGXSyvwlX0q';
-            const initialState = { lng: 11.52, lat: 3.91, zoom: 10 };
+            const initialState = { lng: 12.354722, lat: 7.369722, zoom: 4.5 };
 
             map.value = markRaw(new Map({
                 container: mapContainer.value,
@@ -66,6 +66,7 @@ export default {
 
             const response = await axiosClient.get('/magasin');
             markers.value = response.data;
+            console.log('cordonner',response.data);
 
             markers.value.forEach(marker => {
                 marker.show = false;
@@ -90,9 +91,11 @@ export default {
                 map.value?.remove();
             })
 
+            
+
         function showPopup(marker) {
             const coordinates = [marker.longitude, marker.latitude];
-            map.value.flyTo({ center: coordinates, zoom: 13 });
+            map.value.flyTo({ center: coordinates, zoom: 8 });
             new Popup()
                 .setLngLat(coordinates)
                 .setHTML(`<div><h3>Magasin ${marker.nom}</h3><p><h4>Description:</h4> ${marker.description}</p></div>`)
@@ -101,6 +104,8 @@ export default {
                 map.value.zoomTo(16, { duration: 500, center: coordinates });
             }
         }
+
+        
 
         return {
             map, mapContainer, markers,
@@ -115,7 +120,134 @@ export default {
 
     }
 }
-</script>
+</script> -->
+
+
+<template>
+    <div class="container">
+      <div class="magasin-content">
+        <div class="texte">
+          <div class="select">
+            <input class="effect-6" type="text" v-bind:placeholder="$t('magasin.placeholder')" />
+            <span class="focus-border"></span>
+          </div>
+          <div class="select" v-for="(marker, index) in markers" :key="index" @click="showPopup(marker)">
+            <div @click="toggleSelect(index)" class="button">
+              <span>{{ $t('magasin.sous_titre')}} {{ marker.nom }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="maps_container">
+          <div class="map-wrap">
+            <a href="https://www.maptiler.com" class="watermark">
+              <img src="https://api.maptiler.com/resources/logo.svg" alt="MapTiler logo" />
+            </a>
+            <div class="map" ref="mapContainer"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  
+  <script>
+  import { Map, NavigationControl, Marker, Popup } from 'maplibre-gl';
+  import { shallowRef, onMounted, onUnmounted, markRaw } from 'vue';
+  import axiosClient from '@/axiosClient';
+  
+  export default {
+    name: 'CPtMagasin',
+  
+    data() {
+      return {
+        show: false,
+        magasins: '',
+        marker: '',
+      };
+    },
+  
+    setup() {
+      const mapContainer = shallowRef(null);
+      const map = shallowRef(null);
+      const markers = shallowRef([]);
+      onMounted(async () => {
+        const apiKey = 'R0tHx9tGeRGXSyvwlX0q';
+        const initialState = { lng: 12.354722, lat: 7.369722, zoom: 4.5 };
+  
+        map.value = markRaw(new Map({
+          container: mapContainer.value,
+          style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${apiKey}`,
+          center: [initialState.lng, initialState.lat],
+          zoom: initialState.zoom,
+        }));
+        map.value.addControl(new NavigationControl(), 'top-right');
+  
+        const response = await axiosClient.get('/magasin');
+        markers.value = response.data;
+        console.log('cordonner', response.data);
+  
+        markers.value.forEach(marker => {
+          marker.show = false;
+          if (isValidCoordinates(marker.longitude, marker.latitude)) {
+            const newMarker = new Marker({ color: "#FF0000" })
+              .setLngLat([marker.longitude, marker.latitude])
+              .addTo(map.value);
+  
+              const popupContent =
+                 `
+                <div>
+                   
+                    <h3> ${('magasin.sous_titre')}  ${marker.nom}</h3>
+                    <p> <h4>Description:</h4> ${marker.description}</p>
+                  
+                </div>
+                `;
+            newMarker.setPopup(new Popup().setHTML(popupContent));
+          } else {
+            console.error(`Coordonnées invalides pour le magasin ${marker.nom}`);
+          }
+        });
+      });
+  
+      onUnmounted(() => {
+        map.value?.remove();
+      });
+  
+      function showPopup(marker) {
+        const coordinates = [marker.longitude, marker.latitude];
+        map.value.flyTo({ center: coordinates, zoom: 8 });
+        new Popup()
+          .setLngLat(coordinates)
+          .setHTML(`<div><h3>Magasin ${marker.nom}</h3><p><h4>Description:</h4> ${marker.description}</p></div>`)
+          .addTo(map.value);
+        if (map.value.getZoom() > 16) {
+          map.value.zoomTo(16, { duration: 500, center: coordinates });
+        }
+      }
+  
+      function toggleSelect(index) {
+        markers.value[index].show = !markers.value[index].show;
+      }
+  
+      return {
+        map, mapContainer, markers, showPopup, toggleSelect,
+      };
+    },
+  };
+  
+  function isValidCoordinates(longitude, latitude) {
+    return (
+      typeof longitude === 'number' &&
+      typeof latitude === 'number' &&
+      longitude >= -180 &&
+      longitude <= 180 &&
+      latitude >= -90 &&
+      latitude <= 90
+    );
+  }
+  </script>
+  
+
+  
 
 <style  scoped >
 .magasin-content {
@@ -132,11 +264,12 @@ export default {
 .magasin-content .texte {
     width: 98%;
     max-width: 290px;
-    height: auto;
+    height: 450px;
     flex-direction: column;
     justify-content: space-evenly;
     padding: 10px;
     color: var(--blanc);
+    overflow-y: scroll;
 
 }
 

@@ -57,7 +57,8 @@ export default {
             produits: [],
             initialProduit: '',
             alert: '',
-            alertRegion: ''
+            alertRegion: '',
+            produit:'',
 
         };
     },
@@ -140,6 +141,8 @@ export default {
 
     methods: {
         getClickItem(value) { 
+            console.log('valueeee',value)
+            this.ClickItem = value
             const sel = JSON.parse(JSON.stringify(this.$store.getters.getproduit));
 
             let filteredProduit = [];
@@ -201,6 +204,8 @@ export default {
         makeActive: function (value) {
             this.selected.nom_region = value.nom_region;
             const prix = JSON.parse(JSON.stringify(this.$store.getters.getprix));
+            console.log('prixxxxx',prix)            
+            console.log('this.produit',this.ClickItem)            
 
             let filteredMarchePrix = [];
             for (let i = 0; i < prix.length; i++) {
