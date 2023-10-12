@@ -179,7 +179,11 @@ export default {
           center: [initialState.lng, initialState.lat],
           zoom: initialState.zoom,
         }));
+
+    
+
         map.value.addControl(new NavigationControl(), 'top-right');
+        map.value.setMaxZoom(16);
   
         const response = await axiosClient.get('/magasin');
         markers.value = response.data;
@@ -219,8 +223,8 @@ export default {
           .setLngLat(coordinates)
           .setHTML(`<div><h3>Magasin ${marker.nom}</h3><p><h4>Description:</h4> ${marker.description}</p></div>`)
           .addTo(map.value);
-        if (map.value.getZoom() > 16) {
-          map.value.zoomTo(16, { duration: 500, center: coordinates });
+        if (map.value.getZoom() > 13) {
+          map.value.zoomTo(13, { duration: 500, center: coordinates });
         }
       }
   
