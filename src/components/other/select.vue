@@ -29,6 +29,16 @@
 export default {
   name: 'CptSelect',
   props:["items"],
+  watch: {
+    items: function(newItems) {
+      // Vérifiez si la liste d'éléments a changé
+      if (newItems.length > 0 && !this.selected.nom_famille_produit) {
+        // Si la liste a des éléments et aucun produit n'est sélectionné,
+        // sélectionnez le premier produit
+        this.selected.nom_famille_produit = newItems[0].nom_famille_produit;
+      }
+    }
+  },
 
   data() {
     return {
@@ -40,6 +50,15 @@ export default {
   },
 
   mounted() {
+    // console.log('items',this.items.length)
+    // console.log('items',this.items , typeof(this.items))
+
+    // this.selected.nom_famille_produit = this.items[0].nom_famille_produit;
+    
+
+    // if (this.items.length > 0) {
+    //   // Sélectionnez le premier produit de la liste
+    // }
 
   },
 

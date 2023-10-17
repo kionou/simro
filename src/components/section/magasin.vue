@@ -124,18 +124,27 @@ export default {
 
 
 <template>
+
+
     <div class="container">
       <div class="magasin-content">
         <div class="texte">
           <div class="select">
-            <input class="effect-6" type="text" v-bind:placeholder="$t('magasin.placeholder')" />
+            <input class="effect-6" type="text" v-bind:placeholder="$t('magasin.placeholder')" v-model="nom_magasin" @input="filterByName" />
+
+
             <span class="focus-border"></span>
           </div>
-          <div class="select" v-for="(marker, index) in markers" :key="index" @click="showPopup(marker)">
+
+          <div class="header_select">
+            <div class="select" v-for="(marker, index) in markers" :key="index" @click="showPopup(marker)">
             <div @click="toggleSelect(index)" class="button">
               <span>{{ $t('magasin.sous_titre')}} {{ marker.nom }}</span>
             </div>
           </div>
+          </div>
+         
+
         </div>
         <div class="maps_container">
           <div class="map-wrap">
@@ -151,7 +160,7 @@ export default {
   
   <script>
   import { Map, NavigationControl, Marker, Popup } from 'maplibre-gl';
-  import { shallowRef, onMounted, onUnmounted, markRaw } from 'vue';
+  import { shallowRef, onMounted, onUnmounted, markRaw , ref } from 'vue';
   import axiosClient from '@/axiosClient';
   
   export default {
@@ -162,6 +171,8 @@ export default {
         show: false,
         magasins: '',
         marker: '',
+        filterMagasin:[],
+        nom_magasin:''
       };
     },
   
@@ -169,9 +180,11 @@ export default {
       const mapContainer = shallowRef(null);
       const map = shallowRef(null);
       const markers = shallowRef([]);
+      const nom_magasin = ref('');
+      const filteredMarkers = shallowRef([]);
       onMounted(async () => {
         const apiKey = 'R0tHx9tGeRGXSyvwlX0q';
-        const initialState = { lng: 12.354722, lat: 7.369722, zoom: 4.5 };
+        const initialState = { lng: 13.0, lat:  8.0, zoom: 4.5 };
   
         map.value = markRaw(new Map({
           container: mapContainer.value,
@@ -187,7 +200,9 @@ export default {
   
         const response = await axiosClient.get('/magasin');
         markers.value = response.data;
+      
         console.log('cordonner', response.data);
+   
   
         markers.value.forEach(marker => {
           marker.show = false;
@@ -231,9 +246,26 @@ export default {
       function toggleSelect(index) {
         markers.value[index].show = !markers.value[index].show;
       }
+     
+    function filterByName() {
+      if (nom_magasin.value !== null ) {
+        const tt = nom_magasin.value;
+        const searchValue = tt.toLowerCase();
+        console.log('Recherche', tt);
+
+        // Filtrer les données à partir de filteredMarkers
+        filteredMarkers.value = markers.value.filter(item => {
+          const pmeName = item.nom ? item.nom.toLowerCase() : '';
+          return pmeName.includes(searchValue);
+        });
+        console.log('Résultat de la recherche', filteredMarkers.value);
+
+      }
+    }
+
   
       return {
-        map, mapContainer, markers, showPopup, toggleSelect,
+        map, mapContainer, markers, showPopup, toggleSelect, filterByName
       };
     },
   };
@@ -247,7 +279,10 @@ export default {
       latitude >= -90 &&
       latitude <= 90
     );
+
   }
+
+
   </script>
   
 
@@ -273,7 +308,15 @@ export default {
     justify-content: space-evenly;
     padding: 10px;
     color: var(--blanc);
+  
+
+}
+
+.header_select{
+
+  height: 90%;
     overflow-y: scroll;
+
 
 }
 
@@ -412,6 +455,26 @@ input[type="text"] {
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
 
+}
+
+
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--vert) var(--blanc);
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--vert);
+  border-radius: 20px;
+  border: 4px solid var(--blanc);
 }
 
 </style>
