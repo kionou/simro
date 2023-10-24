@@ -92,6 +92,7 @@ export default {
     },
   },
   mounted() {
+    
     this.startSlideTimer();
     const control = (value=1)=>{
       Array.from(document.getElementsByClassName("carousel-control"))

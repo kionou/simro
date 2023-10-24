@@ -25,10 +25,13 @@
 
                 </div>
                 <div class="two-section">
-                    <Produits :prix="prix" :produits="produits" :alertRegion="alertRegion" :selected="selected" />
+                    <Produits :prix="paginatedItems" :produits="produits" :alertRegion="alertRegion" :selected="selected" />
                 </div>
             </div>
         </main>
+        <div class="container_pagination">
+  <Pag :current-page="currentPage" :total-pages="totalPages" @page-change="updateCurrentPage" />
+</div>
     </div>
 </template>
 
@@ -39,9 +42,22 @@ import axiosClient from '@/axiosClient';
 import axios from 'axios';
 import Select from '../other/select.vue';
 import Produits from '../other/cptProduit.vue';
+import Pag from '../other/pag.vue'
 export default {
     name: 'CptTableau',
-    components: { Select, Produits },
+    components: { Select, Produits , Pag },
+    computed: {
+
+
+totalPages() {
+return Math.ceil(this.prix.length / this.itemsPerPage);
+},
+paginatedItems() {
+  const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  const endIndex = startIndex + this.itemsPerPage;
+  return this.prix.slice(startIndex, endIndex);
+},
+},
 
     data() {
         return {
@@ -59,10 +75,12 @@ export default {
             alert: '',
             alertRegion: '',
             produit:'',
+            currentPage: 1,
+            itemsPerPage: 5,
 
         };
     },
-    computed: {},
+  
     async mounted() {
         let endpoints = [
             '/produit/',
@@ -121,8 +139,11 @@ export default {
                 const existingIndex = uniqueData.findIndex((el) => el.marche === marche);
                 if (existingIndex === -1) {
                     uniqueData.push({ marche, produits });
+                  
                 } else {
                     uniqueData[existingIndex].produits.push(...produits);
+                  
+
                 }
             });
 
@@ -140,8 +161,20 @@ export default {
     },
 
     methods: {
+        updateCurrentPage(pageNumber) {
+      this.currentPage = pageNumber;
+    //   window.scrollTo({
+    //     top: 0,
+    //     behavior: 'smooth', // Utilisez 'auto' pour un défilement instantané
+    //   });
+    },
+    updatePaginatedItems() {
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      const endIndex = startIndex + this.itemsPerPage;
+      return this.prix.slice(startIndex, endIndex);
+    },
         getClickItem(value) { 
-            console.log('valueeee',value)
+         
             this.ClickItem = value
             const sel = JSON.parse(JSON.stringify(this.$store.getters.getproduit));
 
@@ -186,13 +219,17 @@ export default {
                 const existingIndex = uniqueData.findIndex((el) => el.marche === marche);
                 if (existingIndex === -1) {
                     uniqueData.push({ marche, produits });
+                   
                 } else {
                     uniqueData[existingIndex].produits.push(...produits);
+                   
+
                 }
             });
 
             if (uniqueData.length === 0) {
                 this.alertRegion = this.$t('prix.msg_marche')
+                this.prix = []
             } else {
                 this.prix = uniqueData
                 this.alertRegion = false
@@ -204,9 +241,6 @@ export default {
         makeActive: function (value) {
             this.selected.nom_region = value.nom_region;
             const prix = JSON.parse(JSON.stringify(this.$store.getters.getprix));
-            console.log('prixxxxx',prix)            
-            console.log('this.produit',this.ClickItem)            
-
             let filteredMarchePrix = [];
             for (let i = 0; i < prix.length; i++) {
                 if (prix[i].famille_produit === (this.ClickItem) && prix[i].region === this.selected.nom_region) {
@@ -230,13 +264,18 @@ export default {
                 const existingIndex = uniqueData.findIndex((el) => el.marche === marche);
                 if (existingIndex === -1) {
                     uniqueData.push({ marche, produits });
+                    
+
                 } else {
                     uniqueData[existingIndex].produits.push(...produits);
+                    
+
                 }
             });
 
             if (uniqueData.length === 0) {
                 this.alertRegion = this.$t('prix.msg_marche')
+                this.prix = []
             } else {
                 this.prix = uniqueData
                 this.alertRegion = false
@@ -248,6 +287,21 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
+
+.container_pagination {
+  width: auto;
+  text-align: end;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px;
+  /* box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px; */
+  box-shadow: 0px 0px 10px #8888884f;
+  margin: 5px 0;
+  background-color: var(--blanc);
+
+}
 .container {
     margin: 0 auto;
     padding: 10px 10px 25px;

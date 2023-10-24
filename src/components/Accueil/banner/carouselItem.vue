@@ -4,7 +4,8 @@
       <div class="carousel-item" v-show="currentSlide === index" @mouseenter="$emit('mouseenter')"
         @mouseout="$emit('mouseout')">
         <div class="image">
-          <img :src="slide.image" alt="slide" />
+          <img v-if="slide.image === null" src="@/assets/images/logo3.png" alt="slide" />
+          <img v-else :src="slide.image" alt="slide" />
         </div>
         <div class="Acc-texte">
 
@@ -81,19 +82,24 @@ export default {
     };
   },
   methods: {
+    
     getImage(path) {
       try {
         return this.slide.startsWith('http') ? this.slide : require('@/assets/' + path)
       } catch (e) {
-        // return require('@/assets/naniens/no.png')
+         return require('@/assets/images/logo.png')
       }
     }
   },
   computed: {
+    
     transitionEffect() {
       return this.direction === "right" ? "slide-out" : "slide-in";
     },
 
+  },
+  mounted() {
+    
   },
 
 

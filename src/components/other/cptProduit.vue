@@ -79,15 +79,14 @@ export default {
 
 
     // mounted() {
-    //     console.log('rrrhhh',this.produits);
+    //     console.log('rrrhhh',this.prix);
     // },
 
     methods: {
         async ouvert() {
-            console.log('gggg');
+          
             let sidebar = document.querySelector(".sidebar");
             let titre = document.querySelector('.titre')
-            console.log(titre);
             sidebar.classList.toggle("close");
             titre.classList.toggle("act");
             this.toggle = !this.toggle
