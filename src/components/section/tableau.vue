@@ -174,6 +174,7 @@ paginatedItems() {
       return this.prix.slice(startIndex, endIndex);
     },
         getClickItem(value) { 
+           
          
             this.ClickItem = value
             const sel = JSON.parse(JSON.stringify(this.$store.getters.getproduit));
@@ -191,6 +192,8 @@ paginatedItems() {
             } else {
                 let selle = JSON.parse(JSON.stringify(filteredProduit));
                 this.produits = selle
+            
+
                 this.alert = false
 
             }
@@ -202,6 +205,8 @@ paginatedItems() {
                 if (prix[i].famille_produit === value && prix[i].region === this.selected.nom_region) {
 
                     filteredMarchePrix = [...filteredMarchePrix, prix[i]];
+                
+
                 }
             }
             const regroupedData = filteredMarchePrix.reduce((acc, curr) => {
@@ -217,6 +222,8 @@ paginatedItems() {
             const uniqueData = [];
             Object.values(regroupedData).forEach(({ marche, produits }) => {
                 const existingIndex = uniqueData.findIndex((el) => el.marche === marche);
+               
+
                 if (existingIndex === -1) {
                     uniqueData.push({ marche, produits });
                    
@@ -232,6 +239,9 @@ paginatedItems() {
                 this.prix = []
             } else {
                 this.prix = uniqueData
+               
+                
+
                 this.alertRegion = false
 
             }
@@ -278,6 +288,8 @@ paginatedItems() {
                 this.prix = []
             } else {
                 this.prix = uniqueData
+                
+
                 this.alertRegion = false
 
             }

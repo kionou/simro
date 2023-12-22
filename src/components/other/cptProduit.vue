@@ -17,9 +17,10 @@
                     <th v-for="produit in produits" :key='produit.id'> {{ produit.nom_produit }} </th>
                 </tr>
             </thead>
+
             <tbody>
 
-                <tr v-for="(prixproduit, index) in prix" :key="index">
+                <!-- <tr v-for="(prixproduit, index) in prix" :key="index">
                     <td>{{ prixproduit.marche }}</td>
                     <td class="date">{{ prixproduit.produits[0].date_enquete }}</td>
                     <template v-for="produit in produits" :key="produit.code_produit">
@@ -35,8 +36,27 @@
 
                         </td>
                     </template>
-                </tr>
+                </tr> -->
+
+                <tr v-for="(prixproduit, index) in prix" :key="index">
+    <td>{{ prixproduit.marche }}</td>
+    <td class="date">{{ prixproduit.produits[0].date_enquete }}</td>
+    <template v-for="produit in produits" :key="produit.code_produit">
+        <td>
+            {{
+                getPrixProduit(
+                    prixproduit.produits,
+                    produit.nom_produit,
+                    prixproduit.produits[0].date_enquete
+                )?.prix_kg.toFixed(0) || "-"
+            }}
+        </td>
+    </template>
+</tr>          
             </tbody>
+
+            
+
         </table>
     </section>
 </template>
@@ -49,38 +69,10 @@ export default {
     data() {
         return {
             toggle: true,
-
-
+           
         };
-
-
-
-
     },
 
-    //     computed: {
-    //     produitsFiltres() {
-    //       return this.produits.filter(produit => {
-    //         return this.prix.some(prixProduit => {
-    //           return prixProduit.produits.some(prix => {
-    //             return prix.produit === produit.nom_produit;
-    //           });
-    //         });
-    //       });
-    //     }
-    //   }
-
-
-
-
-
-
-
-
-
-    // mounted() {
-    //     console.log('rrrhhh',this.prix);
-    // },
 
     methods: {
         async ouvert() {
@@ -91,6 +83,24 @@ export default {
             titre.classList.toggle("act");
             this.toggle = !this.toggle
 
+        },
+
+        getPrixDate(produits) {
+            // Obtenir la date la plus récente parmi tous les produits
+            const latestDate = produits.reduce((latest, current) => {
+                if (!latest || new Date(current.date_enquete) > new Date(latest.date_enquete)) {
+                    return current;
+                }
+                return latest;
+            }, null);
+
+            return latestDate ? latestDate.date_enquete : "-";
+        },
+        getPrixProduit(produits, nomProduit, dateEnquete) {
+            // Obtenir le produit correspondant au nom de produit donné et à la date
+            return produits.find(
+                produit => produit.produit === nomProduit && produit.date_enquete === dateEnquete
+            ) || null;
         },
     },
 };
