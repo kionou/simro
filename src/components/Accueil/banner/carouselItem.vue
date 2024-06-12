@@ -12,7 +12,7 @@
             <section class="table__header">
               <h1>{{ $t('slide.sous_titre1') }} <span class="produits"> {{ $t('slide.nb') }}</span> {{
                 $t('slide.sous_titre2') }} <span class="produits"> {{ slide.nom_produit }} </span> {{
-    $t('slide.sous_titre3') }} .</h1>
+           $t('slide.sous_titre3') }} .</h1>
 
             </section>
             <section class="table__body">
