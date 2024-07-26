@@ -40,8 +40,8 @@ export default {
   async mounted() {
     
     let endpoints = [
-      '/produit/',
-      '/prix_moy/',
+      '/liste-produit/',
+      '/liste-prix-moyen-par-region/',
       '/region/',
     ];
 

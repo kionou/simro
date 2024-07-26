@@ -74,7 +74,7 @@
         map.value.addControl(new NavigationControl(), 'top-right');
         map.value.setMaxZoom(16);
   
-        const response = await axiosClient.get('/magasin');
+        const response = await axiosClient.get('/liste-magasin');
         markers.value = response.data;
        
         markers.value.forEach(marker => {

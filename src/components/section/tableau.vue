@@ -30,7 +30,7 @@
             </div>
         </main>
         <div class="container_pagination">
-  <Pag :current-page="currentPage" :total-pages="totalPages" @page-change="updateCurrentPage" />
+         <Pag :current-page="currentPage" :total-pages="totalPages" @page-change="updateCurrentPage" />
 </div>
     </div>
 </template>
@@ -83,14 +83,14 @@ paginatedItems() {
   
     async mounted() {
         let endpoints = [
-            '/produit/',
-            '/gamme/',
-            '/prix/',
+            '/liste-produit/',
+            '/famille-produit/',
+            '/liste-dernier-prix-marche/',
             '/region/',
         ];
 
         try {
-            this.$store.dispatch('simroAll')
+             this.$store.dispatch('fetchDataFromAPI')
             const [produits, gamme, prixAll, region] = await axios.all(endpoints.map((endpoint) => axiosClient.get(endpoint)));
             this.items = gamme.data
             this.initialProduit = gamme.data[0].nom_famille_produit
@@ -114,7 +114,9 @@ paginatedItems() {
             this.regions = region.data
             this.selected.nom_region = region.data[0].nom_region
             this.initial = region.data[0].nom_region
-            const prix = prixAll.data
+            const prixData = prixAll.data
+            const prix = prixData
+
 
             let filteredMarchePrix = [];
             for (let i = 0; i < prix.length; i++) {
@@ -155,7 +157,7 @@ paginatedItems() {
 
             }
         } catch (error) {
-            console.error(error);
+            console.error('error tableau');
         }
 
     },
@@ -163,6 +165,7 @@ paginatedItems() {
     methods: {
         updateCurrentPage(pageNumber) {
       this.currentPage = pageNumber;
+      this.updatePaginatedItems();
     //   window.scrollTo({
     //     top: 0,
     //     behavior: 'smooth', // Utilisez 'auto' pour un défilement instantané
@@ -198,8 +201,6 @@ paginatedItems() {
 
             }
             const prix = JSON.parse(JSON.stringify(this.$store.getters.getprix));
-
-
             let filteredMarchePrix = [];
             for (let i = 0; i < prix.length; i++) {
                 if (prix[i].famille_produit === value && prix[i].region === this.selected.nom_region) {
@@ -233,15 +234,13 @@ paginatedItems() {
 
                 }
             });
-
             if (uniqueData.length === 0) {
                 this.alertRegion = this.$t('prix.msg_marche')
                 this.prix = []
+                this.updatePaginatedItems();
             } else {
                 this.prix = uniqueData
-               
-                
-
+                this.updatePaginatedItems();
                 this.alertRegion = false
 
             }
@@ -286,8 +285,10 @@ paginatedItems() {
             if (uniqueData.length === 0) {
                 this.alertRegion = this.$t('prix.msg_marche')
                 this.prix = []
+                this.updatePaginatedItems();
             } else {
                 this.prix = uniqueData
+                this.updatePaginatedItems();
                 
 
                 this.alertRegion = false
