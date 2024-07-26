@@ -4,7 +4,8 @@
       <div class="carousel-item" v-show="currentSlide === index" @mouseenter="$emit('mouseenter')"
         @mouseout="$emit('mouseout')">
         <div class="image">
-          <img :src="slide.image" alt="slide" />
+          <img v-if="slide.image === null" src="@/assets/images/logo3.png" alt="slide" />
+          <img v-else :src="slide.image" alt="slide" />
         </div>
         <div class="Acc-texte">
 
