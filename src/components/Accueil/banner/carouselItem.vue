@@ -4,7 +4,8 @@
       <div class="carousel-item" v-show="currentSlide === index" @mouseenter="$emit('mouseenter')"
         @mouseout="$emit('mouseout')">
         <div class="image">
-          <img :src="slide.image" alt="slide" />
+          <img v-if="slide.image === null" src="@/assets/images/logo3.png" alt="slide" />
+          <img v-else :src="slide.image" alt="slide" />
         </div>
         <div class="Acc-texte">
 
@@ -12,7 +13,7 @@
             <section class="table__header">
               <h1>{{ $t('slide.sous_titre1') }} <span class="produits"> {{ $t('slide.nb') }}</span> {{
                 $t('slide.sous_titre2') }} <span class="produits"> {{ slide.nom_produit }} </span> {{
-    $t('slide.sous_titre3') }} .</h1>
+             $t('slide.sous_titre3') }} .</h1>
 
             </section>
             <section class="table__body">
